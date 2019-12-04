@@ -1,0 +1,7 @@
+{
+    "ip": "<ovc_ip>",
+    "credentials": {
+        "username": "<username>",
+        "password": "<password>"
+    }
+}
