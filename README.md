@@ -1,3 +1,7 @@
+[![PyPI version](https://badge.fury.io/py/simplivity.svg)](https://badge.fury.io/py/simplivity)
+[![Build Status](https://travis-ci.com/HewlettPackard/simplivity-python-sdk.svg?branch=master)](https://travis-ci.com/HewlettPackard/simplivity-python-sdk)
+[![Coverage Status](https://coveralls.io/repos/github/HewlettPackard/simplivity-python-sdk/badge.svg?branch=master)](https://coveralls.io/github/HewlettPackard/simplivity-python-sdk?branch=master)
+
 # HPE SimpliVity SDK for Python
 
 This library provides a Python interface to the HPE SimpliVity REST APIs.
