@@ -37,12 +37,12 @@ $ pip install simplivity
 
 ## API Implementation
 
-Status of the HPE SimpliVity REST interfaces that have been implemented in this Python library can be found in the [Wiki section](https://github.com/HewlettPackard/simplivity-python/blob/master/endpoints-support.md).
+Status of the HPE SimpliVity REST interfaces that have been implemented in this Python library can be found in the [Wiki section](endpoints-support.md).
 
 
 ## SDK Documentation
 
-The latest version of the SDK documentation can be found in the [SDK Documentation section](https://hewlettpackard.github.io/simplivity-python/index.html).
+The latest version of the SDK documentation can be found in the [SDK Documentation section](https://hewlettpackard.github.io/simplivity-python-sdk/index.html).
 
 ## Configuration
 
@@ -147,7 +147,7 @@ export SIMPLIVITYSDK_CONNECTION_TIMEOUT='<connection time-out in seconds>'
 ```
 
 ## Contributing and feature requests
-Contribution guide can be found at: [CONTRIBUTION GUIDE](CONTRIBUTING.md).
+Contribution guide can be found at: [Contribution guide](CONTRIBUTING.md).
 
 #### Testing
 
