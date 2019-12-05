@@ -151,7 +151,11 @@ export SIMPLIVITYSDK_CONNECTION_TIMEOUT='<connection time-out in seconds>'
 ```
 
 ## Contributing and feature requests
-Contribution guide can be found at: [Contribution guide](CONTRIBUTING.md).
+
+**Contributing:** We welcome your contributions to the Python SDK for HPE SimpliVity. See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+**Feature Requests:** If you have a need that is not met by the current implementation, please let us know (via a new issue).
+This feedback is crucial for us to deliver a useful product. Do not assume that we have already thought of everything, because we assure you that is not the case.
 
 #### Testing
 
