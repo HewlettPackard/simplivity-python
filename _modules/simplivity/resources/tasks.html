@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simplivity.resources.tasks &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for simplivity.resources.tasks</h1><div class="highlight"><pre>
+<span></span><span class="c1">###</span>
+<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#   http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">##</span>
+
+<span class="sd">&quot;&quot;&quot;Implements operations for task.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">simplivity</span> <span class="kn">import</span> <span class="n">exceptions</span>
+
+<span class="n">TASK_PENDING_STATES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IN_PROGRESS&#39;</span><span class="p">]</span>
+<span class="n">TASK_ERROR_STATES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ERROR&#39;</span><span class="p">]</span>
+<span class="n">TASK_COMPLETED_STATES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;COMPLETED&#39;</span><span class="p">]</span>
+
+<span class="n">MSG_TIMEOUT</span> <span class="o">=</span> <span class="s1">&#39;Waited </span><span class="si">%s</span><span class="s1"> seconds for task to complete, aborting&#39;</span>
+<span class="n">MSG_INVALID_TASK</span> <span class="o">=</span> <span class="s1">&#39;Invalid task was provided&#39;</span>
+
+
+<span class="n">UNLIMITED_TIMEOUT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/tasks&#39;</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Task"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task">[docs]</a><span class="k">class</span> <span class="nc">Task</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements operations for task.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes Task with connection and data.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">con</span>
+        <span class="k">if</span> <span class="s1">&#39;task&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Task.get_current_seconds"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task.get_current_seconds">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_current_seconds</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;Returns current time.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Task.wait_for_task"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task.wait_for_task">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for task execution and return affected resources.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            timeout: timeout in seconds</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Affected resources when creating or updating</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__wait_task_completion</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for task. Task state: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_affected_resources</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">__wait_task_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for task completion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          timeout: timeout in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityUnknownType</span><span class="p">(</span><span class="n">MSG_INVALID_TASK</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Waiting for task completion...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># gets current cpu second for timeout</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_seconds</span><span class="p">()</span>
+        <span class="c1"># connection_failure_control = dict(last_success=self.get_current_seconds())</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_task_running</span><span class="p">():</span>
+            <span class="c1"># wait 1 to 10 seconds</span>
+            <span class="c1"># the value increases to avoid flooding server with requests</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="mi">10</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for task. Task state: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)))</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">timeout</span> <span class="o">!=</span> <span class="n">UNLIMITED_TIMEOUT</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">start_time</span> <span class="o">+</span> <span class="n">timeout</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_seconds</span><span class="p">()):</span>
+                <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityTimeout</span><span class="p">(</span><span class="n">MSG_TIMEOUT</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeout</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Task.is_task_running"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task.is_task_running">[docs]</a>    <span class="k">def</span> <span class="nf">is_task_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a task is running according to: TASK_PENDING_STATES</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True when in TASK_PENDING_STATES; False when not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">TASK_PENDING_STATES</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Task.update_status"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task.update_status">[docs]</a>    <span class="k">def</span> <span class="nf">update_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a task by its uri.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            task dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+<div class="viewcode-block" id="Task.get_affected_resources"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.tasks.Task.get_affected_resources">[docs]</a>    <span class="k">def</span> <span class="nf">get_affected_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a resource associated with a task.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task: task dict</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: list of resource ids</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TASK_COMPLETED_STATES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
+
+        <span class="n">affected_resources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;affected_objects&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">affected_resources</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">HPE SimpliVity Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hewlett Packard Enterprise Development LP.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simplivity.resources.virtual_machines &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for simplivity.resources.virtual_machines</h1><div class="highlight"><pre>
+<span></span><span class="c1">###</span>
+<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#   http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">##</span>
+
+<span class="sd">&quot;&quot;&quot;Implements features available for Virtual Machine resource.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">datastores</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">omnistack_clusters</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">backups</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">policies</span>
+
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/virtual_machines&#39;</span>
+<span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;virtual_machines&#39;</span>
+
+
+<div class="viewcode-block" id="VirtualMachines"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines">[docs]</a><span class="k">class</span> <span class="nc">VirtualMachines</span><span class="p">(</span><span class="n">ResourceBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features for SympliVity VM resources.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize VirtualMachines class.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VirtualMachines</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VirtualMachines.get_all"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pagination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_optional_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all vms.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pagination: True if need pagination</span>
+<span class="sd">            page_size: Size of the page (Required when pagination is on)</span>
+<span class="sd">            limit: A positive integer that represents the maximum number of results to return</span>
+<span class="sd">            offset: A positive integer that directs the service to start returning</span>
+<span class="sd">              the &lt;offset value&gt; instance, up to the limit.</span>
+<span class="sd">            sort: The name of the field where the sort occurs.</span>
+<span class="sd">            order: The sort order preference. Valid values: ascending or descending.</span>
+<span class="sd">            filters: Dictionary with filter values. Example: {&#39;name&#39;: &#39;name&#39;}</span>
+<span class="sd">              id: The unique identifier (UID) of the virtual_machines to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              name: The name of the virtual_machines to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more</span>
+<span class="sd">                asterisk characters as a wildcard</span>
+<span class="sd">              omnistack_cluster_id: The unique identifier (UID) of the omnistack_cluste</span>
+<span class="sd">                that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              omnistack_cluster_name: The name of the omnistack_cluster that</span>
+<span class="sd">                is associated with the instances to return.</span>
+<span class="sd">                Accepts: Single value, comma-separated list.</span>
+<span class="sd">              compute_cluster_parent_hypervisor_object_id: The unique identifier (UID)</span>
+<span class="sd">                of the hypervisor that contains the omnistack_cluster that is associated</span>
+<span class="sd">                with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list.</span>
+<span class="sd">              compute_cluster_parent_name: The name of the hypervisor that contains the</span>
+<span class="sd">                omnistack_cluster that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              hypervisor_management_system: The IP address of the hypervisor associated</span>
+<span class="sd">                with the virtual machine.</span>
+<span class="sd">                Accepts: Single value, comma-separated list, pattern using one</span>
+<span class="sd">                or more asterisk characters as a wildcard</span>
+<span class="sd">              hypervisor_management_system_name: The name of the hypervisor associated</span>
+<span class="sd">                with the virtual machine</span>
+<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more</span>
+<span class="sd">                asterisk characters as a wildcard</span>
+<span class="sd">              datastore_id: The unique identifier (UID) of the datastore that is associated</span>
+<span class="sd">                with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              datastore_name: The name of the datastore that is associated with the</span>
+<span class="sd">                instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              policy_id: The unique identifier (UID) of the policy that is associated</span>
+<span class="sd">                with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              policy_name: The name of the policy that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              hypervisor_object_id: The unique identifier (UID) of the hypervisor-based instance</span>
+<span class="sd">                that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              created_after: The earliest creation time after the virtual machines to return were</span>
+<span class="sd">                created, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              created_before: The latest creation time before the virtual machines to return were</span>
+<span class="sd">                created, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              state: The state of the virtual_machine that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              app_aware_vm_status: The status of the ability of the virtual machine to take</span>
+<span class="sd">                an application-consistent backup that uses Microsoft VSS</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              hypervisor_is_template: An indicator that shows if the virtual machine is a template.</span>
+<span class="sd">              host_id: The unique identifier (UID) of the virtual_machine host.</span>
+<span class="sd">            fields: A comma-separated list of fields to include in the returned objects</span>
+<span class="sd">            case_sensitive: An indicator that specifies if the filter and sort results</span>
+<span class="sd">              use a case-sensitive or insensitive manner.</span>
+<span class="sd">            show_optional_fields: An indicator to show or not show the ha_status,</span>
+<span class="sd">              ha_resynchronization_progress, hypervisor_virtual_machine_power_state,</span>
+<span class="sd">              and hypervisor_is_template.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list/pagination object: list of VirtualMachine objects/ Pagination object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span>
+                                    <span class="n">members_field</span><span class="o">=</span><span class="n">DATA_FIELD</span><span class="p">,</span>
+                                    <span class="n">pagination</span><span class="o">=</span><span class="n">pagination</span><span class="p">,</span>
+                                    <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span>
+                                    <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+                                    <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+                                    <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+                                    <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                    <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+                                    <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+                                    <span class="n">case_sensitive</span><span class="o">=</span><span class="n">case_sensitive</span><span class="p">,</span>
+                                    <span class="n">show_optional_fields</span><span class="o">=</span><span class="n">show_optional_fields</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VirtualMachines.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets VM object from VM data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: VM data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Virtual Machine object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">VirtualMachine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VirtualMachines.set_policy_for_multiple_vms"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms">[docs]</a>    <span class="k">def</span> <span class="nf">set_policy_for_multiple_vms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">vms</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the backup policy for virtual machines.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            vms: list of vm objects</span>
+<span class="sd">            policy: policy object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/set_policy&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+
+        <span class="n">vm_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">vm</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="p">]</span>
+        <span class="n">policy_id</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;virtual_machine_id&quot;</span><span class="p">:</span> <span class="n">vm_ids</span><span class="p">,</span>
+                <span class="s2">&quot;policy_id&quot;</span><span class="p">:</span> <span class="n">policy_id</span><span class="p">}</span>
+
+        <span class="n">affected_resources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">vm_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">resource</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">affected_resources</span><span class="p">]</span>
+        <span class="n">comma_separated_ids</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vm_ids</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">comma_separated_ids</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="VirtualMachine"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine">[docs]</a><span class="k">class</span> <span class="nc">VirtualMachine</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features available for a single VM.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize with connection object, resource client and VM data&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vms</span> <span class="o">=</span> <span class="n">VirtualMachines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates the VM data.&quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VirtualMachine.clone"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_vm_name</span><span class="p">,</span> <span class="n">app_consistent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clones a virtual machine.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            new_vm_name: The name of the virtual_machine created from this action.</span>
+<span class="sd">            app_consistent: An indicator to show if the backup represents a snapshot</span>
+<span class="sd">              of a virtual machine with data that was first flushed to disk.</span>
+<span class="sd">            datastore: Object/name of the datastore.</span>
+<span class="sd">              if passed, new VM will be moved to the datastore.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Object of the new VM</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/clone&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;virtual_machine_name&quot;</span><span class="p">:</span> <span class="n">new_vm_name</span><span class="p">,</span>
+                <span class="s2">&quot;app_consistent&quot;</span><span class="p">:</span> <span class="n">app_consistent</span><span class="p">}</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vms</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">datastore</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">vm</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">new_vm_name</span><span class="p">,</span> <span class="n">datastore</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vm</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.move"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_vm_name</span><span class="p">,</span> <span class="n">datastore</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Moves a virtual machine to another datastore.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            new_vm_name: Name of the new vm</span>
+<span class="sd">            datastore: Object/name of the destination datastore</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            VirtualMachine object: Object of the moved VM</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/move&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datastore</span><span class="p">,</span> <span class="n">datastores</span><span class="o">.</span><span class="n">Datastore</span><span class="p">):</span>
+            <span class="c1"># if passed name of the datastore</span>
+            <span class="n">datastores_obj</span> <span class="o">=</span> <span class="n">datastores</span><span class="o">.</span><span class="n">Datastores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">datastore</span> <span class="o">=</span> <span class="n">datastores_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">datastore</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;virtual_machine_name&quot;</span><span class="p">:</span> <span class="n">new_vm_name</span><span class="p">,</span>
+                <span class="s2">&quot;destination_datastore_id&quot;</span><span class="p">:</span> <span class="n">datastore</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+
+        <span class="n">affected_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">vm_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vms</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">affected_object</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vm_obj</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.create_backup"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.create_backup">[docs]</a>    <span class="k">def</span> <span class="nf">create_backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backup_name</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">app_consistent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">consistency_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">retention</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Backs up a virtual machine.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            backup_name: The name of the new backup created from this action.</span>
+<span class="sd">            cluster: Destination OmnistackCluster object/name.</span>
+<span class="sd">            app_consistent: An indicator to show if the backup represents</span>
+<span class="sd">              a snapshot of a virtual machine with data that was first flushed to disk.</span>
+<span class="sd">            consistency_type: The consistency type of the backup.</span>
+<span class="sd">            retention: The number of minutes to keep backups.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Backup object: object of the newly created backup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/backup&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">cluster</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackCluster</span><span class="p">):</span>
+            <span class="c1"># if passed name of the omnistack cluster</span>
+            <span class="n">clusters_obj</span> <span class="o">=</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackClusters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">clusters_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;backup_name&quot;</span><span class="p">:</span> <span class="n">backup_name</span><span class="p">,</span>
+                <span class="s2">&quot;app_consistent&quot;</span><span class="p">:</span> <span class="n">app_consistent</span><span class="p">,</span>
+                <span class="s2">&quot;consistency_type&quot;</span><span class="p">:</span> <span class="n">consistency_type</span><span class="p">,</span>
+                <span class="s2">&quot;retention&quot;</span><span class="p">:</span> <span class="n">retention</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">cluster</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;destination_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+
+        <span class="n">backup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">backups</span><span class="o">.</span><span class="n">Backups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">backup</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.get_backups"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.get_backups">[docs]</a>    <span class="k">def</span> <span class="nf">get_backups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all backups associated with this virtual_machine.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of backup objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/backups&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">backup_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">method_url</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backups&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="n">backup_objs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">backup</span> <span class="ow">in</span> <span class="n">backup_data</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">backups</span><span class="o">.</span><span class="n">Backups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">backup</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="n">backup_objs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">backup_objs</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.set_backup_parameters"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_backup_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guest_username</span><span class="p">,</span> <span class="n">guest_password</span><span class="p">,</span> <span class="n">override_guest_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">app_aware_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the virtual machine backup parameters used for application consistent backups.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            guest_username: Username of the virtual machine.</span>
+<span class="sd">            guest_password: Password of the virtual machine.</span>
+<span class="sd">            override_guest_validation: Set to true to disable virtual machine validation logic.</span>
+<span class="sd">            app_aware_type: Set the application aware backup type:</span>
+<span class="sd">              VSS - Application-consistentbackup using Microsoft VSS</span>
+<span class="sd">              DEFAULT - Crash-consistent</span>
+<span class="sd">              NONE - Application-consistent backup using a VMware snapshot</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self: Returns the same object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/backup_parameters&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;guest_username&quot;</span><span class="p">:</span> <span class="n">guest_username</span><span class="p">,</span>
+                <span class="s2">&quot;guest_password&quot;</span><span class="p">:</span> <span class="n">guest_password</span><span class="p">,</span>
+                <span class="s2">&quot;override_guest_validation&quot;</span><span class="p">:</span> <span class="n">override_guest_validation</span><span class="p">,</span>
+                <span class="s2">&quot;app_aware_type&quot;</span><span class="p">:</span> <span class="n">app_aware_type</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.set_policy"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.set_policy">[docs]</a>    <span class="k">def</span> <span class="nf">set_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the backup policy for virtual machine.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            policy: Policy object/name</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self: Returns the same object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/set_policy&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policy</span><span class="p">):</span>
+            <span class="c1"># if passed name of the policy</span>
+            <span class="n">policy</span> <span class="o">=</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;policy_id&quot;</span><span class="p">:</span> <span class="n">policy</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">HPE SimpliVity Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hewlett Packard Enterprise Development LP.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

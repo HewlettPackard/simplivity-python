@@ -1,0 +1,45 @@
+simplivity package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   simplivity.resources
+
+Submodules
+----------
+
+simplivity.connection module
+----------------------------
+
+.. automodule:: simplivity.connection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.exceptions module
+----------------------------
+
+.. automodule:: simplivity.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.ovc\_client module
+-----------------------------
+
+.. automodule:: simplivity.ovc_client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: simplivity
+   :members:
+   :undoc-members:
+   :show-inheritance:

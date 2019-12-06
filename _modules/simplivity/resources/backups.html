@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simplivity.resources.backups &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for simplivity.resources.backups</h1><div class="highlight"><pre>
+<span></span><span class="c1">###</span>
+<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#   http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">##</span>
+
+<span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
+
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/backups&#39;</span>
+<span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;backups&#39;</span>
+
+
+<div class="viewcode-block" id="Backups"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups">[docs]</a><span class="k">class</span> <span class="nc">Backups</span><span class="p">(</span><span class="n">ResourceBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features available for SimpliVity Backup resources.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Backups</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Backups.get_all"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pagination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets all backups.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            pagination: True if need pagination</span>
+<span class="sd">            page_size: Size of the page (Required when pagination is on)</span>
+<span class="sd">            limit: A positive integer that represents the maximum number of results to return</span>
+<span class="sd">            offset: A positive integer that directs the service to start returning</span>
+<span class="sd">              the &lt;offset value&gt; instance, up to the limit.</span>
+<span class="sd">            sort: The name of the field where the sort occurs.</span>
+<span class="sd">            order: The sort order preference. Valid values: ascending or descending.</span>
+<span class="sd">            filters: Dictionary with filter values. Example: {&#39;name&#39;: &#39;name&#39;}</span>
+<span class="sd">              id: the unique identifier (UID) of the backups to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              name: The name of the backups to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more</span>
+<span class="sd">                asterisk characters as a wildcard.</span>
+<span class="sd">              sent_min: The minimum sent data size (in bytes) of the remote backups to return.</span>
+<span class="sd">              sent_max: The maximum sent data size (in bytes) of the remote backups to return.</span>
+<span class="sd">              state: The current state of the backups to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              type: The type of backups to return.</span>
+<span class="sd">                Accepts: Single value, comma-separated list.</span>
+<span class="sd">              omnistack_cluster_id: The unique identifier (UID) of the omnistack_cluster</span>
+<span class="sd">                that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              omnistack_cluster_name: The name of the omnistack_cluster that is associated</span>
+<span class="sd">                with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              compute_cluster_parent_hypervisor_object_id: The unique identifier (UID) of the</span>
+<span class="sd">                hypervisor that contains the omnistack_cluster that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              compute_cluster_parent_name: The name of the hypervisor that contains the</span>
+<span class="sd">                omnistack_cluster that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              datastore_id: The unique identifier (UID) of the datastore that is associated</span>
+<span class="sd">                with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              datastore_name: The name of the datastore that is associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              expires_before: The latest expiration time before the backups to return expire,</span>
+<span class="sd">                expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              expires_after: The earliest expiration time after the backups to return expire,</span>
+<span class="sd">                expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              virtual_machine_id: The unique identifier (UID) of the virtual_machine that is</span>
+<span class="sd">                associated with the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              virtual_machine_name: The name of the virtual_machine that is associated with</span>
+<span class="sd">                the instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              virtual_machine_type: The type of the virtual_machine that is associated with the</span>
+<span class="sd">                instances to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              size_min: The minimum size (in bytes) of the backups to return</span>
+<span class="sd">              size_max: The maximum size (in bytes) of the backups to return</span>
+<span class="sd">              application_consistent: The application-consistent setting of the backups to return</span>
+<span class="sd">              consistency_type: The consistency type of the backups to return</span>
+<span class="sd">                Accepts: Single value, comma-separated list</span>
+<span class="sd">              created_before: The latest creation time before the backups to return were created,</span>
+<span class="sd">                expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              created_after: The earliest creation time after the backups to return were created,</span>
+<span class="sd">                expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              sent_duration_min: The minimum number of seconds that elapsed while replicating</span>
+<span class="sd">                the backups to return</span>
+<span class="sd">              sent_duration_max: The maximum number of seconds that elapsed while replicating the</span>
+<span class="sd">                backups to return</span>
+<span class="sd">              sent_completion_before: The latest time before the replication of backups to return was</span>
+<span class="sd">                completed, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+<span class="sd">              sent_completion_after: The earliest time after the replication of backups to return was</span>
+<span class="sd">                completed, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          list: list of resources</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span>
+                                    <span class="n">members_field</span><span class="o">=</span><span class="n">DATA_FIELD</span><span class="p">,</span>
+                                    <span class="n">pagination</span><span class="o">=</span><span class="n">pagination</span><span class="p">,</span>
+                                    <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span>
+                                    <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+                                    <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+                                    <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
+                                    <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                    <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+                                    <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+                                    <span class="n">case_sensitive</span><span class="o">=</span><span class="n">case_sensitive</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Backups.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets Backup object from backup data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: Backup data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Backup object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Backup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Backup"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backup">[docs]</a><span class="k">class</span> <span class="nc">Backup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features available for a single Backup resources.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">HPE SimpliVity Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hewlett Packard Enterprise Development LP.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

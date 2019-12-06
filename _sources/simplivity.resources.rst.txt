@@ -1,0 +1,78 @@
+simplivity.resources package
+============================
+
+Submodules
+----------
+
+simplivity.resources.backups module
+-----------------------------------
+
+.. automodule:: simplivity.resources.backups
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.datastores module
+--------------------------------------
+
+.. automodule:: simplivity.resources.datastores
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.hosts module
+---------------------------------
+
+.. automodule:: simplivity.resources.hosts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.omnistack\_clusters module
+-----------------------------------------------
+
+.. automodule:: simplivity.resources.omnistack_clusters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.policies module
+------------------------------------
+
+.. automodule:: simplivity.resources.policies
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.resource module
+------------------------------------
+
+.. automodule:: simplivity.resources.resource
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.tasks module
+---------------------------------
+
+.. automodule:: simplivity.resources.tasks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simplivity.resources.virtual\_machines module
+---------------------------------------------
+
+.. automodule:: simplivity.resources.virtual_machines
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: simplivity.resources
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,1070 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simplivity.resources package &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="simplivity-resources-package">
+<h1>simplivity.resources package<a class="headerlink" href="#simplivity-resources-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-simplivity.resources.backups">
+<span id="simplivity-resources-backups-module"></span><h2>simplivity.resources.backups module<a class="headerlink" href="#module-simplivity.resources.backups" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="simplivity.resources.backups.Backup">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backup</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for a single Backup resources.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.backups.Backups">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backups</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for SimpliVity Backup resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.backups.Backups.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all backups.
+Args:</p>
+<blockquote>
+<div><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: the unique identifier (UID) of the backups to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the backups to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard.</p>
+</dd>
+</dl>
+<p>sent_min: The minimum sent data size (in bytes) of the remote backups to return.
+sent_max: The maximum sent data size (in bytes) of the remote backups to return.
+state: The current state of the backups to return</p>
+<blockquote>
+<div><p>Accepts: Single value, comma-separated list</p>
+</div></blockquote>
+<dl class="simple">
+<dt>type: The type of backups to return.</dt><dd><p>Accepts: Single value, comma-separated list.</p>
+</dd>
+<dt>omnistack_cluster_id: The unique identifier (UID) of the omnistack_cluster</dt><dd><p>that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>omnistack_cluster_name: The name of the omnistack_cluster that is associated</dt><dd><p>with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>compute_cluster_parent_hypervisor_object_id: The unique identifier (UID) of the</dt><dd><p>hypervisor that contains the omnistack_cluster that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>compute_cluster_parent_name: The name of the hypervisor that contains the</dt><dd><p>omnistack_cluster that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>datastore_id: The unique identifier (UID) of the datastore that is associated</dt><dd><p>with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>datastore_name: The name of the datastore that is associated with the instances to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>expires_before: The latest expiration time before the backups to return expire,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>expires_after: The earliest expiration time after the backups to return expire,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>virtual_machine_id: The unique identifier (UID) of the virtual_machine that is</dt><dd><p>associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>virtual_machine_name: The name of the virtual_machine that is associated with</dt><dd><p>the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>virtual_machine_type: The type of the virtual_machine that is associated with the</dt><dd><p>instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+</dl>
+<p>size_min: The minimum size (in bytes) of the backups to return
+size_max: The maximum size (in bytes) of the backups to return
+application_consistent: The application-consistent setting of the backups to return
+consistency_type: The consistency type of the backups to return</p>
+<blockquote>
+<div><p>Accepts: Single value, comma-separated list</p>
+</div></blockquote>
+<dl class="simple">
+<dt>created_before: The latest creation time before the backups to return were created,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>created_after: The earliest creation time after the backups to return were created,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>sent_duration_min: The minimum number of seconds that elapsed while replicating</dt><dd><p>the backups to return</p>
+</dd>
+<dt>sent_duration_max: The maximum number of seconds that elapsed while replicating the</dt><dd><p>backups to return</p>
+</dd>
+<dt>sent_completion_before: The latest time before the replication of backups to return was</dt><dd><p>completed, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>sent_completion_after: The earliest time after the replication of backups to return was</dt><dd><p>completed, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: list of resources</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.backups.Backups.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Backup object from backup data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: Backup data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Backup object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.datastores">
+<span id="simplivity-resources-datastores-module"></span><h2>simplivity.resources.datastores module<a class="headerlink" href="#module-simplivity.resources.datastores" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="simplivity.resources.datastores.Datastore">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastore</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for single Datastore resource.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.datastores.Datastores">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastores</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for SimpliVity Datastore resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.datastores.Datastores.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all datastores.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: The unique identifier (UID) of the datastores to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the datastores to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one
+or more asterisk characters as a wildcard</p>
+</dd>
+</dl>
+<p>min_size: The minimum size (in bytes) of datastores to return
+max_size: The maximum size (in bytes) of datastores to return
+created_before: The latest creation time before the datastores to return were created,</p>
+<blockquote>
+<div><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>created_after: The earliest creation time after the datastores to return were created,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>omnistack_cluster_id: The unique identifier (UID) of the omnistack_cluster that is</dt><dd><p>associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>omnistack_cluster_name: The name of the omnistack_cluster that is associated with</dt><dd><p>the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>compute_cluster_parent_hypervisor_object_id: The unique identifier (UID) of the hypervisor</dt><dd><p>that contains the omnistack_cluster that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>compute_cluster_parent_name: The name of the hypervisor that contains the omnistack</dt><dd><p>cluster that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>hypervisor_management_system_name: The name of the Hypervisor Management System (HMS)</dt><dd><p>associated with the datastore
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>policy_id: The unique identifier (UID) of the policy that is associated with the</dt><dd><p>instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>policy_name: The name of the policy that is associated with the instances to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>hypervisor_object_id: The unique identifier (UID) of the hypervisor-based instance</dt><dd><p>that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>mount_directory: A comma-separated list of fields to include in the returned objects</dt><dd><p>Default: Returns all fields</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of Datastore objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.datastores.Datastores.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Datastore object from data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: Datastore data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Datastore object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.hosts">
+<span id="simplivity-resources-hosts-module"></span><h2>simplivity.resources.hosts module<a class="headerlink" href="#module-simplivity.resources.hosts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="simplivity.resources.hosts.Host">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Host</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for single Host resource.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.hosts.Hosts">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Hosts</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for SimpliVity Host resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.hosts.Hosts.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all hosts.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: The unique identifier (UID) of the host</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>type: The type of host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>model: The model of the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>version: The version of the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>hypervisor_management_system: The IP address of the Hypervisor Management System (HMS)</dt><dd><p>associated with the host
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>hypervisor_management_system_name: The name of the Hypervisor Management System (HMS)</dt><dd><p>associated with the host
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>hypervisor_object_id: The unique identifier (UID) of the hypervisor associated</dt><dd><p>with the host
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>compute_cluster_name: The name of the compute cluster associated with the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>compute_cluster_hypervisor_object_id: The unique identifier (UID)</dt><dd><p>of the Hypervisor Management System (HMS) for the associated compute cluster
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>management_ip: The IP address of the HPE OmniStack management module that</dt><dd><p>runs on the host
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>storage_ip: The IP address of the HPE OmniStack storage module that runs on the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>federation_ip: The IP address of the federation</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>virtual_controller_name: The name of the Virtual Controller that runs on the host</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>compute_cluster_parent_name: The name of the hypervisor that contains the omnistack</dt><dd><p>cluster that is associated with the instance
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>compute_cluster_parent_hypervisor_object_id: The unique identifier (UID) of the</dt><dd><p>hypervisor that contains the omnistack_cluster that is associated with the instance
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>policy_enabled: An indicator to show the status of the backup policy for the host</dt><dd><p>Valid values:
+True: The backup policy for the host is enabled.
+False: The backup policy for the host is disabled.</p>
+</dd>
+<dt>current_feature_level_min: The minimum current feature level of the HPE OmniStack</dt><dd><p>software running on the host</p>
+</dd>
+<dt>current_feature_level_max: The maximum current feature level of the HPE OmniStack</dt><dd><p>software running on the host</p>
+</dd>
+<dt>potential_feature_level_min: The minimum potential feature level of the HPE OmniStack</dt><dd><p>software running on the host</p>
+</dd>
+<dt>potential_feature_level_max: The maximum potential feature level of the HPE OmniStack</dt><dd><p>software running on the host</p>
+</dd>
+<dt>upgrade_state: The state of the most recent HPE OmniStack software upgrade for this</dt><dd><p>host (SUCCESS, FAIL, IN_PROGRESS, NOOP, UNKNOWN)
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>can_rollback: An indicator to show if the current HPE OmniStack software running on</dt><dd><p>the host can roll back to the previous version
+Valid values:
+True: The current HPE OmniStack software for the host can roll back to the previous version.
+False: The current HPE OmniStack software for the host cannot roll back to the previous version.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of Host objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.hosts.Hosts.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Host object from host data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: host data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Host object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.omnistack_clusters">
+<span id="simplivity-resources-omnistack-clusters-module"></span><h2>simplivity.resources.omnistack_clusters module<a class="headerlink" href="#module-simplivity.resources.omnistack_clusters" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackCluster">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackCluster</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for single OmniStack cluster resource.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackClusters">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackClusters</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for OmniStack cluster resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackClusters.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all omnistack clusters.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl>
+<dt>id: The unique identifier (UID) of the omnistack_clusters to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the omnistack_clusters to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>hypervisor_object_id: The unique identifier (UID) of the hypervisor associated</dt><dd><p>with the objects to return
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>hypervisor_object_parent_id: The unique identifier (UID) of the hypervisor that</dt><dd><p>contains the objects to return
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>hypervisor_object_parent_name: The name of the hypervisor that contains the objects</dt><dd><p>to return
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>hypervisor_management_system_name: The name of the hypervisor associated with the</dt><dd><p>omnistack_cluster
+Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>type: The type of omnistack_clusters to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>arbiter_address: The address of the Arbiter connected to the objects to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk
+characters as a wildcard</p>
+</dd>
+<dt>arbiter_connected: An indicator to show if the omnistack_cluster is connected to Arbiter</dt><dd><p>Valid values:
+True: Only returns omnistack_clusters connected to Arbiters that you identified</p>
+<blockquote>
+<div><p>in arbiter_address</p>
+</div></blockquote>
+<dl class="simple">
+<dt>False: Only returns omnistack_clusters not connected to Arbiters that you identified</dt><dd><p>in arbiter_address</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of OmnistackCluster</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets OmnistackCluster object from data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: OmnistackCluster data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: OmnistackCluster object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.policies">
+<span id="simplivity-resources-policies-module"></span><h2>simplivity.resources.policies module<a class="headerlink" href="#module-simplivity.resources.policies" title="Permalink to this headline">¶</a></h2>
+<p>Implements operations for policies.</p>
+<dl class="class">
+<dt id="simplivity.resources.policies.Policies">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policies</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features for SimpliVity Policy resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.policies.Policies.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all policies.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: The unique identifier (UID) of the policy</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name:The name of the policy</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of Policy objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.policies.Policies.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Policy object from data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: Policy data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Policy object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.policies.Policy">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policy</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for a single Policy resource.</p>
+<dl class="method">
+<dt id="simplivity.resources.policies.Policy.get_vms">
+<code class="sig-name descname">get_vms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.get_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.get_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the virtual machines using this policy.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: List of vms.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.resource">
+<span id="simplivity-resources-resource-module"></span><h2>simplivity.resources.resource module<a class="headerlink" href="#module-simplivity.resources.resource" title="Permalink to this headline">¶</a></h2>
+<p>Implements helper methods for the resource classes.</p>
+<dl class="class">
+<dt id="simplivity.resources.resource.Pagination">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">Pagination</code><span class="sig-paren">(</span><em class="sig-param">con</em>, <em class="sig-param">url</em>, <em class="sig-param">resource_obj</em>, <em class="sig-param">params</em>, <em class="sig-param">members_field</em>, <em class="sig-param">page_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements pagination features for get_all method.</p>
+<dl class="method">
+<dt id="simplivity.resources.resource.Pagination.next_page">
+<code class="sig-name descname">next_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination.next_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination.next_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets next page.</p>
+<p>Returns list of resources from next page.</p>
+<dl class="simple">
+<dt>Raises:</dt><dd><p>HPESimpliVityException: if no more pages to return.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.Pagination.previous_page">
+<code class="sig-name descname">previous_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination.previous_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination.previous_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets previous page.</p>
+<p>Returns list of resources from previous page.</p>
+<dl class="simple">
+<dt>Raises:</dt><dd><p>HPESimpliVityException: if no more pages to return.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.resource.ResourceBase">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceBase</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements base class for resource classes.</p>
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceBase.get_by_id">
+<code class="sig-name descname">get_by_id</code><span class="sig-paren">(</span><em class="sig-param">resource_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets resource by id.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>id: ID of the resource</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Resource object</p>
+</dd>
+<dt>Raises:</dt><dd><p>HPESimpliVityResourceNotFound: if resource doesn’t exist with the id passed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceBase.get_by_name">
+<code class="sig-name descname">get_by_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets resource by name.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name: Name of the resource</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: object of the resource</p>
+</dd>
+<dt>Raises:</dt><dd><p>HPESimpliVityResourceNotFound: if resource doesn’t exist with the name passed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.resource.ResourceClient">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceClient</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements helper methods for resource classes.</p>
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.do_get">
+<code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param">uri</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes get requests</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>uri: URI of the resource</p>
+</dd>
+<dt>Returns:</dt><dd><p>Returns: Returns the resource data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.do_post">
+<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes post requests.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>uri: URI of the resource.
+data: Request body of the call
+timeout: Time out for the request in seconds.
+cutom_headers: Allows to add custom http headers.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: Returns ids of the affected resources.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.do_put">
+<code class="sig-name descname">do_put</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes put requests.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>uri: URI of the resource
+data: Request body of the call
+timeout: Time out for the request in seconds.
+custom_headers: Allows to set custom http headers.</p>
+</dd>
+<dt>Retuns:</dt><dd><p>list: Returns ids of the  affected resources.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">resource_url</em>, <em class="sig-param">members_field=None</em>, <em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all resources.</p>
+<dl>
+<dt>Args:</dt><dd><p>resource_url: URL of the resource
+members_field: Name of the resource field(to fetch the resources from get call response)
+pagination: Default value is False, set to True if pagination is required
+page_size: Number of resources per page - mandatory field if pagination is on
+limit: A positive integer that represents the maximum number of results to return
+sort: The name of the field where the sort occurs
+order: The sort order preference, valid values: ascending or descending
+filters: Dictionary of filers, example: {‘name’: ‘name’}
+fields: A comma-separated list of fields to include in the returned objects. Default: all
+case_sensitive: An indicator that specifies if the filter and sort results</p>
+<blockquote>
+<div><p>use a case-sensitive or insensitive manner. Default: True</p>
+</div></blockquote>
+<dl class="simple">
+<dt>show_optional_fields: An indicator to show or not show the ha_status,</dt><dd><p>ha_resynchronization_progress, hypervisor_virtual_machine_power_state, and hypervisor_is_template</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>list/pagination object: Pagination object if pagination is on or list of resources</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.task_affected_resources">
+<code class="sig-name descname">task_affected_resources</code><span class="sig-paren">(</span><em class="sig-param">task</em>, <em class="sig-param">timeout</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.task_affected_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.task_affected_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles asynchronous calls.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>task: Task data retunrned by a REST call
+timeout: Timeout value</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: Returns ids of affected resources</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="simplivity.resources.resource.build_uri_with_query_string">
+<code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">build_uri_with_query_string</code><span class="sig-paren">(</span><em class="sig-param">base_url</em>, <em class="sig-param">kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#build_uri_with_query_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.build_uri_with_query_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates URL using base url and the parameters.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>base_url: URL string.
+kwargs: Dictionary of parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>string: URL with query parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.tasks">
+<span id="simplivity-resources-tasks-module"></span><h2>simplivity.resources.tasks module<a class="headerlink" href="#module-simplivity.resources.tasks" title="Permalink to this headline">¶</a></h2>
+<p>Implements operations for task.</p>
+<dl class="class">
+<dt id="simplivity.resources.tasks.Task">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.tasks.</code><code class="sig-name descname">Task</code><span class="sig-paren">(</span><em class="sig-param">con</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements operations for task.</p>
+<dl class="method">
+<dt id="simplivity.resources.tasks.Task.get_affected_resources">
+<code class="sig-name descname">get_affected_resources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.get_affected_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.get_affected_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a resource associated with a task.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>task: task dict</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of resource ids</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.tasks.Task.get_current_seconds">
+<em class="property">static </em><code class="sig-name descname">get_current_seconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.get_current_seconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.get_current_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns current time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.tasks.Task.is_task_running">
+<code class="sig-name descname">is_task_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.is_task_running"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.is_task_running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a task is running according to: TASK_PENDING_STATES</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>True when in TASK_PENDING_STATES; False when not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.tasks.Task.update_status">
+<code class="sig-name descname">update_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.update_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.update_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a task by its uri.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>task dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.tasks.Task.wait_for_task">
+<code class="sig-name descname">wait_for_task</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.wait_for_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.wait_for_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for task execution and return affected resources.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timeout: timeout in seconds</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: Affected resources when creating or updating</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources.virtual_machines">
+<span id="simplivity-resources-virtual-machines-module"></span><h2>simplivity.resources.virtual_machines module<a class="headerlink" href="#module-simplivity.resources.virtual_machines" title="Permalink to this headline">¶</a></h2>
+<p>Implements features available for Virtual Machine resource.</p>
+<dl class="class">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachine</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for a single VM.</p>
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param">new_vm_name</em>, <em class="sig-param">app_consistent=False</em>, <em class="sig-param">datastore=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clones a virtual machine.</p>
+<dl>
+<dt>Args:</dt><dd><p>new_vm_name: The name of the virtual_machine created from this action.
+app_consistent: An indicator to show if the backup represents a snapshot</p>
+<blockquote>
+<div><p>of a virtual machine with data that was first flushed to disk.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>datastore: Object/name of the datastore.</dt><dd><p>if passed, new VM will be moved to the datastore.</p>
+</dd>
+</dl>
+<p>timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Object of the new VM</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.create_backup">
+<code class="sig-name descname">create_backup</code><span class="sig-paren">(</span><em class="sig-param">backup_name</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">app_consistent=False</em>, <em class="sig-param">consistency_type=None</em>, <em class="sig-param">retention=0</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.create_backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.create_backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backs up a virtual machine.</p>
+<dl>
+<dt>Args:</dt><dd><p>backup_name: The name of the new backup created from this action.
+cluster: Destination OmnistackCluster object/name.
+app_consistent: An indicator to show if the backup represents</p>
+<blockquote>
+<div><p>a snapshot of a virtual machine with data that was first flushed to disk.</p>
+</div></blockquote>
+<p>consistency_type: The consistency type of the backup.
+retention: The number of minutes to keep backups.
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Backup object: object of the newly created backup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.get_backups">
+<code class="sig-name descname">get_backups</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.get_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.get_backups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all backups associated with this virtual_machine.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: List of backup objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.move">
+<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">new_vm_name</em>, <em class="sig-param">datastore</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves a virtual machine to another datastore.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>new_vm_name: Name of the new vm
+datastore: Object/name of the destination datastore
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>VirtualMachine object: Object of the moved VM</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters">
+<code class="sig-name descname">set_backup_parameters</code><span class="sig-paren">(</span><em class="sig-param">guest_username</em>, <em class="sig-param">guest_password</em>, <em class="sig-param">override_guest_validation=False</em>, <em class="sig-param">app_aware_type=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_backup_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the virtual machine backup parameters used for application consistent backups.</p>
+<dl>
+<dt>Args:</dt><dd><p>guest_username: Username of the virtual machine.
+guest_password: Password of the virtual machine.
+override_guest_validation: Set to true to disable virtual machine validation logic.
+app_aware_type: Set the application aware backup type:</p>
+<blockquote>
+<div><p>VSS - Application-consistentbackup using Microsoft VSS
+DEFAULT - Crash-consistent
+NONE - Application-consistent backup using a VMware snapshot</p>
+</div></blockquote>
+<p>timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>self: Returns the same object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.set_policy">
+<code class="sig-name descname">set_policy</code><span class="sig-paren">(</span><em class="sig-param">policy</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the backup policy for virtual machine.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>policy: Policy object/name
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>self: Returns the same object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="simplivity.resources.virtual_machines.VirtualMachines">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachines</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features for SympliVity VM resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachines.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all vms.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: The unique identifier (UID) of the virtual_machines to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the virtual_machines to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>omnistack_cluster_id: The unique identifier (UID) of the omnistack_cluste</dt><dd><p>that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>omnistack_cluster_name: The name of the omnistack_cluster that</dt><dd><p>is associated with the instances to return.
+Accepts: Single value, comma-separated list.</p>
+</dd>
+<dt>compute_cluster_parent_hypervisor_object_id: The unique identifier (UID)</dt><dd><p>of the hypervisor that contains the omnistack_cluster that is associated
+with the instances to return
+Accepts: Single value, comma-separated list.</p>
+</dd>
+<dt>compute_cluster_parent_name: The name of the hypervisor that contains the</dt><dd><p>omnistack_cluster that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>hypervisor_management_system: The IP address of the hypervisor associated</dt><dd><p>with the virtual machine.
+Accepts: Single value, comma-separated list, pattern using one
+or more asterisk characters as a wildcard</p>
+</dd>
+<dt>hypervisor_management_system_name: The name of the hypervisor associated</dt><dd><p>with the virtual machine
+Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+<dt>datastore_id: The unique identifier (UID) of the datastore that is associated</dt><dd><p>with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>datastore_name: The name of the datastore that is associated with the</dt><dd><p>instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>policy_id: The unique identifier (UID) of the policy that is associated</dt><dd><p>with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>policy_name: The name of the policy that is associated with the instances to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>hypervisor_object_id: The unique identifier (UID) of the hypervisor-based instance</dt><dd><p>that is associated with the instances to return
+Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>created_after: The earliest creation time after the virtual machines to return were</dt><dd><p>created, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>created_before: The latest creation time before the virtual machines to return were</dt><dd><p>created, expressed in ISO-8601 form, based on Coordinated Universal Time (UTC)</p>
+</dd>
+<dt>state: The state of the virtual_machine that is associated with the instances to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>app_aware_vm_status: The status of the ability of the virtual machine to take</dt><dd><p>an application-consistent backup that uses Microsoft VSS
+Accepts: Single value, comma-separated list</p>
+</dd>
+</dl>
+<p>hypervisor_is_template: An indicator that shows if the virtual machine is a template.
+host_id: The unique identifier (UID) of the virtual_machine host.</p>
+</div></blockquote>
+<p>fields: A comma-separated list of fields to include in the returned objects
+case_sensitive: An indicator that specifies if the filter and sort results</p>
+<blockquote>
+<div><p>use a case-sensitive or insensitive manner.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>show_optional_fields: An indicator to show or not show the ha_status,</dt><dd><p>ha_resynchronization_progress, hypervisor_virtual_machine_power_state,
+and hypervisor_is_template.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>list/pagination object: list of VirtualMachine objects/ Pagination object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachines.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets VM object from VM data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: VM data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Virtual Machine object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms">
+<code class="sig-name descname">set_policy_for_multiple_vms</code><span class="sig-paren">(</span><em class="sig-param">policy</em>, <em class="sig-param">vms</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.set_policy_for_multiple_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the backup policy for virtual machines.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>vms: list of vm objects
+policy: policy object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-simplivity.resources">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-simplivity.resources" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">HPE SimpliVity Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hewlett Packard Enterprise Development LP.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/simplivity.resources.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

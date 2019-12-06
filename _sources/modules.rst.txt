@@ -1,0 +1,7 @@
+simplivity
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   simplivity

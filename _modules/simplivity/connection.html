@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simplivity.connection &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for simplivity.connection</h1><div class="highlight"><pre>
+<span></span><span class="c1">###</span>
+<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#   http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">##</span>
+
+<span class="sd">&quot;&quot;&quot;This module maintains communication with SimplVity.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">http.client</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64encode</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">from</span> <span class="nn">simplivity</span> <span class="kn">import</span> <span class="n">exceptions</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Connection"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection">[docs]</a><span class="k">class</span> <span class="nc">Connection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helps to make connection with the OVC and do rest calls.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ovc_ip</span><span class="p">,</span> <span class="n">ssl_bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize Connection class&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ovc_ip</span> <span class="o">=</span> <span class="n">ovc_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ssl_trusted_bundle</span> <span class="o">=</span> <span class="n">ssl_bundle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ssl_trust_all</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">ssl_bundle</span> <span class="k">else</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1+json&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="s2">&quot;https://</span><span class="si">{}</span><span class="s2">/api&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ovc_ip</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Connection.do_http"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.do_http">[docs]</a>    <span class="k">def</span> <span class="nf">do_http</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Makes http calls.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            method: HTTP methods (GET, POST, PUT, DELETE).</span>
+<span class="sd">            path: URL</span>
+<span class="sd">            body: Request body.</span>
+<span class="sd">            custom_headers: Custom headers to update/append default headers.</span>
+<span class="sd">            login: True if the call is for login and get the token.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple with two members (HTTP response object and the response body in json).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">http_headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">login</span><span class="p">:</span>
+            <span class="n">user_pass</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;simplivity:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+            <span class="n">http_headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Basic </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">user_pass</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="s2">&quot;There is no active session, please login&quot;</span><span class="p">)</span>
+
+            <span class="n">http_headers</span><span class="p">[</span><span class="s1">&#39;Content-type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/vnd.simplivity.v1.8+json&#39;</span>
+            <span class="n">http_headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span>
+
+        <span class="c1"># Updates default headers with the custom headers</span>
+        <span class="k">if</span> <span class="n">custom_headers</span><span class="p">:</span>
+            <span class="n">http_headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">custom_headers</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_connection</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">http_headers</span><span class="p">)</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPException</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+        <span class="c1"># Updates token if expired</span>
+        <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">body</span> <span class="ow">and</span> <span class="n">body</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;invalid_token&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_password</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">do_http</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">resp</span><span class="p">,</span> <span class="n">body</span></div>
+
+<div class="viewcode-block" id="Connection.get_connection"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.get_connection">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Makes connection with the OVC.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          HTTPSConnection object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_TLSv1_2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ssl_trust_all</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_REQUIRED</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">load_verify_locations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ssl_trusted_bundle</span><span class="p">)</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPSConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ovc_ip</span><span class="p">,</span>
+                                               <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+                                               <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPSConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ovc_ip</span><span class="p">,</span>
+                                               <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+                                               <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">conn</span></div>
+
+<div class="viewcode-block" id="Connection.get"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls get http method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url: Resource URL</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple with two members (HTTP response object and the response body in json).</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            HPESimpliVityException: if the response status is 400 and above</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_http</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">body</span></div>
+
+<div class="viewcode-block" id="Connection.post"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls post http method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            uri: Resource URI.</span>
+<span class="sd">            body: Request body.</span>
+<span class="sd">            custom_headers: Custome headers to update/append default headers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response body</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__do_rest_call</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Connection.put"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls put http method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            uri: Resource URI.</span>
+<span class="sd">            body: Request body.</span>
+<span class="sd">            custom_headers: Custome headers to update/append default headers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple with two members (HTTP response object and the response body in json).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__do_rest_call</span><span class="p">(</span><span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Connection.delete"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls delete http method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            uri: Resource URI.</span>
+<span class="sd">            custom_headers: Custom headers to appened/update default headers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple with two members (HTTP response object and the response body in json).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__do_rest_call</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="p">{},</span> <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__body_content_is_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check to find task in response body</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            body: Response body of a rest call</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            boolean: Returns True if the body is task data or False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;task&#39;</span> <span class="ow">in</span> <span class="n">body</span>
+
+    <span class="k">def</span> <span class="nf">__do_rest_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">http_method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calls do_http method and handles the http status code.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            http_method: HTTP method (GET, POST, PUT and DELETE)</span>
+<span class="sd">            url: Resource URL</span>
+<span class="sd">            body: Request body</span>
+<span class="sd">            custom_headers: Headers to appened/update default headers</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple of two elements (task and response body)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            HPESimpliVityException: if the response status code is 401/403/404</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_http</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">http_method</span><span class="p">,</span>
+                                  <span class="n">path</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                                  <span class="n">body</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">),</span>
+                                  <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="mi">404</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__body_content_is_task</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">body</span><span class="p">,</span> <span class="n">body</span>
+
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span>
+
+<div class="viewcode-block" id="Connection.login"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Login using OVC username and password.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            username: OVC username</span>
+<span class="sd">            password: OVC password</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            boolean: Returns True if login is successfull.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">login_url</span> <span class="o">=</span> <span class="s2">&quot;/oauth/token&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+                <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">password</span><span class="p">}</span>
+
+        <span class="n">resp</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_http</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="n">login_url</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Logged in successfully&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityAuthenticationError</span><span class="p">(</span><span class="s2">&quot;Invalid credentials&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Save the username and password for refreshing the connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">password</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Connection.logout"><a class="viewcode-back" href="../../simplivity.html#simplivity.connection.Connection.logout">[docs]</a>    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes the access token.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            boolean: Returns True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Logged out successfully&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">HPE SimpliVity Python SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hewlett Packard Enterprise Development LP.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
