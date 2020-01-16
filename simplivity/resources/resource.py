@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -255,6 +255,24 @@ class ResourceClient(object):
             list: Returns ids of the  affected resources.
         """
         task, body = self._connection.put(uri, data, custom_headers=custom_headers)
+
+        if not task:
+            return body
+
+        return self.task_affected_resources(task, timeout)
+
+    def do_delete(self, uri, timeout, custom_headers):
+        """Makes delete requests.
+
+        Args:
+            uri: URI of the resource
+            timeout: Time out for the request in seconds.
+            custom_headers: Allows to set custom http headers.
+
+        Returns:
+            list: Returns ids of the affected resources.
+        """
+        task, body = self._connection.delete(uri, custom_headers=custom_headers)
 
         if not task:
             return body

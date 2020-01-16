@@ -133,6 +133,25 @@ class ResourceTest(unittest.TestCase):
         mock_put.assert_called_once_with(url, data, custom_headers=None)
         self.assertEqual(result, affected_objects)
 
+    @mock.patch.object(Connection, "delete")
+    def test_delete_call(self, mock_delete):
+        url = "/api/resource"
+        mock_delete.return_value = None, {}
+        self.resource_client.do_delete(url, -1, None)
+        mock_delete.assert_called_once_with(url, custom_headers=None)
+
+    @mock.patch.object(Connection, "delete")
+    @mock.patch.object(Connection, "get")
+    def test_delete_call_with_task(self, mock_get, mock_delete):
+        url = "/api/resource"
+        affected_objects = ["1234567"]
+        mock_delete.return_value = {'id': '12345', 'state': 'INPROGRESS'}, {}
+        mock_get.return_value = {'task': {'id': '12345', 'state': 'COMPLETED', 'affected_objects': affected_objects}}
+        result = self.resource_client.do_delete(url, -1, None)
+
+        mock_delete.assert_called_once_with(url, custom_headers=None)
+        self.assertEqual(result, affected_objects)
+
 
 if __name__ == '__main__':
     unittest.main()
