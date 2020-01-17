@@ -1,5 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/simplivity.svg)](https://badge.fury.io/py/simplivity)
-[![Build Status](https://travis-ci.com/HewlettPackard/simplivity-python.svg?branch=master)](https://travis-ci.com/HewlettPackard/simplivity-python-sdk)
+[![Build Status](https://travis-ci.com/HewlettPackard/simplivity-python.svg?branch=master)](https://travis-ci.com/HewlettPackard/simplivity-python)
 [![Coverage Status](https://coveralls.io/repos/github/HewlettPackard/simplivity-python/badge.svg?branch=master)](https://coveralls.io/github/HewlettPackard/simplivity-python?branch=master)
 
 # HPE SimpliVity SDK for Python
