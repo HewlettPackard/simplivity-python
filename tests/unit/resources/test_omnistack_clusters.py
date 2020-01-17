@@ -36,7 +36,7 @@ class DatastoresTest(unittest.TestCase):
 
         objs = self.datastores.get_all()
         self.assertIsInstance(objs[0], datastores.Datastore)
-        self.assertEquals(objs[0].data, resource_data[0])
+        self.assertEqual(objs[0].data, resource_data[0])
         mock_get.assert_called_once_with(url)
 
     @mock.patch.object(Connection, "get")
@@ -59,7 +59,7 @@ class DatastoresTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.datastores.get_by_name(name)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the name {}".format(name))
+        self.assertEqual(error.exception.msg, "Resource not found with the name {}".format(name))
 
     @mock.patch.object(Connection, "get")
     def test_get_by_id_found(self, mock_get):
@@ -81,14 +81,14 @@ class DatastoresTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.datastores.get_by_id(resource_id)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the id {}".format(resource_id))
+        self.assertEqual(error.exception.msg, "Resource not found with the id {}".format(resource_id))
 
     def test_get_by_data(self):
         resource_data = {'id': '12345'}
 
         obj = self.datastores.get_by_data(resource_data)
         self.assertIsInstance(obj, datastores.Datastore)
-        self.assertEquals(obj.data, resource_data)
+        self.assertEqual(obj.data, resource_data)
 
 
 if __name__ == '__main__':

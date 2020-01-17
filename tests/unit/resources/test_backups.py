@@ -36,7 +36,7 @@ class BackupTest(unittest.TestCase):
 
         backup_objs = self.backups.get_all()
         self.assertIsInstance(backup_objs[0], backups.Backup)
-        self.assertEquals(backup_objs[0].data, resource_data[0])
+        self.assertEqual(backup_objs[0].data, resource_data[0])
         mock_get.assert_called_once_with(url)
 
     @mock.patch.object(Connection, "get")
@@ -59,7 +59,7 @@ class BackupTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.backups.get_by_name(backup_name)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the name {}".format(backup_name))
+        self.assertEqual(error.exception.msg, "Resource not found with the name {}".format(backup_name))
 
     @mock.patch.object(Connection, "get")
     def test_get_by_id_found(self, mock_get):
@@ -81,14 +81,14 @@ class BackupTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.backups.get_by_id(backup_id)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the id {}".format(backup_id))
+        self.assertEqual(error.exception.msg, "Resource not found with the id {}".format(backup_id))
 
     def test_get_by_data(self):
         resource_data = {'id': '12345'}
 
         backup_obj = self.backups.get_by_data(resource_data)
         self.assertIsInstance(backup_obj, backups.Backup)
-        self.assertEquals(backup_obj.data, resource_data)
+        self.assertEqual(backup_obj.data, resource_data)
 
 
 if __name__ == '__main__':

@@ -43,7 +43,7 @@ class VirtualMachinesTest(unittest.TestCase):
 
         vm_objs = self.machines.get_all()
         self.assertIsInstance(vm_objs[0], machines.VirtualMachine)
-        self.assertEquals(vm_objs[0].data, resource_data[0])
+        self.assertEqual(vm_objs[0].data, resource_data[0])
         mock_get.assert_called_once_with(url)
 
     @mock.patch.object(Connection, "get")
@@ -66,7 +66,7 @@ class VirtualMachinesTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.machines.get_by_name(vm_name)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the name {}".format(vm_name))
+        self.assertEqual(error.exception.msg, "Resource not found with the name {}".format(vm_name))
 
     @mock.patch.object(Connection, "get")
     def test_get_by_id_found(self, mock_get):
@@ -88,14 +88,14 @@ class VirtualMachinesTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.machines.get_by_id(vm_id)
 
-        self.assertEquals(error.exception.msg, "Resource not found with the id {}".format(vm_id))
+        self.assertEqual(error.exception.msg, "Resource not found with the id {}".format(vm_id))
 
     def test_get_by_data(self):
         resource_data = {'id': '12345'}
 
         vm_obj = self.machines.get_by_data(resource_data)
         self.assertIsInstance(vm_obj, machines.VirtualMachine)
-        self.assertEquals(vm_obj.data, resource_data)
+        self.assertEqual(vm_obj.data, resource_data)
 
     @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
