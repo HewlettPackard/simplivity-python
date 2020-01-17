@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ class TaskTest(unittest.TestCase):
             self.task.wait_for_task(timeout)
 
         self.assertEqual('Waited {} seconds for task to complete, aborting'.format(timeout),
-                         error.exception.message)
+                         error.exception.msg)
 
     @mock.patch.object(Task, 'is_task_running')
     @mock.patch('time.sleep')
@@ -76,7 +76,7 @@ class TaskTest(unittest.TestCase):
 
         mock_sleep.assert_has_calls(calls)
         self.assertEqual('Waited {} seconds for task to complete, aborting'.format(timeout),
-                         error.exception.message)
+                         error.exception.msg)
 
     @mock.patch.object(Task, 'is_task_running')
     @mock.patch.object(Connection, 'get')
