@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ class VirtualMachinesTest(unittest.TestCase):
 
         vm_objs = self.machines.get_all()
         self.assertIsInstance(vm_objs[0], machines.VirtualMachine)
-        self.assertEquals(vm_objs[0].data, resource_data[0])
+        self.assertEqual(vm_objs[0].data, resource_data[0])
         mock_get.assert_called_once_with(url)
 
     @mock.patch.object(Connection, "get")
@@ -66,7 +66,7 @@ class VirtualMachinesTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.machines.get_by_name(vm_name)
 
-        self.assertEquals(error.exception.message, "Resource not found with the name {}".format(vm_name))
+        self.assertEqual(error.exception.msg, "Resource not found with the name {}".format(vm_name))
 
     @mock.patch.object(Connection, "get")
     def test_get_by_id_found(self, mock_get):
@@ -88,18 +88,18 @@ class VirtualMachinesTest(unittest.TestCase):
         with self.assertRaises(exceptions.HPESimpliVityResourceNotFound) as error:
             self.machines.get_by_id(vm_id)
 
-        self.assertEquals(error.exception.message, "Resource not found with the id {}".format(vm_id))
+        self.assertEqual(error.exception.msg, "Resource not found with the id {}".format(vm_id))
 
     def test_get_by_data(self):
         resource_data = {'id': '12345'}
 
         vm_obj = self.machines.get_by_data(resource_data)
         self.assertIsInstance(vm_obj, machines.VirtualMachine)
-        self.assertEquals(vm_obj.data, resource_data)
+        self.assertEqual(vm_obj.data, resource_data)
 
     @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
-    def test_set_policy_in_bulk(self, mock_get, mock_post):
+    def test_set_policy_for_multiple_vms(self, mock_get, mock_post):
         mock_post.return_value = {}, {}
         vm1_data = {'name': 'name1', 'id': 'id1'}
         vm2_data = {'name': 'name2', 'id': 'id2'}
@@ -109,7 +109,7 @@ class VirtualMachinesTest(unittest.TestCase):
 
         mock_get.side_effect = [vm1_data, vm2_data]
 
-        self.machines.set_policy_in_bulk(policy_obj, vm_objs)
+        self.machines.set_policy_for_multiple_vms(policy_obj, vm_objs)
         mock_post.assert_called_once_with('/virtual_machines/set_policy',
                                           {'policy_id': 'id', 'virtual_machine_id': ['id1', 'id2']},
                                           custom_headers=None)

@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,6 +75,7 @@ class ResourceTest(unittest.TestCase):
 
     @mock.patch.object(Connection, "get")
     def test_get_all_with_pagination(self, mock_get):
+        mock_get.return_value = {None: [1, 2, 3]}
         result = self.resource_client.get_all('/api/resource', pagination=True, page_size=10)
         self.assertIsInstance(result, Pagination)
 
@@ -82,7 +83,7 @@ class ResourceTest(unittest.TestCase):
     def test_get_all_with_paginatin_without_page_size(self, mock_get):
         with self.assertRaises(exceptions.HPESimpliVityException) as error:
             self.resource_client.get_all('/api/resource', pagination=True)
-        self.assertEqual(error.exception.message, PAGE_SIZE_NOT_SET)
+        self.assertEqual(error.exception.msg, PAGE_SIZE_NOT_SET)
 
     @mock.patch.object(Connection, "get")
     def test_get_call(self, mock_get):
