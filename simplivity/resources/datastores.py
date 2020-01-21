@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -113,3 +113,8 @@ class Datastore(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+
+    def delete(self, timeout=-1):
+        """Deletes a datastore."""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self.data = self._client.do_delete(resource_uri, timeout, None)
