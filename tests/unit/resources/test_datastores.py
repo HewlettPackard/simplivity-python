@@ -19,6 +19,7 @@ import mock
 
 from simplivity.connection import Connection
 from simplivity import exceptions
+from simplivity.resources import datastores
 from simplivity.resources import omnistack_clusters as clusters
 
 
@@ -27,6 +28,7 @@ class OmnistackClustersTest(unittest.TestCase):
         self.connection = Connection('127.0.0.1')
         self.connection._access_token = "123456789"
         self.clusters = clusters.OmnistackClusters(self.connection)
+        self.datastores = datastores.Datastores(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -89,6 +91,16 @@ class OmnistackClustersTest(unittest.TestCase):
         obj = self.clusters.get_by_data(resource_data)
         self.assertIsInstance(obj, clusters.OmnistackCluster)
         self.assertEqual(obj.data, resource_data)
+
+    @mock.patch.object(Connection, "delete")
+    def test_delete(self, mock_delete):
+        mock_delete.return_value = None, [{'object_id': '12345'}]
+
+        datastore_data = {'name': 'name1', 'id': '12345'}
+        datastore = self.datastores.get_by_data(datastore_data)
+
+        datastore.delete()
+        mock_delete.assert_called_once_with('/datastores/12345', custom_headers=None)
 
 
 if __name__ == '__main__':
