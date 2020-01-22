@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -98,3 +98,9 @@ class Policy(object):
             vms.append(vms_obj.get_by_id(vm["id"]))
 
         return vms
+
+    def delete(self, timeout=-1):
+        """Removes a policy"""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self._client.do_delete(resource_uri, timeout, None)
+        self.data = None

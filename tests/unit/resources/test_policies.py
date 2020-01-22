@@ -90,6 +90,16 @@ class PoliciesTest(unittest.TestCase):
         self.assertIsInstance(obj, policies.Policy)
         self.assertEqual(obj.data, resource_data)
 
+    @mock.patch.object(Connection, "delete")
+    def test_delete(self, mock_delete):
+        mock_delete.return_value = None, [{'object_id': '12345'}]
+
+        policy_data = {'name': 'name1', 'id': '12345'}
+        policy = self.policies.get_by_data(policy_data)
+
+        policy.delete()
+        mock_delete.assert_called_once_with('/policies/12345', custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
