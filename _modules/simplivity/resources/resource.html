@@ -32,7 +32,7 @@
             
   <h1>Source code for simplivity.resources.resource</h1><div class="highlight"><pre>
 <span></span><span class="c1">###</span>
-<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1"># (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -292,6 +292,24 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">body</span>
 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_affected_resources</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ResourceClient.do_delete"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.resource.ResourceClient.do_delete">[docs]</a>    <span class="k">def</span> <span class="nf">do_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Makes delete requests.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            uri: URI of the resource</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+<span class="sd">            custom_headers: Allows to set custom http headers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Returns ids of the affected resources.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">task</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">body</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_affected_resources</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div></div>
 
 
@@ -392,7 +410,7 @@
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

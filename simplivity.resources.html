@@ -164,6 +164,12 @@ consistency_type: The consistency type of the backups to return</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastore</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Datastore resource.</p>
+<dl class="method">
+<dt id="simplivity.resources.datastores.Datastore.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a datastore.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -614,6 +620,20 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements helper methods for resource classes.</p>
 <dl class="method">
+<dt id="simplivity.resources.resource.ResourceClient.do_delete">
+<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes delete requests.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>uri: URI of the resource
+timeout: Time out for the request in seconds.
+custom_headers: Allows to set custom http headers.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: Returns ids of the affected resources.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="simplivity.resources.resource.ResourceClient.do_get">
 <code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param">uri</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes get requests</p>
@@ -1055,7 +1075,7 @@ policy: policy object</p>
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
