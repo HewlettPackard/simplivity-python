@@ -117,4 +117,5 @@ class Datastore(object):
     def delete(self, timeout=-1):
         """Deletes a datastore."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
-        self.data = self._client.do_delete(resource_uri, timeout, None)
+        self._client.do_delete(resource_uri, timeout, None)
+        self.data = None
