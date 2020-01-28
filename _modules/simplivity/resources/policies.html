@@ -32,7 +32,7 @@
             
   <h1>Source code for simplivity.resources.policies</h1><div class="highlight"><pre>
 <span></span><span class="c1">###</span>
-<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1"># (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -130,7 +130,13 @@
         <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vm_data</span><span class="p">:</span>
             <span class="n">vms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vms_obj</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
 
-        <span class="k">return</span> <span class="n">vms</span></div></div>
+        <span class="k">return</span> <span class="n">vms</span></div>
+
+<div class="viewcode-block" id="Policy.delete"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a policy&quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_delete</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div></div>
 </pre></div>
 
           </div>
