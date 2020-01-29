@@ -42,6 +42,12 @@
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backup</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single Backup resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.backups.Backup.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the specified backup</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -49,6 +55,16 @@
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backups</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features available for SimpliVity Backup resources.</p>
+<dl class="method">
+<dt id="simplivity.resources.backups.Backups.delete_multiple_backups">
+<code class="sig-name descname">delete_multiple_backups</code><span class="sig-paren">(</span><em class="sig-param">backups</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.delete_multiple_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.delete_multiple_backups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a list of backups.
+Args:</p>
+<blockquote>
+<div><p>backups: list of backup objects</p>
+</div></blockquote>
+</dd></dl>
+
 <dl class="method">
 <dt id="simplivity.resources.backups.Backups.get_all">
 <code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_all" title="Permalink to this definition">¶</a></dt>
