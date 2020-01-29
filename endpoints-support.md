@@ -8,14 +8,18 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 | --------------------------------------------------------------------------------------- | -------- |
 |     **Backups**
 |<sub>/backups	</sub>                                                                    |GET       |
+|<sub>/backups/delete  </sub>                                                             |POST      |
+|<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
 |     **Datastores**
 |<sub>/datastores	</sub>                                                                |GET       |
+|<sub>/datastores/{datastoreId}  </sub>                                                   |DELETE    |
 |     **Hosts**
 |<sub>/hosts	</sub>                                                                    |GET       |
 |     **OmniStack Clusters**
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |     **Policies**
-|<sub>/policiess	</sub>                                                                |GET       |
+|<sub>/policies	</sub>                                                                    |GET       |
+|<sub>/policies/{policyId} </sub>                                                         |DELETE    |
 |     **Virtual Machines**
 |<sub>/virtual_machines	</sub>                                                            |GET       |
 |<sub>/virtual_machines/set_policy	</sub>                                                |POST      |

@@ -90,6 +90,30 @@ class BackupTest(unittest.TestCase):
         self.assertIsInstance(backup_obj, backups.Backup)
         self.assertEqual(backup_obj.data, resource_data)
 
+    @mock.patch.object(Connection, "delete")
+    def test_delete(self, mock_delete):
+        mock_delete.return_value = None, [{'object_id': '12345'}]
+
+        backup_data = {'name': 'name1', 'id': '12345'}
+        backup = self.backups.get_by_data(backup_data)
+
+        backup.delete()
+        mock_delete.assert_called_once_with('/backups/12345', custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_delete_multiple_backups(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+
+        backup_data = [{'name': 'name1', 'id': '12345'}]
+        backups = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data["id"] for backup in backups]
+
+        data = {"backup_id": backup_ids}
+
+        self.backups.delete_multiple_backups(backups)
+
+        mock_post.assert_called_once_with('/backups/delete', data, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
