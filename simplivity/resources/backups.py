@@ -123,7 +123,7 @@ class Backups(ResourceBase):
             object: Backup object.
         """
         return Backup(self._connection, self._client, data)
-    
+
     def delete_multiple_backups(self, backups, timeout=-1):
         """Deletes a list of backups.
         Args:
