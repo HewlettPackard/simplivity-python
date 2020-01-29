@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -113,6 +113,18 @@ class Backups(ResourceBase):
                                     fields=fields,
                                     case_sensitive=case_sensitive)
 
+    def delete_multiple_backups(self, backups, timeout=-1):
+        """Deletes a list of backups.
+        Args:
+          backups: list of backup objects
+        """
+        method_url = "{}/delete".format(URL)
+
+        backup_ids = [backup.data["id"] for backup in backups]
+        data = {"backup_id": backup_ids}
+
+        self._client.do_post(method_url, data, timeout, None)
+
     def get_by_data(self, data):
         """Gets Backup object from backup data.
 
@@ -132,3 +144,9 @@ class Backup(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+
+    def delete(self, timeout=-1):
+        """Deletes the specified backup"""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self._client.do_delete(resource_uri, timeout, None)
+        self.data = None
