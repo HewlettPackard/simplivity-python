@@ -113,6 +113,17 @@ class Backups(ResourceBase):
                                     fields=fields,
                                     case_sensitive=case_sensitive)
 
+    def get_by_data(self, data):
+        """Gets Backup object from backup data.
+
+        Args:
+            data: Backup data
+
+        Returns:
+            object: Backup object.
+        """
+        return Backup(self._connection, self._client, data)
+    
     def delete_multiple_backups(self, backups, timeout=-1):
         """Deletes a list of backups.
         Args:
@@ -124,17 +135,6 @@ class Backups(ResourceBase):
         data = {"backup_id": backup_ids}
 
         self._client.do_post(method_url, data, timeout, None)
-
-    def get_by_data(self, data):
-        """Gets Backup object from backup data.
-
-        Args:
-            data: Backup data
-
-        Returns:
-            object: Backup object.
-        """
-        return Backup(self._connection, self._client, data)
 
 
 class Backup(object):
