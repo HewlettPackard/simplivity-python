@@ -146,6 +146,17 @@
                                     <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
                                     <span class="n">case_sensitive</span><span class="o">=</span><span class="n">case_sensitive</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="Backups.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets Backup object from backup data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: Backup data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Backup object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Backup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Backups.delete_multiple_backups"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.delete_multiple_backups">[docs]</a>    <span class="k">def</span> <span class="nf">delete_multiple_backups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backups</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deletes a list of backups.</span>
 <span class="sd">        Args:</span>
@@ -156,18 +167,7 @@
         <span class="n">backup_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">backup</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">backup</span> <span class="ow">in</span> <span class="n">backups</span><span class="p">]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;backup_id&quot;</span><span class="p">:</span> <span class="n">backup_ids</span><span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Backups.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets Backup object from backup data.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            data: Backup data</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            object: Backup object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Backup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Backup"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backup">[docs]</a><span class="k">class</span> <span class="nc">Backup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
