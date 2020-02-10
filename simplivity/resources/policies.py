@@ -17,7 +17,7 @@
 """Implements operations for policies."""
 
 from simplivity.resources.resource import ResourceBase
-import simplivity.resources as resources
+from simplivity.resources import virtual_machines
 
 URL = '/policies'
 DATA_FIELD = 'policies'
@@ -91,11 +91,11 @@ class Policy(object):
         method_url = "{}/{}/virtual_machines".format(URL, self.data["id"])
         vm_data = self._client.do_get(method_url).get("virtual_machines", [])
 
-        vms_obj = resources.virtual_machines.VirtualMachines(self._connection)
+        vms_obj = virtual_machines.VirtualMachines(self._connection)
         vms = []
 
         for vm in vm_data:
-            vms.append(vms_obj.get_by_id(vm["id"]))
+            vms.append(vms_obj.get_by_data(vm))
 
         return vms
 
