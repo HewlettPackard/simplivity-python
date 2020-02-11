@@ -15,7 +15,8 @@
 ##
 
 import unittest
-from mock import mock, call
+from unittest import mock
+from unittest.mock import call
 
 from simplivity.connection import Connection
 from simplivity.resources.tasks import Task
