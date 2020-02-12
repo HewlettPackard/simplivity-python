@@ -151,3 +151,22 @@ class Host(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+        self._hosts = Hosts(self._connection)
+
+    def remove(self, force=False, timeout=-1):
+        """Removes the specified host from the federation.
+
+        Args:
+          force: An indicator that specifies if the host should be removed forcefully or not.
+            Valid values:
+              True: Forces the removal of the host even if active virtual machines are
+                    present and if the host is not HA-compliant. This may cause data loss.
+              False: Returns an error if there are any virtual machines on the host or if the host is not HA-compliant.
+        """
+        http_headers = {"Content-type": 'application/vnd.simplivity.v1.9+json'}
+
+        method_url = "{}/{}/remove_from_federation".format(URL, self.data["id"])
+        data = {"force": force}
+
+        self._client.do_post(method_url, data, timeout, http_headers)
+        self.data = None

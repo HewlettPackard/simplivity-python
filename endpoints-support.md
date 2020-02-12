@@ -15,6 +15,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/datastores/{datastoreId}  </sub>                                                   |DELETE    |
 |     **Hosts**
 |<sub>/hosts	</sub>                                                                    |GET       |
+|<sub>/hosts/{hostId}/remove_from_federation  </sub>						|POST      |
 |     **OmniStack Clusters**
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |     **Policies**
