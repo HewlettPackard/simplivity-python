@@ -58,20 +58,19 @@
 <dl class="method">
 <dt id="simplivity.resources.backups.Backups.delete_multiple_backups">
 <code class="sig-name descname">delete_multiple_backups</code><span class="sig-paren">(</span><em class="sig-param">backups</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.delete_multiple_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.delete_multiple_backups" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a list of backups.
-Args:</p>
-<blockquote>
-<div><p>backups: list of backup objects</p>
-</div></blockquote>
+<dd><p>Deletes a list of backups.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>backups: list of backup objects</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="simplivity.resources.backups.Backups.get_all">
 <code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets all backups.
-Args:</p>
-<blockquote>
-<div><p>pagination: True if need pagination
+<dd><p>Gets all backups.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
 page_size: Size of the page (Required when pagination is on)
 limit: A positive integer that represents the maximum number of results to return
 offset: A positive integer that directs the service to start returning</p>
@@ -151,8 +150,7 @@ consistency_type: The consistency type of the backups to return</p>
 </dd>
 </dl>
 </div></blockquote>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>Returns:</dt><dd><p>list: list of resources</p>
 </dd>
 </dl>
@@ -281,6 +279,26 @@ Accepts: Single value, comma-separated list</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Host</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Host resource.</p>
+<dl class="method">
+<dt id="simplivity.resources.hosts.Host.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param">force=False</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the specified host from the federation.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>force: An indicator that specifies if the host should be removed forcefully or not.</dt><dd><dl>
+<dt>Valid values:</dt><dd><dl class="simple">
+<dt>True: Forces the removal of the host even if active virtual machines are</dt><dd><p>present and if the host is not HA-compliant. This may cause data loss.</p>
+</dd>
+</dl>
+<p>False: Returns an error if there are any virtual machines on the host or if the host is not HA-compliant.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
