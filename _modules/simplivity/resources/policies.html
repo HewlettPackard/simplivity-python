@@ -7,11 +7,11 @@
     <title>simplivity.resources.policies &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
@@ -50,7 +50,7 @@
 <span class="sd">&quot;&quot;&quot;Implements operations for policies.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
-<span class="kn">import</span> <span class="nn">simplivity.resources</span> <span class="k">as</span> <span class="nn">resources</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">virtual_machines</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/policies&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;policies&#39;</span>
@@ -124,11 +124,11 @@
         <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/virtual_machines&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
         <span class="n">vm_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">method_url</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;virtual_machines&quot;</span><span class="p">,</span> <span class="p">[])</span>
 
-        <span class="n">vms_obj</span> <span class="o">=</span> <span class="n">resources</span><span class="o">.</span><span class="n">virtual_machines</span><span class="o">.</span><span class="n">VirtualMachines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+        <span class="n">vms_obj</span> <span class="o">=</span> <span class="n">virtual_machines</span><span class="o">.</span><span class="n">VirtualMachines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
         <span class="n">vms</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vm_data</span><span class="p">:</span>
-            <span class="n">vms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vms_obj</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+            <span class="n">vms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vms_obj</span><span class="o">.</span><span class="n">get_by_data</span><span class="p">(</span><span class="n">vm</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">vms</span></div>
 
@@ -174,7 +174,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -191,7 +191,7 @@
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
