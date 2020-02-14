@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 import json
 import ssl
 import unittest
+from http.client import HTTPException, HTTPSConnection
+from unittest.mock import ANY, Mock, call, patch
 
-from mock import patch, call, Mock, ANY
-from http.client import HTTPSConnection, HTTPException
 from simplivity.connection import Connection
 from simplivity.exceptions import HPESimpliVityException
 

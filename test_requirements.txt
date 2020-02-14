@@ -1,6 +1,4 @@
 coverage
 coveralls
 flake8
-mock
 pytest
-six

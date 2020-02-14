@@ -15,11 +15,12 @@
 ##
 
 import unittest
-import mock
+from unittest import mock
 
 from simplivity.connection import Connection
 from simplivity import exceptions
 from simplivity.resources import policies
+from simplivity.resources import virtual_machines
 
 
 class PoliciesTest(unittest.TestCase):
@@ -99,6 +100,34 @@ class PoliciesTest(unittest.TestCase):
 
         policy.delete()
         mock_delete.assert_called_once_with('/policies/12345', custom_headers=None)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_vms(self, mock_get):
+        resource_data = [{'id': '12345'}, {'id': '67890'}]
+        mock_get.return_value = {"virtual_machines": resource_data}
+
+        policy_data = {'name': 'name1', 'id': 'ABCDE'}
+        policy = self.policies.get_by_data(policy_data)
+
+        vms = policy.get_vms()
+        self.assertEqual(resource_data[0].get('id'), vms[0].data['id'])
+        for vm in vms:
+            self.assertIsInstance(vm, virtual_machines.VirtualMachine)
+
+        mock_get.assert_called_once_with('/policies/ABCDE/virtual_machines')
+
+    @mock.patch.object(Connection, "get")
+    def test_get_vms_not_found(self, mock_get):
+        resource_data = []
+        mock_get.return_value = {"virtual_machines": resource_data}
+
+        policy_data = {'name': 'name1', 'id': 'ABCDE'}
+        policy = self.policies.get_by_data(policy_data)
+
+        vms = policy.get_vms()
+        self.assertEqual(vms, [])
+
+        mock_get.assert_called_once_with('/policies/ABCDE/virtual_machines')
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@
 ##
 
 import unittest
-import mock
+from unittest import mock
 
 from simplivity.connection import Connection
 from simplivity import exceptions
@@ -89,6 +89,38 @@ class HostsTest(unittest.TestCase):
         obj = self.hosts.get_by_data(resource_data)
         self.assertIsInstance(obj, hosts.Host)
         self.assertEqual(obj.data, resource_data)
+
+    @mock.patch.object(Connection, "post")
+    def test_remove(self, mock_post):
+        mock_post.return_value = None, [{"object_id": "12345"}]
+
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        host.remove()
+        self.assertEqual(host.data, None)
+
+        mock_post.assert_called_once_with(
+            "/hosts/12345/remove_from_federation",
+            {"force": False},
+            custom_headers={"Content-type": "application/vnd.simplivity.v1.9+json"},
+        )
+
+    @mock.patch.object(Connection, "post")
+    def test_remove_with_force(self, mock_post):
+        mock_post.return_value = None, [{"object_id": "12345"}]
+
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        host.remove(force=True)
+        self.assertEqual(host.data, None)
+
+        mock_post.assert_called_once_with(
+            "/hosts/12345/remove_from_federation",
+            {"force": True},
+            custom_headers={"Content-type": "application/vnd.simplivity.v1.9+json"},
+        )
 
 
 if __name__ == '__main__':

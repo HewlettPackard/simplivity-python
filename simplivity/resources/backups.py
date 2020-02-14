@@ -30,6 +30,7 @@ class Backups(ResourceBase):
                 sort=None, order='descending', filters=None, fields=None,
                 case_sensitive=True):
         """Gets all backups.
+
         Args:
             pagination: True if need pagination
             page_size: Size of the page (Required when pagination is on)
@@ -126,6 +127,7 @@ class Backups(ResourceBase):
 
     def delete_multiple_backups(self, backups, timeout=-1):
         """Deletes a list of backups.
+
         Args:
           backups: list of backup objects
         """
