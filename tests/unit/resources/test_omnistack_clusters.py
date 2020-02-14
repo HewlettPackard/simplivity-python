@@ -15,7 +15,7 @@
 ##
 
 import unittest
-import mock
+from unittest import mock
 
 from simplivity.connection import Connection
 from simplivity import exceptions
