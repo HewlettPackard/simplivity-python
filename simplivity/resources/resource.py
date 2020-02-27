@@ -223,18 +223,22 @@ class ResourceClient(object):
         """
         return self._connection.get(uri)
 
-    def do_post(self, uri, data, timeout, custom_headers):
+    def do_post(self, uri, data, timeout, custom_headers, flags=None):
         """Makes post requests.
 
         Args:
             uri: URI of the resource.
             data: Request body of the call
             timeout: Time out for the request in seconds.
-            cutom_headers: Allows to add custom http headers.
+            flags: Dictionary of filters, example: {'name': 'name'}
+            custom_headers: Allows to add custom http headers.
 
         Returns:
             list: Returns ids of the affected resources.
         """
+        if flags and isinstance(flags, dict):
+            uri = build_uri_with_query_string(uri, flags)
+
         task, entity = self._connection.post(uri, data, custom_headers=custom_headers)
 
         if not task:

@@ -100,6 +100,17 @@ class ResourceTest(unittest.TestCase):
         mock_post.assert_called_once_with(url, data, custom_headers=None)
 
     @mock.patch.object(Connection, "post")
+    def test_post_call_filters(self, mock_post):
+        url = "/api/resource"
+        data = {"name": "name"}
+
+        mock_post.return_value = None, {}
+        flags = {'cluster_id': 'ASFADF'}
+        self.resource_client.do_post(url, data, -1, None, flags)
+        expected_url = "/api/resource?cluster_id=ASFADF"
+        mock_post.assert_called_once_with(expected_url, data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
     def test_post_call_with_task(self, mock_get, mock_post):
         url = "/api/resource"
