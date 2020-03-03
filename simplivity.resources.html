@@ -687,13 +687,14 @@ custom_headers: Allows to set custom http headers.</p>
 
 <dl class="method">
 <dt id="simplivity.resources.resource.ResourceClient.do_post">
-<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em>, <em class="sig-param">flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes post requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource.
 data: Request body of the call
 timeout: Time out for the request in seconds.
-cutom_headers: Allows to add custom http headers.</p>
+flags: Dictionary of filters, example: {‘name’: ‘name’}
+custom_headers: Allows to add custom http headers.</p>
 </dd>
 <dt>Returns:</dt><dd><p>list: Returns ids of the affected resources.</p>
 </dd>
@@ -1115,7 +1116,7 @@ policy: policy object</p>
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

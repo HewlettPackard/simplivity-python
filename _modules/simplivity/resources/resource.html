@@ -256,18 +256,22 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ResourceClient.do_post"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.resource.ResourceClient.do_post">[docs]</a>    <span class="k">def</span> <span class="nf">do_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">):</span>
+<div class="viewcode-block" id="ResourceClient.do_post"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.resource.ResourceClient.do_post">[docs]</a>    <span class="k">def</span> <span class="nf">do_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Makes post requests.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            uri: URI of the resource.</span>
 <span class="sd">            data: Request body of the call</span>
 <span class="sd">            timeout: Time out for the request in seconds.</span>
-<span class="sd">            cutom_headers: Allows to add custom http headers.</span>
+<span class="sd">            flags: Dictionary of filters, example: {&#39;name&#39;: &#39;name&#39;}</span>
+<span class="sd">            custom_headers: Allows to add custom http headers.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: Returns ids of the affected resources.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">uri</span> <span class="o">=</span> <span class="n">build_uri_with_query_string</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
         <span class="n">task</span><span class="p">,</span> <span class="n">entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">custom_headers</span><span class="o">=</span><span class="n">custom_headers</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">:</span>
@@ -410,7 +414,7 @@
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
