@@ -17,7 +17,7 @@
 """Implements helper methods for the resource classes."""
 
 import logging
-from urllib.parse import quote
+from urllib.parse import urlencode
 
 from simplivity.resources.tasks import Task
 from simplivity import exceptions
@@ -38,7 +38,7 @@ def build_uri_with_query_string(base_url, kwargs):
     Returns:
         string: URL with query parameters
     """
-    query_string = '&'.join('{}={}'.format(key, kwargs[key]) for key in sorted(kwargs))
+    query_string = urlencode(sorted(kwargs.items()))
     symbol = '?' if '?' not in base_url else '&'
     return "{}{}{}".format(base_url, symbol, query_string)
 
@@ -173,10 +173,10 @@ class ResourceClient(object):
             query_params.update(filters)
 
         if fields:
-            query_params["fields"] = quote(fields)
+            query_params["fields"] = fields
 
         if show_optional_fields:
-            query_params["show_optional_fields"] = quote(show_optional_fields)
+            query_params["show_optional_fields"] = show_optional_fields
 
         query_params["sort"] = sort if sort else 'name'
         query_params["case"] = "sensitive" if case_sensitive else "insensitive"

@@ -16,6 +16,7 @@
 
 import unittest
 from unittest import mock
+from urllib.parse import quote_plus
 
 from simplivity.connection import Connection
 from simplivity import exceptions
@@ -61,6 +62,17 @@ class PoliciesTest(unittest.TestCase):
             self.policies.get_by_name(name)
 
         self.assertEqual(error.exception.msg, "Resource not found with the name {}".format(name))
+
+    @mock.patch.object(Connection, "get")
+    def test_get_by_name_url_encoded(self, mock_get):
+        name = "test name"
+        url = "{}?case=sensitive&limit=500&name={}&offset=0&order=descending&sort=name".format(policies.URL, quote_plus(name))
+        resource_data = [{'id': '12345', 'name': name}]
+        mock_get.return_value = {policies.DATA_FIELD: resource_data}
+
+        obj = self.policies.get_by_name(name)
+        self.assertIsInstance(obj, policies.Policy)
+        mock_get.assert_called_once_with(url)
 
     @mock.patch.object(Connection, "get")
     def test_get_by_id_found(self, mock_get):
