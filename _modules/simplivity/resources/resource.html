@@ -50,7 +50,7 @@
 <span class="sd">&quot;&quot;&quot;Implements helper methods for the resource classes.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.tasks</span> <span class="kn">import</span> <span class="n">Task</span>
 <span class="kn">from</span> <span class="nn">simplivity</span> <span class="kn">import</span> <span class="n">exceptions</span>
@@ -71,7 +71,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        string: URL with query parameters</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">query_string</span> <span class="o">=</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+    <span class="n">query_string</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
     <span class="n">symbol</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span> <span class="k">if</span> <span class="s1">&#39;?&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">base_url</span> <span class="k">else</span> <span class="s1">&#39;&amp;&#39;</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">query_string</span><span class="p">)</span></div>
 
@@ -206,10 +206,10 @@
             <span class="n">query_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
-            <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+            <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fields</span>
 
         <span class="k">if</span> <span class="n">show_optional_fields</span><span class="p">:</span>
-            <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;show_optional_fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">show_optional_fields</span><span class="p">)</span>
+            <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;show_optional_fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">show_optional_fields</span>
 
         <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;sort&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sort</span> <span class="k">if</span> <span class="n">sort</span> <span class="k">else</span> <span class="s1">&#39;name&#39;</span>
         <span class="n">query_params</span><span class="p">[</span><span class="s2">&quot;case&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;sensitive&quot;</span> <span class="k">if</span> <span class="n">case_sensitive</span> <span class="k">else</span> <span class="s2">&quot;insensitive&quot;</span>
