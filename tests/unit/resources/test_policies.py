@@ -141,6 +141,16 @@ class PoliciesTest(unittest.TestCase):
 
         mock_get.assert_called_once_with('/policies/ABCDE/virtual_machines')
 
+    @mock.patch.object(Connection, "post")
+    def test_create_policy(self, mock_post):
+        mock_post.return_value = None, [{'name': 'test'}]
+        policy_name = 'test'
+        self.policies.create(policy_name)
+
+        data = {"name": policy_name}
+
+        mock_post.assert_called_once_with('/policies', data, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

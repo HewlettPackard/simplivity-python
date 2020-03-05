@@ -70,3 +70,14 @@ print("\n\n get_all VMs using this policy")
 vms = policy.get_vms()
 print(policy.data)
 print(vms)
+
+print("\n\n create policy")
+policy_name = "test_policy"
+policies.create(policy_name)
+
+print("\n\n get_by_name")
+policy = policies.get_by_name(policy_name)
+print(policy, policy.data)
+
+print("\n\n delete policy")
+policy.delete()
