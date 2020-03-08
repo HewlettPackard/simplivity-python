@@ -18,10 +18,10 @@ from simplivity.ovc_client import OVC
 from simplivity.exceptions import HPESimpliVityException
 
 config = {
-    "ip": "<ovc_ip>",
+    "ip": "10.148.1.209",
     "credentials": {
-        "username": "<username>",
-        "password": "<password>"
+        "username": "administrator@vsphere.local",
+        "password": "svtrfs29L@B"
     }
 }
 
@@ -70,3 +70,12 @@ print("\n\n get_all VMs using this policy")
 vms = policy.get_vms()
 print(policy.data)
 print(vms)
+
+print("\n\n create policy")
+policy_name = "test_policy12"
+response_policies = policies.create(policy_name)
+policy = response_policies[0]
+print(policy, policy.data)
+
+print("\n\n delete policy")
+policy.delete()
