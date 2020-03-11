@@ -15,6 +15,7 @@
 ##
 
 import pprint
+import time
 
 from simplivity.exceptions import HPESimpliVityException
 from simplivity.ovc_client import OVC
@@ -29,14 +30,6 @@ config = {
     }
 }
 
-config = {
-    "ip": "10.1.218.241",
-    "credentials": {
-        "username": "administrator@vsphere.local",
-        "password": "svtrfs29L@B",
-    },
-}
-
 ovc = OVC(config)
 datastores = ovc.datastores
 
@@ -48,10 +41,21 @@ for datastore in all_datastores:
 count = len(all_datastores)
 print(f"Total number of datastores : {count}")
 
-datastore_object = all_datastores[0]
+# obtain cluster object for datastore create
+clusters = ovc.omnistack_clusters
+all_clusters = clusters.get_all()
+cluster_object = all_clusters[0]
+# obtain policy object for datastore create
+policies = ovc.policies
+all_policies = policies.get_all()
+policy_object = all_policies[0]
+print("\n\ndatastore create")
+datastore_object = datastores.create("datastore_test_from_sdk_" + str(time.time()), cluster_object, policy_object, 1024)
+print(f"{datastore_object}")
+print(f"{pp.pformat(datastore_object.data)} \n")
 
 datastore_name = datastore_object.data["name"]
-print("\n\nget_all with filters")
+print("\n\nget_all with name filter")
 all_datastores = datastores.get_all(filters={'name': datastore_name})
 for datastore in all_datastores:
     print(f"{datastore}")
@@ -83,3 +87,15 @@ print("\n\nget_by_name")
 datastore = datastores.get_by_name(datastore_object.data["name"])
 print(f"{datastore}")
 print(f"{pp.pformat(datastore.data)} \n")
+
+
+print("\n\ndatastore delete")
+all_datastores = datastores.get_all()
+count = len(all_datastores)
+print(f"Total number of datastores before delete: {count} \n")
+datastore_object.delete()
+print(f"{datastore_object}")
+print(f"{pp.pformat(datastore_object.data)} \n")
+all_datastores = datastores.get_all()
+count = len(all_datastores)
+print(f"Total number of datastores after delete: {count}")

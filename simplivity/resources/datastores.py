@@ -15,6 +15,8 @@
 ##
 
 from simplivity.resources.resource import ResourceBase
+from simplivity.resources import omnistack_clusters
+from simplivity.resources import policies
 
 URL = '/datastores'
 DATA_FIELD = 'datastores'
@@ -104,6 +106,41 @@ class Datastores(ResourceBase):
             object: Datastore object.
         """
         return Datastore(self._connection, self._client, data)
+
+    def create(self, datastore_name, cluster, policy, size=0, timeout=-1):
+        """Creates a new datastore.
+
+        Args:
+            datastore_name: The name of the new datastore created from this action.
+            cluster: Destination OmnistackCluster object/name.
+            policy: Object/name of the policy to assocaited with the new datastore.
+            size: The size in bytes of the new datastore.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Datastore object.
+        """
+        method_url = "{}".format(URL)
+
+        if not isinstance(cluster, omnistack_clusters.OmnistackCluster):
+            # if passed name of the cluster
+            clusters_obj = omnistack_clusters.OmnistackClusters(self._connection)
+            cluster = clusters_obj.get_by_name(cluster)
+
+        if not isinstance(policy, policies.Policy):
+            # if passed name of the policy
+            policies_obj = policies.Policies(self._connection)
+            policy = policies_obj.get_by_name(policy)
+
+        data = {
+            "name": datastore_name,
+            "omnistack_cluster_id": cluster.data['id'],
+            "policy_id": policy.data['id'],
+            "size": size
+        }
+
+        out = self._client.do_post(method_url, data, timeout, None)
+        return self.get_by_id(out[0]["object_id"])
 
 
 class Datastore(object):
