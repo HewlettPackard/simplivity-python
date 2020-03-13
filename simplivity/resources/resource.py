@@ -17,7 +17,7 @@
 """Implements helper methods for the resource classes."""
 
 import logging
-from urllib.parse import quote
+from urllib.parse import urlencode
 
 from simplivity.resources.tasks import Task
 from simplivity import exceptions
@@ -38,7 +38,7 @@ def build_uri_with_query_string(base_url, kwargs):
     Returns:
         string: URL with query parameters
     """
-    query_string = '&'.join('{}={}'.format(key, kwargs[key]) for key in sorted(kwargs))
+    query_string = urlencode(sorted(kwargs.items()))
     symbol = '?' if '?' not in base_url else '&'
     return "{}{}{}".format(base_url, symbol, query_string)
 
@@ -173,10 +173,10 @@ class ResourceClient(object):
             query_params.update(filters)
 
         if fields:
-            query_params["fields"] = quote(fields)
+            query_params["fields"] = fields
 
         if show_optional_fields:
-            query_params["show_optional_fields"] = quote(show_optional_fields)
+            query_params["show_optional_fields"] = show_optional_fields
 
         query_params["sort"] = sort if sort else 'name'
         query_params["case"] = "sensitive" if case_sensitive else "insensitive"
@@ -223,18 +223,22 @@ class ResourceClient(object):
         """
         return self._connection.get(uri)
 
-    def do_post(self, uri, data, timeout, custom_headers):
+    def do_post(self, uri, data, timeout, custom_headers, flags=None):
         """Makes post requests.
 
         Args:
             uri: URI of the resource.
             data: Request body of the call
             timeout: Time out for the request in seconds.
-            cutom_headers: Allows to add custom http headers.
+            flags: Dictionary of filters, example: {'name': 'name'}
+            custom_headers: Allows to add custom http headers.
 
         Returns:
             list: Returns ids of the affected resources.
         """
+        if flags and isinstance(flags, dict):
+            uri = build_uri_with_query_string(uri, flags)
+
         task, entity = self._connection.post(uri, data, custom_headers=custom_headers)
 
         if not task:
