@@ -20,13 +20,17 @@ from unittest import mock
 from simplivity.connection import Connection
 from simplivity import exceptions
 from simplivity.resources import datastores
+from simplivity.resources import policies
+from simplivity.resources import omnistack_clusters as clusters
 
 
 class DatastoresTest(unittest.TestCase):
     def setUp(self):
         self.connection = Connection('127.0.0.1')
         self.connection._access_token = "123456789"
+        self.clusters = clusters.OmnistackClusters(self.connection)
         self.datastores = datastores.Datastores(self.connection)
+        self.policies = policies.Policies(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -89,6 +93,62 @@ class DatastoresTest(unittest.TestCase):
         obj = self.datastores.get_by_data(resource_data)
         self.assertIsInstance(obj, datastores.Datastore)
         self.assertEqual(obj.data, resource_data)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_create_using_objects(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+        cluster_obj = self.clusters.get_by_data(cluster_data)
+
+        policy_data = {'name': 'policy1', 'id': '67890'}
+        policy_obj = self.policies.get_by_data(policy_data)
+
+        datastore_data = {'name': 'datastore1', 'id': 'ABCDEF'}
+        datastore_size = 1024
+
+        mock_post.return_value = None, [{'object_id': datastore_data['id']}]
+        mock_get.return_value = {datastores.DATA_FIELD: [datastore_data]}
+
+        datastore = self.datastores.create(datastore_data['name'], cluster_obj, policy_obj, datastore_size)
+
+        self.assertIsInstance(datastore, datastores.Datastore)
+        self.assertEqual(datastore.data, datastore_data)
+        mock_post.assert_called_once_with('/datastores',
+                                          {
+                                              'name': 'datastore1',
+                                              'omnistack_cluster_id': '12345',
+                                              'policy_id': '67890',
+                                              'size': 1024
+                                          },
+                                          custom_headers=None
+                                          )
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_create_using_names(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+
+        policy_data = {'name': 'policy1', 'id': '67890'}
+
+        datastore_data = {'name': 'datastore1', 'id': 'ABCDEF'}
+        datastore_size = 1024
+
+        mock_post.return_value = None, [{'object_id': datastore_data['id']}]
+        mock_get.side_effect = [{clusters.DATA_FIELD: [cluster_data]}, {policies.DATA_FIELD: [policy_data]}, {datastores.DATA_FIELD: [datastore_data]}]
+
+        datastore = self.datastores.create(datastore_data['name'], cluster_data['name'], policy_data['name'], datastore_size)
+
+        self.assertIsInstance(datastore, datastores.Datastore)
+        self.assertEqual(datastore.data, datastore_data)
+        mock_post.assert_called_once_with('/datastores',
+                                          {
+                                              'name': 'datastore1',
+                                              'omnistack_cluster_id': '12345',
+                                              'policy_id': '67890',
+                                              'size': 1024
+                                          },
+                                          custom_headers=None
+                                          )
 
     @mock.patch.object(Connection, "delete")
     def test_delete(self, mock_delete):
