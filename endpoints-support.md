@@ -21,6 +21,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |     **Policies**
 |<sub>/policies	</sub>                                                                    |GET       |
+|<sub>/policies</sub>                                                                     |POST      |
 |<sub>/policies/{policyId} </sub>                                                         |DELETE    |
 |     **Virtual Machines**
 |<sub>/virtual_machines	</sub>                                                            |GET       |

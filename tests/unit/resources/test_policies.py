@@ -141,6 +141,19 @@ class PoliciesTest(unittest.TestCase):
 
         mock_get.assert_called_once_with('/policies/ABCDE/virtual_machines')
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_create_policy(self, mock_get, mock_post):
+        resource_data = [{'name': 'test', 'id': '12345'}]
+        mock_get.return_value = {policies.DATA_FIELD: resource_data}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        policy_name = 'test'
+        policy = self.policies.create(policy_name)
+        data = {'name': 'test'}
+        self.assertIsInstance(policy, policies.Policy)
+        self.assertEqual(policy.data, resource_data[0])
+        mock_post.assert_called_once_with('/policies', data, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
