@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
     - address unittest.assertequals deprecation warning within unit test cases
+    - default accept header to application/json
     - leverage pprint in the ./examples/datastores.py to improve the overall readability of the output
     - policy test cases to improve the existing code coverage metrics
     - reformat existing docstrings to conform to Sphinx documentation requirements
