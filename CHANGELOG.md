@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
     - endpoint support for /backups/delete <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
+    - endpoint support for /backups/{bkpId}/restore <POST>
     - endpoint support for /datastore <POST>
     - endpoint support for /datastore/{datastoreId} <DELETE>
     - endpoint support for /datastore/{datastoreId}/resize <POST>

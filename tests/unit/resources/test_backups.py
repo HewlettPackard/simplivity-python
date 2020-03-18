@@ -20,6 +20,8 @@ from unittest import mock
 from simplivity.connection import Connection
 from simplivity import exceptions
 from simplivity.resources import backups
+from simplivity.resources import datastores
+from simplivity.resources import virtual_machines
 
 
 class BackupTest(unittest.TestCase):
@@ -27,6 +29,8 @@ class BackupTest(unittest.TestCase):
         self.connection = Connection('127.0.0.1')
         self.connection._access_token = "123456789"
         self.backups = backups.Backups(self.connection)
+        self.datastores = datastores.Datastores(self.connection)
+        self.virtual_machines = virtual_machines.VirtualMachines(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -113,6 +117,53 @@ class BackupTest(unittest.TestCase):
         self.backups.delete_multiple_backups(backups)
 
         mock_post.assert_called_once_with('/backups/delete', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_restore_original_true(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = {'name': 'name1', 'id': '12345'}
+        vm_data = [{'id': '12345', 'name': 'vm1'}]
+        mock_get.return_value = {virtual_machines.DATA_FIELD: [vm_data]}
+        backup = self.backups.get_by_data(backup_data)
+
+        vm = backup.restore(True)
+        self.assertIsInstance(vm, virtual_machines.VirtualMachine)
+
+        mock_post.assert_called_once_with('/backups/12345/restore?restore_original=True', {}, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_restore_original_datastore_name(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        datastore_data = {'id': 'abcdef', 'name': 'ds1'}
+        vm_data = [{'id': '12345', 'name': 'vm1'}]
+        mock_get.side_effect = [{datastores.DATA_FIELD: [datastore_data]}, {virtual_machines.DATA_FIELD: [vm_data]}]
+        backup_data = {'name': 'name1', 'id': '12345'}
+        backup = self.backups.get_by_data(backup_data)
+        vm = backup.restore(False, "vm1", "ds1")
+        self.assertIsInstance(vm, virtual_machines.VirtualMachine)
+        self.assertEqual(vm.data, vm_data)
+        data = {'virtual_machine_name': 'vm1', 'datastore_id': 'abcdef'}
+        mock_post.assert_called_once_with('/backups/12345/restore?restore_original=False', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_restore_original_datastore_object(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        datastore_data = {'id': 'abcdef', 'name': 'ds1'}
+        datastore_obj = self.datastores.get_by_data(datastore_data)
+
+        vm_data = [{'id': '12345', 'name': 'vm1'}]
+        mock_get.return_value = {virtual_machines.DATA_FIELD: [vm_data]}
+        backup_data = {'name': 'name1', 'id': '12345'}
+        backup = self.backups.get_by_data(backup_data)
+        vm = backup.restore(False, "vm1", datastore_obj)
+        self.assertIsInstance(vm, virtual_machines.VirtualMachine)
+        self.assertEqual(vm.data, vm_data)
+
+        data = {'virtual_machine_name': 'vm1', 'datastore_id': 'abcdef'}
+        mock_post.assert_called_once_with('/backups/12345/restore?restore_original=False', data, custom_headers=None)
 
 
 if __name__ == '__main__':
