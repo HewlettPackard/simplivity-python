@@ -48,6 +48,8 @@
 <span class="c1">##</span>
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">omnistack_clusters</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">policies</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/datastores&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;datastores&#39;</span>
@@ -136,7 +138,42 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            object: Datastore object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Datastore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Datastore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Datastores.create"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.datastores.Datastores.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datastore_name</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new datastore.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            datastore_name: The name of the new datastore created from this action.</span>
+<span class="sd">            cluster: Destination OmnistackCluster object/name.</span>
+<span class="sd">            policy: Object/name of the policy to assocaited with the new datastore.</span>
+<span class="sd">            size: The size in bytes of the new datastore.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Datastore object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackCluster</span><span class="p">):</span>
+            <span class="c1"># if passed name of the cluster</span>
+            <span class="n">clusters_obj</span> <span class="o">=</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackClusters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">clusters_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policy</span><span class="p">):</span>
+            <span class="c1"># if passed name of the policy</span>
+            <span class="n">policies_obj</span> <span class="o">=</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">policy</span> <span class="o">=</span> <span class="n">policies_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">datastore_name</span><span class="p">,</span>
+            <span class="s2">&quot;omnistack_cluster_id&quot;</span><span class="p">:</span> <span class="n">cluster</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;policy_id&quot;</span><span class="p">:</span> <span class="n">policy</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span>
+        <span class="p">}</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span></div></div>
 
 
 <div class="viewcode-block" id="Datastore"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.datastores.Datastore">[docs]</a><span class="k">class</span> <span class="nc">Datastore</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
