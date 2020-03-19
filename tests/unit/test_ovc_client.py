@@ -24,6 +24,7 @@ from simplivity.ovc_client import OVC
 from simplivity.resources.backups import Backups
 from simplivity.resources.cluster_groups import ClusterGroups
 from simplivity.resources.datastores import Datastores
+from simplivity.resources.hosts import Hosts
 from simplivity.resources.omnistack_clusters import OmnistackClusters
 from simplivity.resources.policies import Policies
 from simplivity.resources.virtual_machines import VirtualMachines
@@ -139,6 +140,16 @@ class OVCTest(unittest.TestCase):
     def test_lazy_loading_backups(self):
         backups = self._ovc.backups
         self.assertEqual(backups, self._ovc.backups)
+
+    def test_hosts_has_right_type(self):
+        self.assertIsInstance(self._ovc.hosts, Hosts)
+
+    def test_hosts_has_value(self):
+        self.assertIsNotNone(self._ovc.hosts)
+
+    def test_lazy_loading_hosts(self):
+        hosts = self._ovc.hosts
+        self.assertEqual(hosts, self._ovc.hosts)
 
     def test_cluster_groups_has_right_type(self):
         self.assertIsInstance(self._ovc.cluster_groups, ClusterGroups)
