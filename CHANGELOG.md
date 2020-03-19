@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
     - endpoint support for /backups/delete <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
+    - endpoint support for /cluster_groups <POST>
     - endpoint support for /datastore <POST>
     - endpoint support for /datastore/{datastoreId} <DELETE>
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    

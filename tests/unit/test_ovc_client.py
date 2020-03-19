@@ -19,15 +19,14 @@ import sys
 import unittest
 from unittest import mock
 
-
 from simplivity.connection import Connection
 from simplivity.ovc_client import OVC
-from simplivity.resources.virtual_machines import VirtualMachines
-from simplivity.resources.policies import Policies
+from simplivity.resources.backups import Backups
+from simplivity.resources.cluster_groups import ClusterGroups
 from simplivity.resources.datastores import Datastores
 from simplivity.resources.omnistack_clusters import OmnistackClusters
-from simplivity.resources.backups import Backups
-
+from simplivity.resources.policies import Policies
+from simplivity.resources.virtual_machines import VirtualMachines
 
 OS_ENVIRON_CONFIG = {
     'SIMPLIVITYSDK_OVC_IP': '10.30.4.245',
@@ -140,6 +139,16 @@ class OVCTest(unittest.TestCase):
     def test_lazy_loading_backups(self):
         backups = self._ovc.backups
         self.assertEqual(backups, self._ovc.backups)
+
+    def test_cluster_groups_has_right_type(self):
+        self.assertIsInstance(self._ovc.cluster_groups, ClusterGroups)
+
+    def test_cluster_groups_has_value(self):
+        self.assertIsNotNone(self._ovc.cluster_groups)
+
+    def test_lazy_loading_cluster_groups(self):
+        cluster_groups = self._ovc.cluster_groups
+        self.assertEqual(cluster_groups, self._ovc.cluster_groups)
 
 
 if __name__ == '__main__':
