@@ -12,6 +12,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
 |     **Datastores**
 |<sub>/datastores	</sub>                                                                |GET       |
+|<sub>/datastores	</sub>                                                                |POST       |
 |<sub>/datastores/{datastoreId}  </sub>                                                   |DELETE    |
 |     **Hosts**
 |<sub>/hosts	</sub>                                                                    |GET       |
