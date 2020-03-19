@@ -30,7 +30,7 @@ from simplivity.resources.policies import Policies
 from simplivity.resources.virtual_machines import VirtualMachines
 
 OS_ENVIRON_CONFIG = {
-    'SIMPLIVITYSDK_OVC_IP': '10.30.4.245',
+    'SIMPLIVITYSDK_OVC_IP': '127.0.0.1',
     'SIMPLIVITYSDK_USERNAME': 'simplicity',
     'SIMPLIVITYSDK_PASSWORD': 'root',
     'SIMPLIVITYSDK_SSL_CERTIFICATE': 'certificate',
@@ -48,7 +48,7 @@ class OVCTest(unittest.TestCase):
     def setUp(self, mock_login):
         super(OVCTest, self).setUp()
 
-        config = {"ip": "10.30.4.245",
+        config = {"ip": "127.0.0.1",
                   "credentials": {
                       "username": "simplivity",
                       "password": "root"}}
@@ -62,7 +62,7 @@ class OVCTest(unittest.TestCase):
     @mock.patch(mock_builtin('open'))
     def test_from_json_file(self, mock_open, mock_login):
         json_config_content = u"""{
-          "ip": "10.30.4.245",
+          "ip": "127.0.0.1",
           "credentials": {
             "username": "simplicity",
             "password": "root"
@@ -72,7 +72,7 @@ class OVCTest(unittest.TestCase):
         ovc_client = OVC.from_json_file("config.json")
 
         self.assertIsInstance(ovc_client, OVC)
-        self.assertEqual("10.30.4.245", ovc_client.connection._ovc_ip)
+        self.assertEqual("127.0.0.1", ovc_client.connection._ovc_ip)
 
     @mock.patch.object(Connection, 'login')
     @mock.patch.dict('os.environ', OS_ENVIRON_CONFIG)
@@ -86,7 +86,7 @@ class OVCTest(unittest.TestCase):
         mock_cls.return_value = None
         OVC.from_environment_variables()
         mock_cls.assert_called_once_with({'timeout': '-1',
-                                          'ip': '10.30.4.245',
+                                          'ip': '127.0.0.1',
                                           'ssl_certificate': 'certificate',
                                           'credentials': {'username': 'simplicity',
                                                           'password': 'root'}})

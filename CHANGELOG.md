@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - policy test cases to improve the existing code coverage metrics
     - reformat existing docstrings to conform to Sphinx documentation requirements
     - rename the unit test filenames to reflect which objects were being targeted
+    - static ip address within a unit test to the loopback ip address
 
 ### Fixed
     - required __init__.py files to support unit test discovery
