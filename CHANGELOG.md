@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - static ip address within a unit test to the loopback ip address
 
 ### Fixed
+    - exception handling within the ovc client module
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
     - url encode query string to support values that contain spaces

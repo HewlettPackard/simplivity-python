@@ -42,7 +42,7 @@ class OVC(object):
             password = config["credentials"].get("password")
             self.__connection.login(username, password)
         else:
-            exceptions.HPESimpliVityException("Credentials not provided")
+            raise exceptions.HPESimpliVityException("Credentials not provided")
 
         self.__virtual_machines = None
         self.__policies = None
@@ -83,7 +83,7 @@ class OVC(object):
         timeout = os.environ.get('SIMPLIVITYSDK_CONNECTION_TIMEOUT')
 
         if not ip or not username or not password:
-            raise exceptions.SimplivityExceptions("Make sure you have set mandatory env variables \
+            raise exceptions.HPESimpliVityException("Make sure you have set mandatory env variables \
             (SIMPLIVITYSDK_OVC_IP, SIMPLIVITYSDK_USERNAME, SIMPLIVITYSDK_PASSWORD)")
 
         config = dict(ip=ip,
