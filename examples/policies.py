@@ -41,7 +41,7 @@ for policy in all_policies:
 print(f"Total number of policies : {count}")
 policy_object = all_policies[0]
 
-print("\n\nget_all with filers")
+print("\n\nget_all with filters")
 all_policies = policies.get_all(filters={'name': policy_object.data["name"]})
 count = len(all_policies)
 for policy in all_policies:
