@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
     - endpoint support for /policies <POST>
     - endpoint support for /policies/{policyId} <DELETE>
+    - endpoint support for /policies/{policyId}/rules <POST>
     - missing ovc client host unit tests to improve code coverage
     - pull request template to facilitate pull requests
     - query string support for post operations

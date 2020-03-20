@@ -154,6 +154,49 @@ class PoliciesTest(unittest.TestCase):
         self.assertEqual(policy.data, resource_data[0])
         mock_post.assert_called_once_with('/policies', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_create_multiple_rules(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': 'policy12345'}]
+        resources_data = {"rules": [{"frequency": 5, "id": "12345", "retention": 1},
+                                    {"frequency": 10, "id": "67890", "retention": 2}], "name": "name",
+                          "id": "policy12345"}
+
+        mock_get.return_value = {'policy': resources_data}
+        policy_obj = self.policies.get_by_data({'id': 'policy12345', 'name': 'name'})
+        rules = [
+            {
+                "frequency": 1,
+                "retention": 5
+            },
+            {
+                "frequency": 10,
+                "retention": 2
+            }
+        ]
+        policy_obj.create_rules(rules)
+        self.assertEqual(policy_obj.data, resources_data)
+        mock_post.assert_called_once_with('/policies/policy12345/rules?replace_all_rules=False', rules,
+                                          custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_create_single_rules(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': 'policy12345'}]
+        resources_data = {"rules": [{"frequency": 5, "id": "12345", "retention": 1}], "name": "name",
+                          "id": "policy12345"}
+
+        mock_get.return_value = {'policy': resources_data}
+        policy_obj = self.policies.get_by_data({'id': 'policy12345', 'name': 'name'})
+        rules = {
+            "frequency": 1,
+            "retention": 5
+        }
+        policy_obj.create_rules(rules)
+        self.assertEqual(policy_obj.data, resources_data)
+        mock_post.assert_called_once_with('/policies/policy12345/rules?replace_all_rules=False', [rules],
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
