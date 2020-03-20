@@ -73,6 +73,22 @@ class Policies(ResourceBase):
         """
         return Policy(self._connection, self._client, data)
 
+    def create(self, name, flags=None, timeout=-1):
+        """ create the new policy
+
+        Args:
+            flags: Dictionary of flags. Example: {'cluster_group_id': 'cluster_group_id'}
+            name : The name of the new policy created from this action.
+            timeout : Time out for the request in seconds.
+
+        Returns:
+            object: Policy object.
+        """
+        data = {"name": name}
+
+        affected_object = self._client.do_post(URL, data, timeout, flags)[0]
+        return self.get_by_id(affected_object["object_id"])
+
 
 class Policy(object):
     """Implements features available for a single Policy resource."""
