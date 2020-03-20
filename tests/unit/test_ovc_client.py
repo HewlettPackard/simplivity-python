@@ -19,6 +19,7 @@ import sys
 import unittest
 from unittest import mock
 
+from simplivity import exceptions
 from simplivity.connection import Connection
 from simplivity.ovc_client import OVC
 from simplivity.resources.backups import Backups
@@ -29,10 +30,13 @@ from simplivity.resources.omnistack_clusters import OmnistackClusters
 from simplivity.resources.policies import Policies
 from simplivity.resources.virtual_machines import VirtualMachines
 
-OS_ENVIRON_CONFIG = {
-    'SIMPLIVITYSDK_OVC_IP': '127.0.0.1',
+OS_ENVIRON_CREDENTIALS = {
     'SIMPLIVITYSDK_USERNAME': 'simplicity',
     'SIMPLIVITYSDK_PASSWORD': 'root',
+}
+
+OS_ENVIRON_CONFIG = {
+    'SIMPLIVITYSDK_OVC_IP': '127.0.0.1',
     'SIMPLIVITYSDK_SSL_CERTIFICATE': 'certificate',
     'SIMPLIVITYSDK_CONNECTION_TIMEOUT': '-1'
 }
@@ -75,12 +79,12 @@ class OVCTest(unittest.TestCase):
         self.assertEqual("127.0.0.1", ovc_client.connection._ovc_ip)
 
     @mock.patch.object(Connection, 'login')
-    @mock.patch.dict('os.environ', OS_ENVIRON_CONFIG)
+    @mock.patch.dict('os.environ', {**OS_ENVIRON_CONFIG, **OS_ENVIRON_CREDENTIALS})
     def test_from_environment_variables(self, mock_login):
         OVC.from_environment_variables()
         mock_login.assert_called_once_with('simplicity', 'root')
 
-    @mock.patch.dict('os.environ', OS_ENVIRON_CONFIG)
+    @mock.patch.dict('os.environ', {**OS_ENVIRON_CONFIG, **OS_ENVIRON_CREDENTIALS})
     @mock.patch.object(OVC, '__init__')
     def test_from_environment_variables_is_passing_right_arguments_to_the_constructor(self, mock_cls):
         mock_cls.return_value = None
@@ -90,6 +94,25 @@ class OVCTest(unittest.TestCase):
                                           'ssl_certificate': 'certificate',
                                           'credentials': {'username': 'simplicity',
                                                           'password': 'root'}})
+
+    @mock.patch.object(Connection, 'login')
+    @mock.patch.dict('os.environ', OS_ENVIRON_CONFIG)
+    def test_missing_required_environment_variables_missing(self, mock_login):
+        with self.assertRaises(exceptions.HPESimpliVityException) as error:
+            OVC.from_environment_variables()
+
+        self.assertEqual(error.exception.msg, "Make sure you have set mandatory env variables \
+            (SIMPLIVITYSDK_OVC_IP, SIMPLIVITYSDK_USERNAME, SIMPLIVITYSDK_PASSWORD)")
+
+    @mock.patch.object(Connection, 'login')
+    def test_credentials_not_provided(self, mock_login):
+        print("targeted test")
+        config = {"ip": "172.0.0.1"}
+
+        with self.assertRaises(exceptions.HPESimpliVityException) as error:
+            OVC(config)
+
+        self.assertEqual(error.exception.msg, "Credentials not provided")
 
     def test_virtual_machines_has_right_type(self):
         self.assertIsInstance(self._ovc.virtual_machines, VirtualMachines)
