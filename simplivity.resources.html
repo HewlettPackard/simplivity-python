@@ -537,6 +537,20 @@ True: Only returns omnistack_clusters connected to Arbiters that you identified<
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features for SimpliVity Policy resources.</p>
 <dl class="method">
+<dt id="simplivity.resources.policies.Policies.create">
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">flags=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>create the new policy</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>flags: Dictionary of flags. Example: {‘cluster_group_id’: ‘cluster_group_id’}
+name : The name of the new policy created from this action.
+timeout : Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: Policy object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="simplivity.resources.policies.Policies.get_all">
 <code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all policies.</p>
