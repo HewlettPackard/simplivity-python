@@ -43,7 +43,7 @@ class Connection(object):
         self._password = None
         self._access_token = None
 
-        self._headers = {'Accept': 'application/vnd.simplivity.v1+json'}
+        self._headers = {'Accept': 'application/json'}
         self._base_url = "https://{}/api".format(ovc_ip)
         self.__connection = None
 

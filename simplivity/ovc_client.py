@@ -20,15 +20,15 @@ This module implements a common client for HPE SimpliVity resources.
 import json
 import os
 
-from simplivity.connection import Connection
 from simplivity import exceptions
-
-from simplivity.resources.virtual_machines import VirtualMachines
-from simplivity.resources.policies import Policies
-from simplivity.resources.datastores import Datastores
-from simplivity.resources.omnistack_clusters import OmnistackClusters
+from simplivity.connection import Connection
 from simplivity.resources.backups import Backups
+from simplivity.resources.cluster_groups import ClusterGroups
+from simplivity.resources.datastores import Datastores
 from simplivity.resources.hosts import Hosts
+from simplivity.resources.omnistack_clusters import OmnistackClusters
+from simplivity.resources.policies import Policies
+from simplivity.resources.virtual_machines import VirtualMachines
 
 
 class OVC(object):
@@ -42,7 +42,7 @@ class OVC(object):
             password = config["credentials"].get("password")
             self.__connection.login(username, password)
         else:
-            exceptions.HPESimpliVityException("Credentials not provided")
+            raise exceptions.HPESimpliVityException("Credentials not provided")
 
         self.__virtual_machines = None
         self.__policies = None
@@ -50,6 +50,7 @@ class OVC(object):
         self.__omnistack_clusters = None
         self.__backups = None
         self.__hosts = None
+        self.__cluster_groups = None
 
     @classmethod
     def from_json_file(cls, file_name):
@@ -82,7 +83,7 @@ class OVC(object):
         timeout = os.environ.get('SIMPLIVITYSDK_CONNECTION_TIMEOUT')
 
         if not ip or not username or not password:
-            raise exceptions.SimplivityExceptions("Make sure you have set mandatory env variables \
+            raise exceptions.HPESimpliVityException("Make sure you have set mandatory env variables \
             (SIMPLIVITYSDK_OVC_IP, SIMPLIVITYSDK_USERNAME, SIMPLIVITYSDK_PASSWORD)")
 
         config = dict(ip=ip,
@@ -173,3 +174,15 @@ class OVC(object):
         if not self.__hosts:
             self.__hosts = Hosts(self.__connection)
         return self.__hosts
+
+    @property
+    def cluster_groups(self):
+        """
+        Gets the cluster groups client.
+
+        Returns:
+            ClusterGroups object
+        """
+        if not self.__cluster_groups:
+            self.__cluster_groups = ClusterGroups(self.__connection)
+        return self.__cluster_groups
