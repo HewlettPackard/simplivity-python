@@ -88,6 +88,12 @@ datastore = datastores.get_by_name(datastore_object.data["name"])
 print(f"{datastore}")
 print(f"{pp.pformat(datastore.data)} \n")
 
+# Resize the datastore add 1 GB to existing size
+print("\n\nresize the datastore")
+datastore_size = datastore_object.data["size"] + 1073741824
+datastore_object = datastore_object.resize(datastore_size)
+print(f"{datastore_object}")
+print(f"{pp.pformat(datastore_object.data)} \n")
 
 print("\n\ndatastore delete")
 all_datastores = datastores.get_all()

@@ -156,3 +156,23 @@ class Datastore(object):
         resource_uri = "{}/{}".format(URL, self.data["id"])
         self._client.do_delete(resource_uri, timeout, None)
         self.data = None
+
+    def resize(self, size, timeout=-1):
+        """Resizes a datastore.
+
+        Args:
+            size: The size in bytes.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Datastore object.
+
+        """
+        resource_uri = "{}/{}/resize".format(URL, self.data["id"])
+        data = {"size": size}
+        out = self._client.do_post(resource_uri, data, timeout, None)
+        datastore = Datastores(self._connection)
+        datastore_obj = datastore.get_by_id(out[0]["object_id"])
+        self.data = datastore_obj.data
+
+        return self
