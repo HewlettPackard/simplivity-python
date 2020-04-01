@@ -86,7 +86,7 @@ class Policies(ResourceBase):
         """
         data = {"name": name}
 
-        affected_object = self._client.do_post(URL, data, timeout, flags)[0]
+        affected_object = self._client.do_post(URL, data, timeout, None, flags)[0]
         return self.get_by_id(affected_object["object_id"])
 
 
