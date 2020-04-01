@@ -48,6 +48,24 @@
 <dd><p>Deletes the specified backup</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="simplivity.resources.backups.Backup.restore">
+<code class="sig-name descname">restore</code><span class="sig-paren">(</span><em class="sig-param">restore_original</em>, <em class="sig-param">virtual_machine_name=None</em>, <em class="sig-param">datastore=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new virtual machine or replaces the original virtual machine from the specified backup</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>restore_original: If True, Resets the original virtual machine to the same state it was in when the backup was created</dt><dd><p>If False, Creates a new virtual machine from the backup with the provided name, optionally to a different datastore</p>
+</dd>
+</dl>
+<p>virtual_machine_name: The name of the new virtual machine created from this action.
+datastore: Destination datastore object/name.
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Virtual machine object</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">

@@ -48,6 +48,8 @@
 <span class="c1">##</span>
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">datastores</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">virtual_machines</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/backups&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;backups&#39;</span>
@@ -184,7 +186,37 @@
         <span class="sd">&quot;&quot;&quot;Deletes the specified backup&quot;&quot;&quot;</span>
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_delete</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Backup.restore"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backup.restore">[docs]</a>    <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restore_original</span><span class="p">,</span> <span class="n">virtual_machine_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new virtual machine or replaces the original virtual machine from the specified backup</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           restore_original: If True, Resets the original virtual machine to the same state it was in when the backup was created</span>
+<span class="sd">                             If False, Creates a new virtual machine from the backup with the provided name, optionally to a different datastore</span>
+<span class="sd">           virtual_machine_name: The name of the new virtual machine created from this action.</span>
+<span class="sd">           datastore: Destination datastore object/name.</span>
+<span class="sd">           timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">              Virtual machine object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/restore&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">restore_original</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;virtual_machine_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">virtual_machine_name</span>
+            <span class="k">if</span> <span class="n">datastore</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datastore</span><span class="p">,</span> <span class="n">datastores</span><span class="o">.</span><span class="n">Datastore</span><span class="p">):</span>
+                    <span class="c1"># if passed by datastore name</span>
+                    <span class="n">datastore_obj</span> <span class="o">=</span> <span class="n">datastores</span><span class="o">.</span><span class="n">Datastores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+                    <span class="n">datastore</span> <span class="o">=</span> <span class="n">datastore_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">datastore</span><span class="p">)</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;datastore_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datastore</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;restore_original&quot;</span><span class="p">:</span> <span class="n">restore_original</span><span class="p">}</span>
+        <span class="n">affected_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">virtual_machines_obj</span> <span class="o">=</span> <span class="n">virtual_machines</span><span class="o">.</span><span class="n">VirtualMachines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">virtual_machines_obj</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">affected_object</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span></div></div>
 </pre></div>
 
           </div>
