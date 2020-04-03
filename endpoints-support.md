@@ -11,11 +11,14 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups/delete  </sub>                                                             |POST      |
 |<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
 |     **Cluster Groups**
-|<sub>/cluster_groups  </sub>                                                             |POST      |
+|<sub>/cluster_groups  </sub>                                                             |GET       |
+|<sub>/backups/{bkpId}/restore  </sub>                                                    |POST      |
+>>>>>>> origin/master
 |     **Datastores**
 |<sub>/datastores	</sub>                                                                |GET       |
 |<sub>/datastores	</sub>                                                                |POST       |
 |<sub>/datastores/{datastoreId}  </sub>                                                   |DELETE    |
+|<sub>/datastores/{datastoreId}/resize  </sub>                                            |POST      |
 |     **Hosts**
 |<sub>/hosts	</sub>                                                                    |GET       |
 |<sub>/hosts/{hostId}/remove_from_federation  </sub>						|POST      |

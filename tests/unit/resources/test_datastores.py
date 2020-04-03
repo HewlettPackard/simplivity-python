@@ -160,6 +160,19 @@ class DatastoresTest(unittest.TestCase):
         datastore.delete()
         mock_delete.assert_called_once_with('/datastores/12345', custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_resize(self, mock_get, mock_post):
+        resource_data = [{'id': '12345', 'name': 'ds1', 'size': 2048}]
+        mock_get.return_value = {datastores.DATA_FIELD: resource_data}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        datastore_data = {'name': 'name1', 'id': '12345', 'size': 1024}
+        datastore = self.datastores.get_by_data(datastore_data)
+        datastore.resize(2048)
+        self.assertIsInstance(datastore, datastores.Datastore)
+        self.assertEqual(datastore.data, resource_data[0])
+        mock_post.assert_called_once_with('/datastores/12345/resize', {'size': 2048}, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
