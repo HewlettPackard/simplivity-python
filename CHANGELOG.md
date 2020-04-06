@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
     - endpoint support for /policies/{policyId} <DELETE>
     - endpoint support for /policies <POST>
+    - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - pull request template to facilitate pull requests
     - query string support for post operations
 
@@ -50,3 +51,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /virutal_machines/{vmId}/clone <POST>
     - endpoint support for /virutal_machines/{vmId}/move <POST>
     - endpoint support for /virutal_machines/{vmId}/set_policy <POST>
+	

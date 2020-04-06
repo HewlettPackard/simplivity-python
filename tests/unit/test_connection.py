@@ -33,7 +33,7 @@ class ConnectionTest(unittest.TestCase):
         self.new_content_type = {
             'Content-type': 'application/vnd.simplivity.v1.7+json'
         }
-        self.default_headers = {'Content-type': 'application/vnd.simplivity.v1.8+json',
+        self.default_headers = {'Content-type': 'application/vnd.simplivity.v1.11+json',
                                 'Authorization': 'Bearer 123456789',
                                 'Accept': 'application/vnd.simplivity.v1+json'}
 

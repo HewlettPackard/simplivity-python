@@ -71,7 +71,7 @@ class Connection(object):
             if not self._access_token:
                 raise exceptions.HPESimpliVityException("There is no active session, please login")
 
-            http_headers['Content-type'] = 'application/vnd.simplivity.v1.8+json'
+            http_headers['Content-type'] = 'application/vnd.simplivity.v1.11+json'
             http_headers['Authorization'] = "Bearer " + self._access_token
 
         # Updates default headers with the custom headers

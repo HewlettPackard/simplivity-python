@@ -273,6 +273,18 @@ class VirtualMachinesTest(unittest.TestCase):
         mock_post.assert_called_once_with('/virtual_machines/12345/set_policy',
                                           {'policy_id': 'policy12345'}, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_power_off(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {'virtual_machines': {'id': '12345'}}
+
+        vm1_data = {'name': 'name1', 'id': '12345'}
+        vm = self.machines.get_by_data(vm1_data)
+
+        vm.power_off()
+        mock_post.assert_called_once_with('/virtual_machines/12345/power_off', None, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

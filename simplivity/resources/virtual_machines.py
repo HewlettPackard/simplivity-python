@@ -323,3 +323,16 @@ class VirtualMachine(object):
         self.__refresh()
 
         return self
+
+    def power_off(self, timeout=5):
+        """Power off virtual machine.
+
+        Returns:
+            self: Returns the same object.
+        """
+        method_url = "{}/{}/power_off".format(URL, self.data["id"])
+
+        self._client.do_post(method_url, None, timeout, None)
+        self.__refresh()
+
+        return self
