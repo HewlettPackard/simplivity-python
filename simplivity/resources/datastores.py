@@ -151,6 +151,11 @@ class Datastore(object):
         self._connection = connection
         self._client = resource_client
 
+    def __refresh(self):
+        """Updates the datastore data."""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self.data = self._client.do_get(resource_uri)['datastore']
+
     def delete(self, timeout=-1):
         """Deletes a datastore."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
@@ -174,5 +179,27 @@ class Datastore(object):
         datastore = Datastores(self._connection)
         datastore_obj = datastore.get_by_id(out[0]["object_id"])
         self.data = datastore_obj.data
+
+        return self
+
+    def set_policy(self, policy, timeout=-1):
+        """Sets the backup policy for a datastore.
+
+        Args:
+            policy: Policy object/name
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Datastore object.
+
+        """
+        resource_uri = "{}/{}/set_policy".format(URL, self.data["id"])
+        if not isinstance(policy, policies.Policy):
+            # if passed name of the policy
+            policy = policies.Policies(self._connection).get_by_name(policy)
+
+        data = {"policy_id": policy.data['id']}
+        self._client.do_post(resource_uri, data, timeout, None)
+        self.__refresh()
 
         return self

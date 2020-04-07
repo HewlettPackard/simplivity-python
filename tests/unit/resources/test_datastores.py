@@ -173,6 +173,41 @@ class DatastoresTest(unittest.TestCase):
         self.assertEqual(datastore.data, resource_data[0])
         mock_post.assert_called_once_with('/datastores/12345/resize', {'size': 2048}, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_policy_with_policy_name(self, mock_get, mock_post):
+        resource_data = {'name': 'ds1', 'id': '12345', 'policy_id': '4567'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        policy_name = 'policy1'
+        mock_get.side_effect = [{'policies': [{'name': policy_name, 'id': '4567'}]},
+                                {'datastore': resource_data}]
+
+        datastore_data = {'name': 'ds1', 'id': '12345', 'policy_id': '7890'}
+        datastore = self.datastores.get_by_data(datastore_data)
+        datastore.set_policy(policy_name)
+        self.assertIsInstance(datastore, datastores.Datastore)
+        self.assertEqual(datastore.data, resource_data)
+
+        mock_post.assert_called_once_with('/datastores/12345/set_policy', {'policy_id': '4567'},
+                                          custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_policy_with_policy_obj(self, mock_get, mock_post):
+        resource_data = {'name': 'ds1', 'id': '12345', 'policy_id': '7890'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {'datastore': resource_data}
+        policy_obj = self.policies.get_by_data({'id': '4567', 'name': 'policy1'})
+
+        datastore_data = {'name': 'ds1', 'id': '12345', 'policy_id': '7890'}
+        datastore = self.datastores.get_by_data(datastore_data)
+        datastore.set_policy(policy_obj)
+        self.assertIsInstance(datastore, datastores.Datastore)
+        self.assertEqual(datastore.data, resource_data)
+
+        mock_post.assert_called_once_with('/datastores/12345/set_policy', {'policy_id': '4567'},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
