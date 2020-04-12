@@ -170,3 +170,8 @@ class Host(object):
 
         self._client.do_post(method_url, data, timeout, http_headers)
         self.data = None
+
+    def get_hardware(self):
+        """Retrieves the hardware information for the host"""
+        resource_uri = "{}/{}/hardware".format(URL, self.data["id"])
+        return self._client.do_get(resource_uri)
