@@ -111,5 +111,11 @@ policy.create_rules(single_rule)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
 
+print("\n\nget rule")
+all_rules = policy.data["rules"]
+for rule in all_rules:
+    rule_obj = policy.get_rule(rule.get('id'))
+    print(f"{pp.pformat(rule_obj)} \n")
+
 print("\n\ndelete policy")
 policy.delete()
