@@ -77,3 +77,7 @@ print(f"{pp.pformat(host.data)} \n")
 print("\n\nget hardware details for the host")
 host_hardware = host.get_hardware()
 print(f"{pp.pformat(host_hardware)} \n")
+
+print("\n\nget virtual controller shutdown status")
+virtual_controller_status = host.get_virtual_controller_shutdown_status()
+print(f"{pp.pformat(virtual_controller_status)} \n")

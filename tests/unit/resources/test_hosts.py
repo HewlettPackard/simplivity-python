@@ -128,12 +128,23 @@ class HostsTest(unittest.TestCase):
                                   "model_number": "ProLiant DL380 Gen9", "status": "GREEN",
                                   "host_id": "12345"
                                   }}
+
         mock_get.return_value = resource_data
         host_data = {"id": "12345"}
         host = self.hosts.get_by_data(host_data)
 
         hardware_data = host.get_hardware()
         self.assertEqual(hardware_data, resource_data)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_virtual_controller_shutdown_status(self, mock_get):
+        resource_data = {"shutdown_status": {"status": "NONE"}}
+        mock_get.return_value = resource_data
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        virtual_controller_status = host.get_virtual_controller_shutdown_status()
+        self.assertEqual(virtual_controller_status, resource_data)
 
 
 if __name__ == '__main__':
