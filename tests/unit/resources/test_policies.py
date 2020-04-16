@@ -156,6 +156,19 @@ class PoliciesTest(unittest.TestCase):
 
     @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
+    def test_create_policy_with_flags(self, mock_get, mock_post):
+        policy_name = 'policy0'
+        resource_data = [{'name': policy_name, 'id': '12345'}]
+        mock_get.return_value = {policies.DATA_FIELD: resource_data}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        policy = self.policies.create(policy_name, flags={'cluster_group_id': 'abcdefg'})
+        self.assertIsInstance(policy, policies.Policy)
+        self.assertEqual(policy.data, resource_data[0])
+        mock_post.assert_called_once_with('/policies?cluster_group_id=abcdefg', {'name': policy_name}, custom_headers=None)
+        
+        
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
     def test_create_multiple_rules(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': 'policy12345'}]
         resources_data = {"rules": [{"frequency": 5, "id": "12345", "retention": 1},
@@ -196,7 +209,6 @@ class PoliciesTest(unittest.TestCase):
         self.assertEqual(policy_obj.data, resources_data)
         mock_post.assert_called_once_with('/policies/policy12345/rules?replace_all_rules=False', [rules],
                                           custom_headers=None)
-
-
+        
 if __name__ == '__main__':
     unittest.main()
