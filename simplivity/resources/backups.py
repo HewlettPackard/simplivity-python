@@ -15,6 +15,8 @@
 ##
 
 from simplivity.resources.resource import ResourceBase
+from simplivity.resources import datastores
+from simplivity.resources import virtual_machines
 
 URL = '/backups'
 DATA_FIELD = 'backups'
@@ -152,3 +154,33 @@ class Backup(object):
         resource_uri = "{}/{}".format(URL, self.data["id"])
         self._client.do_delete(resource_uri, timeout, None)
         self.data = None
+
+    def restore(self, restore_original, virtual_machine_name=None, datastore=None, timeout=-1):
+        """Creates a new virtual machine or replaces the original virtual machine from the specified backup
+
+        Args:
+           restore_original: If True, Resets the original virtual machine to the same state it was in when the backup was created
+                             If False, Creates a new virtual machine from the backup with the provided name, optionally to a different datastore
+           virtual_machine_name: The name of the new virtual machine created from this action.
+           datastore: Destination datastore object/name.
+           timeout: Time out for the request in seconds.
+
+        Returns:
+              Virtual machine object
+
+        """
+        resource_uri = "{}/{}/restore".format(URL, self.data["id"])
+        data = {}
+        if not restore_original:
+            data["virtual_machine_name"] = virtual_machine_name
+            if datastore:
+                if not isinstance(datastore, datastores.Datastore):
+                    # if passed by datastore name
+                    datastore_obj = datastores.Datastores(self._connection)
+                    datastore = datastore_obj.get_by_name(datastore)
+                data["datastore_id"] = datastore.data["id"]
+
+        flags = {"restore_original": restore_original}
+        affected_object = self._client.do_post(resource_uri, data, timeout, None, flags)[0]
+        virtual_machines_obj = virtual_machines.VirtualMachines(self._connection)
+        return virtual_machines_obj.get_by_id(affected_object["object_id"])
