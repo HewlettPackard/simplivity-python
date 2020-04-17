@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>simplivity.resources.omnistack_clusters &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
+    <title>simplivity.resources.cluster_groups &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -30,9 +30,9 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for simplivity.resources.omnistack_clusters</h1><div class="highlight"><pre>
+  <h1>Source code for simplivity.resources.cluster_groups</h1><div class="highlight"><pre>
 <span></span><span class="c1">###</span>
-<span class="c1"># (C) Copyright [2019] Hewlett Packard Enterprise Development LP</span>
+<span class="c1"># (C) Copyright [2020] Hewlett Packard Enterprise Development LP</span>
 <span class="c1">#</span>
 <span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="c1"># you may not use this file except in compliance with the License.</span>
@@ -49,20 +49,20 @@
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
 
-<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/omnistack_clusters&#39;</span>
-<span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;omnistack_clusters&#39;</span>
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/cluster_groups&#39;</span>
+<span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;cluster_groups&#39;</span>
 
 
-<div class="viewcode-block" id="OmnistackClusters"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackClusters">[docs]</a><span class="k">class</span> <span class="nc">OmnistackClusters</span><span class="p">(</span><span class="n">ResourceBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Implements features available for OmniStack cluster resources.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ClusterGroups"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups">[docs]</a><span class="k">class</span> <span class="nc">ClusterGroups</span><span class="p">(</span><span class="n">ResourceBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features available for cluster group resources.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">OmnistackClusters</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ClusterGroups</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OmnistackClusters.get_all"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackClusters.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pagination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<div class="viewcode-block" id="ClusterGroups.get_all"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pagination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                 <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_optional_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets all omnistack clusters.</span>
+        <span class="sd">&quot;&quot;&quot;Gets all cluster groups.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pagination: True if need pagination</span>
@@ -78,34 +78,6 @@
 <span class="sd">              name: The name of the omnistack_clusters to return</span>
 <span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more</span>
 <span class="sd">                asterisk characters as a wildcard</span>
-<span class="sd">              hypervisor_object_id: The unique identifier (UID) of the hypervisor associated</span>
-<span class="sd">                with the objects to return</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              hypervisor_object_parent_id: The unique identifier (UID) of the hypervisor that</span>
-<span class="sd">                contains the objects to return</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              hypervisor_object_parent_name: The name of the hypervisor that contains the objects</span>
-<span class="sd">                to return</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              hypervisor_management_system_name: The name of the hypervisor associated with the</span>
-<span class="sd">                omnistack_cluster</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              type: The type of omnistack_clusters to return</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              arbiter_address: The address of the Arbiter connected to the objects to return</span>
-<span class="sd">                Accepts: Single value, comma-separated list, pattern using one or more asterisk</span>
-<span class="sd">                characters as a wildcard</span>
-<span class="sd">              arbiter_connected: An indicator to show if the omnistack_cluster is connected to Arbiter</span>
-<span class="sd">                Valid values:</span>
-<span class="sd">                True: Only returns omnistack_clusters connected to Arbiters that you identified</span>
-<span class="sd">                  in arbiter_address</span>
-<span class="sd">                False: Only returns omnistack_clusters not connected to Arbiters that you identified</span>
-<span class="sd">                  in arbiter_address</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          list: list of OmnistackCluster</span>
@@ -123,21 +95,21 @@
                                     <span class="n">case_sensitive</span><span class="o">=</span><span class="n">case_sensitive</span><span class="p">,</span>
                                     <span class="n">show_optional_fields</span><span class="o">=</span><span class="n">show_optional_fields</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OmnistackClusters.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets OmnistackCluster object from data.</span>
+<div class="viewcode-block" id="ClusterGroups.get_by_data"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups.get_by_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets ClusterGroup object from data.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            data: OmnistackCluster data</span>
+<span class="sd">            data: ClusterGroup data</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            object: OmnistackCluster object.</span>
+<span class="sd">            object: ClusterGroup object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">OmnistackCluster</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">ClusterGroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="OmnistackCluster"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackCluster">[docs]</a><span class="k">class</span> <span class="nc">OmnistackCluster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Implements features available for single OmniStack cluster resource.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ClusterGroup"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroup">[docs]</a><span class="k">class</span> <span class="nc">ClusterGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements features available for single cluster group resource.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>

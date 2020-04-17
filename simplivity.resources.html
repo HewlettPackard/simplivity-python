@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>simplivity.resources package &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
@@ -37,20 +37,20 @@
 </div>
 <div class="section" id="module-simplivity.resources.backups">
 <span id="simplivity-resources-backups-module"></span><h2>simplivity.resources.backups module<a class="headerlink" href="#module-simplivity.resources.backups" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.backups.Backup">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backup</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single Backup resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backup.delete">
-<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the specified backup</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backup.restore">
-<code class="sig-name descname">restore</code><span class="sig-paren">(</span><em class="sig-param">restore_original</em>, <em class="sig-param">virtual_machine_name=None</em>, <em class="sig-param">datastore=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.restore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">restore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">restore_original</span></em>, <em class="sig-param"><span class="n">virtual_machine_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">datastore</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.restore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new virtual machine or replaces the original virtual machine from the specified backup</p>
 <dl>
 <dt>Args:</dt><dd><dl class="simple">
@@ -68,14 +68,14 @@ timeout: Time out for the request in seconds.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.backups.Backups">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backups</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.backups.</code><code class="sig-name descname">Backups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features available for SimpliVity Backup resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backups.delete_multiple_backups">
-<code class="sig-name descname">delete_multiple_backups</code><span class="sig-paren">(</span><em class="sig-param">backups</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.delete_multiple_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.delete_multiple_backups" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delete_multiple_backups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backups</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.delete_multiple_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.delete_multiple_backups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a list of backups.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>backups: list of backup objects</p>
@@ -83,9 +83,9 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backups.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all backups.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -174,9 +174,9 @@ consistency_type: The consistency type of the backups to return</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backups.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Backup object from backup data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: Backup data</p>
@@ -189,22 +189,81 @@ consistency_type: The consistency type of the backups to return</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-simplivity.resources.cluster_groups">
+<span id="simplivity-resources-cluster-groups-module"></span><h2>simplivity.resources.cluster_groups module<a class="headerlink" href="#module-simplivity.resources.cluster_groups" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simplivity.resources.cluster_groups.ClusterGroup">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.cluster_groups.</code><code class="sig-name descname">ClusterGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/cluster_groups.html#ClusterGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for single cluster group resource.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="simplivity.resources.cluster_groups.ClusterGroups">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.cluster_groups.</code><code class="sig-name descname">ClusterGroups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/cluster_groups.html#ClusterGroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for cluster group resources.</p>
+<dl class="py method">
+<dt id="simplivity.resources.cluster_groups.ClusterGroups.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/cluster_groups.html#ClusterGroups.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroups.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all cluster groups.</p>
+<dl>
+<dt>Args:</dt><dd><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs.
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>id: The unique identifier (UID) of the omnistack_clusters to return</dt><dd><p>Accepts: Single value, comma-separated list</p>
+</dd>
+<dt>name: The name of the omnistack_clusters to return</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more
+asterisk characters as a wildcard</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>list: list of OmnistackCluster</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simplivity.resources.cluster_groups.ClusterGroups.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/cluster_groups.html#ClusterGroups.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroups.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets ClusterGroup object from data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: ClusterGroup data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: ClusterGroup object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-simplivity.resources.datastores">
 <span id="simplivity-resources-datastores-module"></span><h2>simplivity.resources.datastores module<a class="headerlink" href="#module-simplivity.resources.datastores" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.datastores.Datastore">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastore</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Datastore resource.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.datastores.Datastore.delete">
-<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a datastore.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.datastores.Datastore.resize">
-<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore.resize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastore.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastore.resize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizes a datastore.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>size: The size in bytes.
@@ -217,14 +276,14 @@ timeout: Time out for the request in seconds.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.datastores.Datastores">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastores</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.datastores.</code><code class="sig-name descname">Datastores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features available for SimpliVity Datastore resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.datastores.Datastores.create">
-<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">datastore_name</em>, <em class="sig-param">cluster</em>, <em class="sig-param">policy</em>, <em class="sig-param">size=0</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datastore_name</span></em>, <em class="sig-param"><span class="n">cluster</span></em>, <em class="sig-param"><span class="n">policy</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new datastore.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>datastore_name: The name of the new datastore created from this action.
@@ -238,9 +297,9 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.datastores.Datastores.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all datastores.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -304,9 +363,9 @@ Accepts: Single value, comma-separated list</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.datastores.Datastores.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/datastores.html#Datastores.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.datastores.Datastores.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Datastore object from data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: Datastore data</p>
@@ -321,14 +380,14 @@ Accepts: Single value, comma-separated list</p>
 </div>
 <div class="section" id="module-simplivity.resources.hosts">
 <span id="simplivity-resources-hosts-module"></span><h2>simplivity.resources.hosts module<a class="headerlink" href="#module-simplivity.resources.hosts" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.hosts.Host">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Host</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Host</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Host resource.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.hosts.Host.remove">
-<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param">force=False</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.remove" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes the specified host from the federation.</p>
 <dl>
 <dt>Args:</dt><dd><dl>
@@ -348,14 +407,14 @@ Accepts: Single value, comma-separated list</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.hosts.Hosts">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Hosts</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Hosts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features available for SimpliVity Host resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.hosts.Hosts.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all hosts.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -453,9 +512,9 @@ False: The current HPE OmniStack software for the host cannot roll back to the p
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.hosts.Hosts.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Hosts.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Hosts.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Host object from host data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: host data</p>
@@ -470,21 +529,21 @@ False: The current HPE OmniStack software for the host cannot roll back to the p
 </div>
 <div class="section" id="module-simplivity.resources.omnistack_clusters">
 <span id="simplivity-resources-omnistack-clusters-module"></span><h2>simplivity.resources.omnistack_clusters module<a class="headerlink" href="#module-simplivity.resources.omnistack_clusters" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackCluster">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackCluster</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackCluster</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single OmniStack cluster resource.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackClusters">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackClusters</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackClusters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features available for OmniStack cluster resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackClusters.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all omnistack clusters.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -544,9 +603,9 @@ True: Only returns omnistack_clusters connected to Arbiters that you identified<
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackClusters.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackClusters.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets OmnistackCluster object from data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: OmnistackCluster data</p>
@@ -562,14 +621,14 @@ True: Only returns omnistack_clusters connected to Arbiters that you identified<
 <div class="section" id="module-simplivity.resources.policies">
 <span id="simplivity-resources-policies-module"></span><h2>simplivity.resources.policies module<a class="headerlink" href="#module-simplivity.resources.policies" title="Permalink to this headline">¶</a></h2>
 <p>Implements operations for policies.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.policies.Policies">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policies</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features for SimpliVity Policy resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policies.create">
-<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">flags=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>create the new policy</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>flags: Dictionary of flags. Example: {‘cluster_group_id’: ‘cluster_group_id’}
@@ -581,9 +640,9 @@ timeout : Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policies.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all policies.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -610,9 +669,9 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policies.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Policy object from data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: Policy data</p>
@@ -624,18 +683,18 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.policies.Policy">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policy</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single Policy resource.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policy.delete">
-<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a policy</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policy.get_vms">
 <code class="sig-name descname">get_vms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.get_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.get_vms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the virtual machines using this policy.</p>
@@ -651,12 +710,12 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 <div class="section" id="module-simplivity.resources.resource">
 <span id="simplivity-resources-resource-module"></span><h2>simplivity.resources.resource module<a class="headerlink" href="#module-simplivity.resources.resource" title="Permalink to this headline">¶</a></h2>
 <p>Implements helper methods for the resource classes.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.resource.Pagination">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">Pagination</code><span class="sig-paren">(</span><em class="sig-param">con</em>, <em class="sig-param">url</em>, <em class="sig-param">resource_obj</em>, <em class="sig-param">params</em>, <em class="sig-param">members_field</em>, <em class="sig-param">page_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">Pagination</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">con</span></em>, <em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">resource_obj</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">members_field</span></em>, <em class="sig-param"><span class="n">page_size</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements pagination features for get_all method.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.Pagination.next_page">
 <code class="sig-name descname">next_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination.next_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination.next_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets next page.</p>
@@ -667,7 +726,7 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.Pagination.previous_page">
 <code class="sig-name descname">previous_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#Pagination.previous_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.Pagination.previous_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets previous page.</p>
@@ -680,14 +739,14 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.resource.ResourceBase">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceBase</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements base class for resource classes.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceBase.get_by_id">
-<code class="sig-name descname">get_by_id</code><span class="sig-paren">(</span><em class="sig-param">resource_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets resource by id.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>id: ID of the resource</p>
@@ -699,9 +758,9 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceBase.get_by_name">
-<code class="sig-name descname">get_by_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceBase.get_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceBase.get_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets resource by name.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>name: Name of the resource</p>
@@ -715,14 +774,14 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.resource.ResourceClient">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceClient</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">ResourceClient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_obj</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements helper methods for resource classes.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_delete">
-<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes delete requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource
@@ -734,9 +793,9 @@ custom_headers: Allows to set custom http headers.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_get">
-<code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param">uri</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes get requests</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource</p>
@@ -746,9 +805,9 @@ custom_headers: Allows to set custom http headers.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_post">
-<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em>, <em class="sig-param">flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes post requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource.
@@ -762,9 +821,9 @@ custom_headers: Allows to add custom http headers.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_put">
-<code class="sig-name descname">do_put</code><span class="sig-paren">(</span><em class="sig-param">uri</em>, <em class="sig-param">data</em>, <em class="sig-param">timeout</em>, <em class="sig-param">custom_headers</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_put" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes put requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource
@@ -777,9 +836,9 @@ custom_headers: Allows to set custom http headers.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">resource_url</em>, <em class="sig-param">members_field=None</em>, <em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource_url</span></em>, <em class="sig-param"><span class="n">members_field</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all resources.</p>
 <dl>
 <dt>Args:</dt><dd><p>resource_url: URL of the resource
@@ -805,9 +864,9 @@ case_sensitive: An indicator that specifies if the filter and sort results</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.task_affected_resources">
-<code class="sig-name descname">task_affected_resources</code><span class="sig-paren">(</span><em class="sig-param">task</em>, <em class="sig-param">timeout</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.task_affected_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.task_affected_resources" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">task_affected_resources</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task</span></em>, <em class="sig-param"><span class="n">timeout</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.task_affected_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.task_affected_resources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handles asynchronous calls.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>task: Task data retunrned by a REST call
@@ -820,9 +879,9 @@ timeout: Timeout value</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="simplivity.resources.resource.build_uri_with_query_string">
-<code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">build_uri_with_query_string</code><span class="sig-paren">(</span><em class="sig-param">base_url</em>, <em class="sig-param">kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#build_uri_with_query_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.build_uri_with_query_string" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">simplivity.resources.resource.</code><code class="sig-name descname">build_uri_with_query_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_url</span></em>, <em class="sig-param"><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#build_uri_with_query_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.build_uri_with_query_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates URL using base url and the parameters.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>base_url: URL string.
@@ -837,12 +896,12 @@ kwargs: Dictionary of parameters</p>
 <div class="section" id="module-simplivity.resources.tasks">
 <span id="simplivity-resources-tasks-module"></span><h2>simplivity.resources.tasks module<a class="headerlink" href="#module-simplivity.resources.tasks" title="Permalink to this headline">¶</a></h2>
 <p>Implements operations for task.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.tasks.Task">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.tasks.</code><code class="sig-name descname">Task</code><span class="sig-paren">(</span><em class="sig-param">con</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.tasks.</code><code class="sig-name descname">Task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">con</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements operations for task.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.tasks.Task.get_affected_resources">
 <code class="sig-name descname">get_affected_resources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.get_affected_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.get_affected_resources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a resource associated with a task.</p>
@@ -854,13 +913,13 @@ kwargs: Dictionary of parameters</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.tasks.Task.get_current_seconds">
 <em class="property">static </em><code class="sig-name descname">get_current_seconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.get_current_seconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.get_current_seconds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns current time.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.tasks.Task.is_task_running">
 <code class="sig-name descname">is_task_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.is_task_running"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.is_task_running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if a task is running according to: TASK_PENDING_STATES</p>
@@ -870,7 +929,7 @@ kwargs: Dictionary of parameters</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.tasks.Task.update_status">
 <code class="sig-name descname">update_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.update_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.update_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a task by its uri.</p>
@@ -880,9 +939,9 @@ kwargs: Dictionary of parameters</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.tasks.Task.wait_for_task">
-<code class="sig-name descname">wait_for_task</code><span class="sig-paren">(</span><em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.wait_for_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.wait_for_task" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">wait_for_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/tasks.html#Task.wait_for_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.tasks.Task.wait_for_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for task execution and return affected resources.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>timeout: timeout in seconds</p>
@@ -898,14 +957,14 @@ kwargs: Dictionary of parameters</p>
 <div class="section" id="module-simplivity.resources.virtual_machines">
 <span id="simplivity-resources-virtual-machines-module"></span><h2>simplivity.resources.virtual_machines module<a class="headerlink" href="#module-simplivity.resources.virtual_machines" title="Permalink to this headline">¶</a></h2>
 <p>Implements features available for Virtual Machine resource.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachine</code><span class="sig-paren">(</span><em class="sig-param">connection</em>, <em class="sig-param">resource_client</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single VM.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.clone">
-<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param">new_vm_name</em>, <em class="sig-param">app_consistent=False</em>, <em class="sig-param">datastore=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.clone" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_vm_name</span></em>, <em class="sig-param"><span class="n">app_consistent</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">datastore</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.clone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clones a virtual machine.</p>
 <dl>
 <dt>Args:</dt><dd><p>new_vm_name: The name of the virtual_machine created from this action.
@@ -924,9 +983,9 @@ app_consistent: An indicator to show if the backup represents a snapshot</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.create_backup">
-<code class="sig-name descname">create_backup</code><span class="sig-paren">(</span><em class="sig-param">backup_name</em>, <em class="sig-param">cluster=None</em>, <em class="sig-param">app_consistent=False</em>, <em class="sig-param">consistency_type=None</em>, <em class="sig-param">retention=0</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.create_backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.create_backup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_backup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backup_name</span></em>, <em class="sig-param"><span class="n">cluster</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app_consistent</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">consistency_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">retention</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.create_backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.create_backup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Backs up a virtual machine.</p>
 <dl>
 <dt>Args:</dt><dd><p>backup_name: The name of the new backup created from this action.
@@ -944,7 +1003,7 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.get_backups">
 <code class="sig-name descname">get_backups</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.get_backups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.get_backups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves all backups associated with this virtual_machine.</p>
@@ -954,9 +1013,9 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.move">
-<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">new_vm_name</em>, <em class="sig-param">datastore</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.move" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_vm_name</span></em>, <em class="sig-param"><span class="n">datastore</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves a virtual machine to another datastore.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>new_vm_name: Name of the new vm
@@ -968,9 +1027,9 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters">
-<code class="sig-name descname">set_backup_parameters</code><span class="sig-paren">(</span><em class="sig-param">guest_username</em>, <em class="sig-param">guest_password</em>, <em class="sig-param">override_guest_validation=False</em>, <em class="sig-param">app_aware_type=None</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_backup_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_backup_parameters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">guest_username</span></em>, <em class="sig-param"><span class="n">guest_password</span></em>, <em class="sig-param"><span class="n">override_guest_validation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">app_aware_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_backup_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_backup_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the virtual machine backup parameters used for application consistent backups.</p>
 <dl>
 <dt>Args:</dt><dd><p>guest_username: Username of the virtual machine.
@@ -989,9 +1048,9 @@ NONE - Application-consistent backup using a VMware snapshot</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.set_policy">
-<code class="sig-name descname">set_policy</code><span class="sig-paren">(</span><em class="sig-param">policy</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_policy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.set_policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.set_policy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the backup policy for virtual machine.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>policy: Policy object/name
@@ -1004,14 +1063,14 @@ timeout: Time out for the request in seconds.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="simplivity.resources.virtual_machines.VirtualMachines">
-<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachines</code><span class="sig-paren">(</span><em class="sig-param">connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.virtual_machines.</code><code class="sig-name descname">VirtualMachines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
 <p>Implements features for SympliVity VM resources.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachines.get_all">
-<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param">pagination=False</em>, <em class="sig-param">page_size=0</em>, <em class="sig-param">limit=500</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">sort=None</em>, <em class="sig-param">order='descending'</em>, <em class="sig-param">filters=None</em>, <em class="sig-param">fields=None</em>, <em class="sig-param">case_sensitive=True</em>, <em class="sig-param">show_optional_fields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_optional_fields</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all vms.</p>
 <dl>
 <dt>Args:</dt><dd><p>pagination: True if need pagination
@@ -1095,9 +1154,9 @@ and hypervisor_is_template.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachines.get_by_data">
-<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_by_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.get_by_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets VM object from VM data.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>data: VM data</p>
@@ -1107,9 +1166,9 @@ and hypervisor_is_template.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms">
-<code class="sig-name descname">set_policy_for_multiple_vms</code><span class="sig-paren">(</span><em class="sig-param">policy</em>, <em class="sig-param">vms</em>, <em class="sig-param">timeout=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.set_policy_for_multiple_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_policy_for_multiple_vms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em>, <em class="sig-param"><span class="n">vms</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.set_policy_for_multiple_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the backup policy for virtual machines.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>vms: list of vm objects
@@ -1177,7 +1236,7 @@ policy: policy object</p>
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

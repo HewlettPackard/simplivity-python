@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Index &#8212; HPE SimpliVity Python SDK v1.0.0 documentation</title>
@@ -76,12 +76,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.clone">clone() (simplivity.resources.virtual_machines.VirtualMachine method)</a>
 </li>
+      <li><a href="simplivity.html#simplivity.ovc_client.OVC.cluster_groups">cluster_groups() (simplivity.ovc_client.OVC property)</a>
+</li>
+      <li><a href="simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroup">ClusterGroup (class in simplivity.resources.cluster_groups)</a>
+</li>
+      <li><a href="simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups">ClusterGroups (class in simplivity.resources.cluster_groups)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simplivity.html#simplivity.connection.Connection">Connection (class in simplivity.connection)</a>
 </li>
       <li><a href="simplivity.html#simplivity.ovc_client.OVC.connection">connection() (simplivity.ovc_client.OVC property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simplivity.resources.html#simplivity.resources.datastores.Datastores.create">create() (simplivity.resources.datastores.Datastores method)</a>
 
       <ul>
@@ -151,6 +157,8 @@
       <li><a href="simplivity.resources.html#simplivity.resources.backups.Backups.get_all">get_all() (simplivity.resources.backups.Backups method)</a>
 
       <ul>
+        <li><a href="simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups.get_all">(simplivity.resources.cluster_groups.ClusterGroups method)</a>
+</li>
         <li><a href="simplivity.resources.html#simplivity.resources.datastores.Datastores.get_all">(simplivity.resources.datastores.Datastores method)</a>
 </li>
         <li><a href="simplivity.resources.html#simplivity.resources.hosts.Hosts.get_all">(simplivity.resources.hosts.Hosts method)</a>
@@ -171,6 +179,8 @@
       <li><a href="simplivity.resources.html#simplivity.resources.backups.Backups.get_by_data">get_by_data() (simplivity.resources.backups.Backups method)</a>
 
       <ul>
+        <li><a href="simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroups.get_by_data">(simplivity.resources.cluster_groups.ClusterGroups method)</a>
+</li>
         <li><a href="simplivity.resources.html#simplivity.resources.datastores.Datastores.get_by_data">(simplivity.resources.datastores.Datastores method)</a>
 </li>
         <li><a href="simplivity.resources.html#simplivity.resources.hosts.Hosts.get_by_data">(simplivity.resources.hosts.Hosts method)</a>
@@ -241,6 +251,41 @@
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="simplivity.html#module-simplivity">simplivity</a>
+</li>
+        <li><a href="simplivity.html#module-simplivity.connection">simplivity.connection</a>
+</li>
+        <li><a href="simplivity.html#module-simplivity.exceptions">simplivity.exceptions</a>
+</li>
+        <li><a href="simplivity.html#module-simplivity.ovc_client">simplivity.ovc_client</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources">simplivity.resources</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.backups">simplivity.resources.backups</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.cluster_groups">simplivity.resources.cluster_groups</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.datastores">simplivity.resources.datastores</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.hosts">simplivity.resources.hosts</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.omnistack_clusters">simplivity.resources.omnistack_clusters</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.policies">simplivity.resources.policies</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.resource">simplivity.resources.resource</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.tasks">simplivity.resources.tasks</a>
+</li>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.virtual_machines">simplivity.resources.virtual_machines</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.move">move() (simplivity.resources.virtual_machines.VirtualMachine method)</a>
 </li>
@@ -320,34 +365,106 @@
 </li>
       <li><a href="simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms">set_policy_for_multiple_vms() (simplivity.resources.virtual_machines.VirtualMachines method)</a>
 </li>
-      <li><a href="simplivity.html#module-simplivity">simplivity (module)</a>
+      <li>
+    simplivity
+
+      <ul>
+        <li><a href="simplivity.html#module-simplivity">module</a>
 </li>
-      <li><a href="simplivity.html#module-simplivity.connection">simplivity.connection (module)</a>
+      </ul></li>
+      <li>
+    simplivity.connection
+
+      <ul>
+        <li><a href="simplivity.html#module-simplivity.connection">module</a>
 </li>
-      <li><a href="simplivity.html#module-simplivity.exceptions">simplivity.exceptions (module)</a>
+      </ul></li>
+      <li>
+    simplivity.exceptions
+
+      <ul>
+        <li><a href="simplivity.html#module-simplivity.exceptions">module</a>
 </li>
-      <li><a href="simplivity.html#module-simplivity.ovc_client">simplivity.ovc_client (module)</a>
+      </ul></li>
+      <li>
+    simplivity.ovc_client
+
+      <ul>
+        <li><a href="simplivity.html#module-simplivity.ovc_client">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources">simplivity.resources (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources">module</a>
 </li>
+      </ul></li>
+      <li>
+    simplivity.resources.backups
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.backups">module</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.backups">simplivity.resources.backups (module)</a>
+      <li>
+    simplivity.resources.cluster_groups
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.cluster_groups">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.datastores">simplivity.resources.datastores (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.datastores
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.datastores">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.hosts">simplivity.resources.hosts (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.hosts
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.hosts">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.omnistack_clusters">simplivity.resources.omnistack_clusters (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.omnistack_clusters
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.omnistack_clusters">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.policies">simplivity.resources.policies (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.policies
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.policies">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.resource">simplivity.resources.resource (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.resource
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.resource">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.tasks">simplivity.resources.tasks (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.tasks
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.tasks">module</a>
 </li>
-      <li><a href="simplivity.resources.html#module-simplivity.resources.virtual_machines">simplivity.resources.virtual_machines (module)</a>
+      </ul></li>
+      <li>
+    simplivity.resources.virtual_machines
+
+      <ul>
+        <li><a href="simplivity.resources.html#module-simplivity.resources.virtual_machines">module</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -445,7 +562,7 @@
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
