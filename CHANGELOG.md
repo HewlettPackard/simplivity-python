@@ -11,23 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /backups/delete <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
     - endpoint support for /backups/{bkpId}/restore <POST>
+    - endpoint support for /cluster_groups <GET>
     - endpoint support for /datastore <POST>
     - endpoint support for /datastore/{datastoreId} <DELETE>
     - endpoint support for /datastore/{datastoreId}/resize <POST>
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
-    - endpoint support for /policies/{policyId} <DELETE>
     - endpoint support for /policies <POST>
+    - endpoint support for /policies/{policyId} <DELETE>
+    - missing ovc client host unit tests to improve code coverage
     - pull request template to facilitate pull requests
     - query string support for post operations
 
 ### Changed
     - address unittest.assertequals deprecation warning within unit test cases
+    - default accept header to application/json
     - leverage pprint in the ./examples/datastores.py to improve the overall readability of the output
     - policy test cases to improve the existing code coverage metrics
     - reformat existing docstrings to conform to Sphinx documentation requirements
     - rename the unit test filenames to reflect which objects were being targeted
+    - static ip address within a unit test to the loopback ip address
 
 ### Fixed
+    - exception handling within the ovc client module
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
     - url encode query string to support values that contain spaces
