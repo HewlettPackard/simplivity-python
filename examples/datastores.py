@@ -95,13 +95,27 @@ datastore_object = datastore_object.resize(datastore_size)
 print(f"{datastore_object}")
 print(f"{pp.pformat(datastore_object.data)} \n")
 
+# Set policy to the datastore
+print("\n\nset policy on the datastore")
+policy_object = policies.create("fixed_retention_policy")
+print(f"{policy_object}")
+print(f"{pp.pformat(policy_object.data)} \n")
+
+datastore_object.set_policy(policy_object)
+print(f"{datastore_object}")
+print(f"{pp.pformat(datastore_object.data)} \n")
+
 print("\n\ndatastore delete")
 all_datastores = datastores.get_all()
 count = len(all_datastores)
 print(f"Total number of datastores before delete: {count} \n")
 datastore_object.delete()
+
+# delete the new policy created
+policy_object.delete()
 print(f"{datastore_object}")
 print(f"{pp.pformat(datastore_object.data)} \n")
+
 all_datastores = datastores.get_all()
 count = len(all_datastores)
 print(f"Total number of datastores after delete: {count}")
