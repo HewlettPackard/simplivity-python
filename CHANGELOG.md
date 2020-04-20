@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /datastore/{datastoreId}/resize <POST>
     - endpoint support for /datastore/{datastoreId}/set_policy <POST>
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
+    - endpoint support for /hosts/{hostId}/hardware <GET>
     - endpoint support for /policies <POST>
     - endpoint support for /policies/{policyId} <DELETE>
     - missing ovc client host unit tests to improve code coverage

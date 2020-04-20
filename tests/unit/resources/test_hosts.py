@@ -122,6 +122,19 @@ class HostsTest(unittest.TestCase):
             custom_headers={"Content-type": "application/vnd.simplivity.v1.9+json"},
         )
 
+    @mock.patch.object(Connection, "get")
+    def test_get_hardware(self, mock_get):
+        resource_data = {"host": {"serial_number": "abcdef", "manufacturer": "HPE",
+                                  "model_number": "ProLiant DL380 Gen9", "status": "GREEN",
+                                  "host_id": "12345"
+                                  }}
+        mock_get.return_value = resource_data
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        hardware_data = host.get_hardware()
+        self.assertEqual(hardware_data, resource_data)
+
 
 if __name__ == '__main__':
     unittest.main()

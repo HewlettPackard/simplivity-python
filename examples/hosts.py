@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import pprint
 
 from simplivity.ovc_client import OVC
 from simplivity.exceptions import HPESimpliVityException
@@ -25,43 +26,54 @@ config = {
     }
 }
 
+pp = pprint.PrettyPrinter(indent=4)
+
 ovc = OVC(config)
 hosts = ovc.hosts
 
-print("\n\n get_all with default params")
+print("\n\nget_all with default params")
 all_hosts = hosts.get_all()
 count = len(all_hosts)
 for host in all_hosts:
-    print(host.data)
+    print(f"{host}")
+    print(f"{pp.pformat(host.data)} \n")
 
-print("\nTotal number of hosts {}".format(count))
+print("\n\nTotal number of hosts {}".format(count))
 host_object = all_hosts[0]
 
-print("\n\n get_all with filers")
+print("\n\nget_all with filters")
 all_hosts = hosts.get_all(filters={'name': host_object.data["name"]})
 count = len(all_hosts)
 for host in all_hosts:
-    print(host.data)
+    print(f"{host}")
+    print(f"{pp.pformat(host.data)} \n")
 
-print("\n Total number of hosts {}".format(count))
+print("\n\nTotal number of hosts {}".format(count))
 
-print("\n\n get_all with pagination")
+print("\n\nget_all with pagination")
 pagination = hosts.get_all(limit=105, pagination=True, page_size=50)
 end = False
 while not end:
     data = pagination.data
-    print("Page size:", len(data["resources"]))
-    print(data)
+    count = len(data["resources"])
+    print(f"Page size: {count}")
+    print(f"{pp.pformat(data)}")
 
     try:
         pagination.next_page()
     except HPESimpliVityException:
         end = True
 
-print("\n\n get_by_id")
-hosst = hosts.get_by_id(host_object.data["id"])
-print(host, host.data)
+print("\n\nget_by_id")
+host = hosts.get_by_id(host_object.data["id"])
+print(f"{host}")
+print(f"{pp.pformat(host.data)} \n")
 
-print("\n\n get_by_name")
+print("\n\nget_by_name")
 host = hosts.get_by_name(host_object.data["name"])
-print(host, host.data)
+print(f"{host}")
+print(f"{pp.pformat(host.data)} \n")
+
+print("\n\nget hardware details for the host")
+host_hardware = host.get_hardware()
+print(f"{pp.pformat(host_hardware)} \n")
