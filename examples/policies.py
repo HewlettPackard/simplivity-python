@@ -83,7 +83,31 @@ print(f"{pp.pformat(vms)} \n")
 print("\n\ncreate policy")
 policy_name = "fixed_frequency_retention_policy"
 policy = policies.create(policy_name)
-print(policy, policy.data)
+print(f"{policy}")
+print(f"{pp.pformat(policy.data)} \n")
+multiple_rules = [
+    {
+        "start_time": "14:30",
+        "end_time": "15:30",
+        "application_consistent": False,
+        "frequency": 3,
+        "retention": 5
+    },
+    {
+        "frequency": 5,
+        "retention": 6
+    }
+]
+
+print("\n\nadd rules to policy")
+policy.create_rules(multiple_rules)
+print(f"{policy}")
+print(f"{pp.pformat(policy.data)} \n")
+single_rule = {
+    "frequency": 10,
+    "retention": 12
+}
+policy.create_rules(single_rule)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
 
