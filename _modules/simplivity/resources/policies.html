@@ -131,6 +131,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span>
 
+    <span class="k">def</span> <span class="nf">__refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates the policy data.&quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)[</span><span class="s1">&#39;policy&#39;</span><span class="p">]</span>
+
 <div class="viewcode-block" id="Policy.get_vms"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy.get_vms">[docs]</a>    <span class="k">def</span> <span class="nf">get_vms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieves the virtual machines using this policy.</span>
 
@@ -152,7 +157,54 @@
         <span class="sd">&quot;&quot;&quot;Removes a policy&quot;&quot;&quot;</span>
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_delete</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Policy.create_rules"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy.create_rules">[docs]</a>    <span class="k">def</span> <span class="nf">create_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rules</span><span class="p">,</span> <span class="n">replace_all_rules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates one or more new rules or replaces existing rules with new rules for a policy</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rules: Array of rules.(below are the parameter that can be passed in the array)</span>
+<span class="sd">                [Mandatory Parameters]</span>
+<span class="sd">                frequency: The number of minutes between backups</span>
+<span class="sd">                retention: The number of minutes to keep backups</span>
+<span class="sd">                [Optional Parameters]</span>
+<span class="sd">                application_consistent: Set false for crash-consistent backups</span>
+<span class="sd">                                        Set true for application-consistent backups (for example, VSS or snapshot backups)</span>
+<span class="sd">                                        Default: false</span>
+<span class="sd">                consistency_type: Set to DEFAULT for a snapshot backup</span>
+<span class="sd">                                  Set to VSS for a Microsoft Volume Shadow Copy Service backup</span>
+<span class="sd">                                  Set to NONE for crash-consistent backups</span>
+<span class="sd">                                  Default: NONE</span>
+<span class="sd">                destination_id: The unique identifier (UID) of the omnistack_cluster to store the backup</span>
+<span class="sd">                                Default: local omnistack_cluster</span>
+<span class="sd">                days: The days of the week (for example, Mon,Fri), or month (for example, 1,15) to take backups or</span>
+<span class="sd">                      &quot;last&quot; to specify the last day of each month</span>
+<span class="sd">                      Default: All (that is, every day)</span>
+<span class="sd">                start_time: The time to start the backups, for example, 14:30</span>
+<span class="sd">                            This time is local to the time zone of the Hypervisor Management System (HMS)</span>
+<span class="sd">                            Default: 00:00</span>
+<span class="sd">                end_time: The time to stop backing up, for example, 14:30</span>
+<span class="sd">                          This time is local to the time zone of the Hypervisor Management System (HMS)</span>
+<span class="sd">                          Default: 00:00</span>
+<span class="sd">                external_store_name: The name of the external_store</span>
+
+<span class="sd">            replace_all_rules: If set to True, replaces the existing rules with new rules</span>
+<span class="sd">                               If set to False, adds the new rules to existing set of rules</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self: Returns the policy object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/rules&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">rules</span><span class="p">]</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;replace_all_rules&#39;</span><span class="p">:</span> <span class="n">replace_all_rules</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">rules</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div></div>
 </pre></div>
 
           </div>
