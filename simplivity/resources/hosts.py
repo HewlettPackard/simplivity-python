@@ -175,3 +175,8 @@ class Host(object):
         """Retrieves the hardware information for the host"""
         resource_uri = "{}/{}/hardware".format(URL, self.data["id"])
         return self._client.do_get(resource_uri)
+
+    def get_virtual_controller_shutdown_status(self):
+        """Retrieves the shutdown status of the Virtual Controller"""
+        resource_uri = "{}/{}/virtual_controller_shutdown_status".format(URL, self.data["id"])
+        return self._client.do_get(resource_uri)
