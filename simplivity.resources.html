@@ -850,7 +850,7 @@ Default: 00:00</p>
 <p>Implements helper methods for resource classes.</p>
 <dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_delete">
-<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes delete requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource
@@ -876,14 +876,14 @@ custom_headers: Allows to set custom http headers.</p>
 
 <dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_post">
-<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_post</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes post requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource.
 data: Request body of the call
 timeout: Time out for the request in seconds.
-flags: Dictionary of filters, example: {‘name’: ‘name’}
-custom_headers: Allows to add custom http headers.</p>
+custom_headers: Allows to add custom http headers.
+flags: Dictionary of filters, example: {‘name’: ‘name’}</p>
 </dd>
 <dt>Returns:</dt><dd><p>list: Returns ids of the affected resources.</p>
 </dd>
@@ -892,7 +892,7 @@ custom_headers: Allows to add custom http headers.</p>
 
 <dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_put">
-<code class="sig-name descname">do_put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_put" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">timeout</span></em>, <em class="sig-param"><span class="n">custom_headers</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes put requests.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>uri: URI of the resource
