@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - missing ovc client host unit tests to improve code coverage
     - pull request template to facilitate pull requests
     - query string support for post operations
+    - made custom_header parameter optional for post, put and delete operations. default value 'None'
 
 ### Changed
     - address unittest.assertequals deprecation warning within unit test cases
