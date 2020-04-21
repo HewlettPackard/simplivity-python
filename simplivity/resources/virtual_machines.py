@@ -334,10 +334,9 @@ class VirtualMachine(object):
             self: Returns the same object.
         """
         method_url = "{}/{}/power_off".format(URL, self.data["id"])
-        custom_headers = {}
-        custom_headers['Content-type'] = 'application/vnd.simplivity.v1.11+json'
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.11+json'}
 
-        self._client.do_post(method_url, None, timeout, custom_headers, None)
+        self._client.do_post(method_url, None, timeout, custom_headers)
         self.__refresh()
 
         return self
