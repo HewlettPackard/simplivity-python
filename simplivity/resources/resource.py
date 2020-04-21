@@ -223,15 +223,15 @@ class ResourceClient(object):
         """
         return self._connection.get(uri)
 
-    def do_post(self, uri, data, timeout, custom_headers, flags=None):
+    def do_post(self, uri, data, timeout, custom_headers=None, flags=None):
         """Makes post requests.
 
         Args:
             uri: URI of the resource.
             data: Request body of the call
             timeout: Time out for the request in seconds.
-            flags: Dictionary of filters, example: {'name': 'name'}
             custom_headers: Allows to add custom http headers.
+            flags: Dictionary of filters, example: {'name': 'name'}
 
         Returns:
             list: Returns ids of the affected resources.
@@ -246,7 +246,7 @@ class ResourceClient(object):
 
         return self.task_affected_resources(task, timeout)
 
-    def do_put(self, uri, data, timeout, custom_headers):
+    def do_put(self, uri, data, timeout, custom_headers=None):
         """Makes put requests.
 
         Args:
@@ -265,7 +265,7 @@ class ResourceClient(object):
 
         return self.task_affected_resources(task, timeout)
 
-    def do_delete(self, uri, timeout, custom_headers):
+    def do_delete(self, uri, timeout, custom_headers=None):
         """Makes delete requests.
 
         Args:
