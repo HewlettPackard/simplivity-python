@@ -22,6 +22,9 @@ from simplivity.connection import Connection
 from simplivity import exceptions
 from simplivity.resources import policies
 from simplivity.resources import virtual_machines
+from simplivity.resources import hosts
+from simplivity.resources import omnistack_clusters as clusters
+from simplivity.resources import cluster_groups
 
 
 class PoliciesTest(unittest.TestCase):
@@ -29,6 +32,9 @@ class PoliciesTest(unittest.TestCase):
         self.connection = Connection('127.0.0.1')
         self.connection._access_token = "123456789"
         self.policies = policies.Policies(self.connection)
+        self.hosts = hosts.Hosts(self.connection)
+        self.clusters = clusters.OmnistackClusters(self.connection)
+        self.cluster_groups = cluster_groups.ClusterGroups(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -231,6 +237,46 @@ class PoliciesTest(unittest.TestCase):
         response_policy = policy.delete_rule(12345)
         self.assertEqual(response_policy.data, resources_data)
         mock_delete.assert_called_once_with('/policies/67890/rules/12345', custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_policies_suspend_host(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        host_data = {"id": "12345", 'name': 'host1'}
+        host = self.hosts.get_by_data(host_data)
+
+        self.policies.suspend(host)
+        data = {'target_object_id': '12345',
+                'target_object_type': 'host'}
+        mock_post.assert_called_once_with('/policies/suspend', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_policies_suspend_cluster(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        cluster_data = {"id": "12345", 'name': 'cluster1'}
+        cluster = self.clusters.get_by_data(cluster_data)
+
+        self.policies.suspend(cluster)
+        data = {'target_object_id': '12345',
+                'target_object_type': 'omnistack_cluster'}
+        mock_post.assert_called_once_with('/policies/suspend', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_policies_suspend_cluster_group(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        cluster_group_data = {"id": "12345", 'name': 'cluster_group1'}
+        cluster_group = self.cluster_groups.get_by_data(cluster_group_data)
+
+        self.policies.suspend(cluster_group)
+        data = {'target_object_id': '12345',
+                'target_object_type': 'cluster_group'}
+        mock_post.assert_called_once_with('/policies/suspend', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_policies_suspend_federation(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        self.policies.suspend()
+        data = {'target_object_type': 'federation'}
+        mock_post.assert_called_once_with('/policies/suspend', data, custom_headers=None)
 
 
 if __name__ == '__main__':

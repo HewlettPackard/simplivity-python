@@ -78,6 +78,8 @@ class ClusterGroups(ResourceBase):
 class ClusterGroup(object):
     """Implements features available for single cluster group resource."""
 
+    OBJECT_TYPE = 'cluster_group'
+
     def __init__(self, connection, resource_client, data):
         self.data = data
         self._connection = connection

@@ -112,6 +112,8 @@ class OmnistackClusters(ResourceBase):
 class OmnistackCluster(object):
     """Implements features available for single OmniStack cluster resource."""
 
+    OBJECT_TYPE = 'omnistack_cluster'
+
     def __init__(self, connection, resource_client, data):
         self.data = data
         self._connection = connection
