@@ -77,8 +77,8 @@ class Policies(ResourceBase):
         """ create the new policy
 
         Args:
-            flags: Dictionary of flags. Example: {'cluster_group_id': 'cluster_group_id'}
             name : The name of the new policy created from this action.
+            flags: Dictionary of flags. Example: {'cluster_group_id': 'cluster_group_id'}
             timeout : Time out for the request in seconds.
 
         Returns:
