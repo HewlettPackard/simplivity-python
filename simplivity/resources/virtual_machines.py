@@ -323,3 +323,20 @@ class VirtualMachine(object):
         self.__refresh()
 
         return self
+
+    def power_off(self, timeout=-1):
+        """Power off virtual machine.
+
+        Args:
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            self: Returns the same object.
+        """
+        method_url = "{}/{}/power_off".format(URL, self.data["id"])
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.11+json'}
+
+        self._client.do_post(method_url, None, timeout, custom_headers)
+        self.__refresh()
+
+        return self
