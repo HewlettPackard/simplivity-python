@@ -112,9 +112,31 @@ class Policies(ResourceBase):
         resource_uri = "{}/suspend".format(URL)
         self._client.do_post(resource_uri, data, timeout)
 
+    def resume(self, target=None, timeout=-1):
+        """Resumes policy-based backups on a specific targeted object
+            Args:
+                target: Target object.
+                        Allowed object of host, omnistack_cluster, cluster_group and default is federation
+                timeout: Time out for the request in seconds.
+
+            Returns:
+                None
+        """
+        data = {}
+        if isinstance(target, (Host, OmnistackCluster, ClusterGroup)):
+            data["target_object_type"] = target.OBJECT_TYPE
+            data["target_object_id"] = target.data["id"]
+        else:
+            data["target_object_type"] = 'federation'
+
+        method_url = "{}/resume".format(URL)
+        self._client.do_post(method_url, data, timeout)
+
 
 class Policy(object):
     """Implements features available for a single Policy resource."""
+
+    OBJECT_TYPE = "policy"
 
     def __init__(self, connection, resource_client, data):
         self.data = data
@@ -124,7 +146,7 @@ class Policy(object):
     def __refresh(self):
         """Updates the policy data."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
-        self.data = self._client.do_get(resource_uri)['policy']
+        self.data = self._client.do_get(resource_uri)[self.OBJECT_TYPE]
 
     def get_vms(self):
         """Retrieves the virtual machines using this policy.
