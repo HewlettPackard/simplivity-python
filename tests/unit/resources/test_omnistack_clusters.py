@@ -16,6 +16,7 @@
 
 import unittest
 from unittest import mock
+from unittest.mock import call
 
 from simplivity.connection import Connection
 from simplivity import exceptions
@@ -99,6 +100,17 @@ class OmnistackClustersTest(unittest.TestCase):
         mock_get.return_value = resource_data
         time_zones = self.clusters.get_time_zone_list()
         self.assertEqual(time_zones, resource_data)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_connected_clusters(self, mock_get):
+        mock_get.side_effect = [{'omnistack_clusters': [{'id': '12345'}]}, {'omnistack_clusters': [{'id': '12345'}]}]
+
+        cluster_data = {'name': 'name1', 'id': '12345'}
+        cluster = self.clusters.get_by_data(cluster_data)
+        obj = cluster.get_connected_clusters()
+        self.assertIsInstance(obj[0], clusters.OmnistackCluster)
+        mock_get.assert_has_calls([call('/omnistack_clusters/12345/connected_clusters'),
+                                  call('/omnistack_clusters?case=sensitive&id=12345&limit=500&offset=0&order=descending&sort=name')])
 
 
 if __name__ == '__main__':

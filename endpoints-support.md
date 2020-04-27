@@ -29,6 +29,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **OmniStack Clusters**
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |<sub>/omnistack_clusters/time_zone_list  </sub>                                          |GET       |
+|<sub>/omnistack_clusters/{clusterId}/connected_clusters  </sub>                          |GET       |
 |     **Policies**
 |<sub>/policies	</sub>                                                                    |GET       |
 |<sub>/policies</sub>                                                                     |POST      |
