@@ -120,6 +120,11 @@ class OmnistackCluster(object):
         self._client = resource_client
         self._clusters = OmnistackClusters(self._connection)
 
+    def __refresh(self):
+        """Updates the omnistack cluster data."""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self.data = self._client.do_get(resource_uri)[self.OBJECT_TYPE]
+
     def get_connected_clusters(self):
         """Retrieves directly connected omnistack_clusters.
 
@@ -132,3 +137,21 @@ class OmnistackCluster(object):
         clusters = [self._clusters.get_by_id(cluster["id"]) for cluster in connected_clusters]
 
         return clusters
+
+    def set_time_zone(self, time_zone, timeout=-1):
+        """ Sets the time zone for a cluster.
+
+        Args:
+            time_zone: The time zone in case-sensitive region/locale format
+                       for example, "America/New_York"
+            timeout : Time out for the request in seconds.
+
+        Returns:
+            object: omnistack cluster object.
+        """
+
+        method_url = "{}/{}/set_time_zone".format(URL, self.data["id"])
+        data = {"time_zone": time_zone}
+        self._client.do_post(method_url, data, timeout)
+        self.__refresh()
+        return self
