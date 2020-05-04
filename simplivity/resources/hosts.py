@@ -180,3 +180,22 @@ class Host(object):
         """Retrieves the shutdown status of the Virtual Controller"""
         resource_uri = "{}/{}/virtual_controller_shutdown_status".format(URL, self.data["id"])
         return self._client.do_get(resource_uri)
+
+    def shutdown_virtual_controller(self, ha_wait=True, timeout=-1):
+        """Shuts down the Virtual Controller safely (by reaching HA compliance) or by force.
+
+        Args:
+          ha_wait: An indicator to show if the user wants to shut down the Virtual Controller safely or forcefully.
+            Valid values:
+              True: Virtual Controller waits for the virtual machines to reach HA compliance before shutting down.
+              False: Virtual Controller forced to shut down without waiting for HA compliance.
+          timeout: Time out for the request in seconds.
+
+        Returns:
+            status: Possible values are 'SUCCESS', 'FAILURE', 'UNKNOWN', 'IN_PROGRESS'.
+        """
+        method_url = "{}/{}/shutdown_virtual_controller".format(URL, self.data["id"])
+        data = {"ha_wait": ha_wait}
+
+        status = self._client.do_post(method_url, data, timeout)
+        return status['shutdown_status']['status']
