@@ -102,6 +102,12 @@ class OmnistackClusters(ResourceBase):
 
         return OmnistackCluster(self._connection, self._client, data)
 
+    def get_time_zone_list(self):
+        """Retrieves a list of all valid time zones"""
+
+        resource_uri = "{}/time_zone_list".format(URL)
+        return self._client.do_get(resource_uri)
+
 
 class OmnistackCluster(object):
     """Implements features available for single OmniStack cluster resource."""

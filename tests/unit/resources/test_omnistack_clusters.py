@@ -90,6 +90,16 @@ class OmnistackClustersTest(unittest.TestCase):
         self.assertIsInstance(obj, clusters.OmnistackCluster)
         self.assertEqual(obj.data, resource_data)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_time_zones(self, mock_get):
+        resource_data = [
+            "America/Denver",
+            "America/New_York"
+        ]
+        mock_get.return_value = resource_data
+        time_zones = self.clusters.get_time_zone_list()
+        self.assertEqual(time_zones, resource_data)
+
 
 if __name__ == '__main__':
     unittest.main()

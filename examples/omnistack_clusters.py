@@ -1,5 +1,5 @@
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2019-2020] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 # limitations under the License.
 ##
 
+import pprint
+
 from simplivity.ovc_client import OVC
 from simplivity.exceptions import HPESimpliVityException
 
@@ -25,43 +27,54 @@ config = {
     }
 }
 
+pp = pprint.PrettyPrinter(indent=4)
+
 ovc = OVC(config)
 clusters = ovc.omnistack_clusters
 
-print("\n\n get_all with default params")
+print("\n\nget_all with default params")
 all_clusters = clusters.get_all()
 count = len(all_clusters)
 for cluster in all_clusters:
-    print(cluster.data)
+    print(f"{cluster}")
+    print(f"{pp.pformat(cluster.data)} \n")
 
-print("\nTotal number of clusterss {}".format(count))
+print("\n\nTotal number of clusters {}".format(count))
 cluster_object = all_clusters[0]
 
-print("\n\n get_all with filers")
+print("\n\nget_all with filers")
 all_clusters = clusters.get_all(filters={'name': cluster_object.data["name"]})
 count = len(all_clusters)
 for cluster in all_clusters:
-    print(cluster.data)
+    print(f"{cluster}")
+    print(f"{pp.pformat(cluster.data)} \n")
 
-print("\n Total number of clusters {}".format(count))
+print("\n\nTotal number of clusters {}".format(count))
 
-print("\n\n get_all with pagination")
+print("\n\nget_all with pagination")
 pagination = clusters.get_all(limit=105, pagination=True, page_size=50)
 end = False
 while not end:
     data = pagination.data
-    print("Page size:", len(data["resources"]))
-    print(data)
+    count = len(data["resources"])
+    print(f"Page size: {count}")
+    print(f"{pp.pformat(data)}")
 
     try:
         pagination.next_page()
     except HPESimpliVityException:
         end = True
 
-print("\n\n get_by_id")
+print("\n\nget_by_id")
 cluster = clusters.get_by_id(cluster_object.data["id"])
-print(cluster, cluster.data)
+print(f"{cluster}")
+print(f"{pp.pformat(cluster.data)} \n")
 
-print("\n\n get_by_name")
+print("\n\nget_by_name")
 cluster = clusters.get_by_name(cluster_object.data["name"])
-print(cluster, cluster.data)
+print(f"{cluster}")
+print(f"{pp.pformat(cluster.data)} \n")
+
+print("\n\nget_time_zone_list")
+time_zones = clusters.get_time_zone_list()
+print(f"{pp.pformat(time_zones)} \n")
