@@ -209,6 +209,14 @@ class PoliciesTest(unittest.TestCase):
         self.assertEqual(policy.data, resource_data[0])
         mock_post.assert_called_once_with('/policies?cluster_group_id=abcdefg', {'name': policy_name}, custom_headers=None)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_rule(self, mock_get):
+        resources_data = [{'frequency': 1, 'retention': 5, 'id': 12345}]
+        mock_get.return_value = {"rules": resources_data}
+        policy_obj = self.policies.get_by_data({'id': '67890', 'name': 'name', 'rules': resources_data})
+        policy_obj.get_rule(12345)
+        self.assertEqual(policy_obj.data['rules'], resources_data)
+
 
 if __name__ == '__main__':
     unittest.main()

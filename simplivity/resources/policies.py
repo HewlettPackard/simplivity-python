@@ -172,3 +172,14 @@ class Policy(object):
         self.__refresh()
 
         return self
+
+    def get_rule(self, rule_id):
+        """Retrieves the specified policy rule
+           Args:
+                rule_id : Rule id to be retrieved
+
+           Returns:
+                Rules object
+        """
+        resource_uri = "{}/{}/rules/{}".format(URL, self.data["id"], rule_id)
+        return self._client.do_get(resource_uri)
