@@ -32,6 +32,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/policies/{policyId} </sub>                                                         |DELETE    |
 |<sub>/policies/{policyId}/rules </sub>                                                   |POST      |
 |<sub>/policies/{policyId}/rules/{ruleId} </sub>                                          |GET       |
+|<sub>/policies/{policyId}/rules/{ruleId} </sub>                                          |DELETE    |
 |     **Virtual Machines**
 |<sub>/virtual_machines	</sub>                                                            |GET       |
 |<sub>/virtual_machines/set_policy	</sub>                                                |POST      |

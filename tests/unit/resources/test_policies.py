@@ -217,6 +217,21 @@ class PoliciesTest(unittest.TestCase):
         policy_obj.get_rule(12345)
         self.assertEqual(policy_obj.data['rules'], resources_data)
 
+    @mock.patch.object(Connection, "delete")
+    @mock.patch.object(Connection, "get")
+    def test_delete_rule(self, mock_get, mock_delete):
+        mock_delete.return_value = None, [{'object_id': '67890'}]
+        resources_data = {"rules": [], "name": "name", "id": "67890"}
+        mock_get.return_value = {'policy': resources_data}
+        policy_data = {"rules": [{"frequency": 5, "id": "12345", "retention": 1}], "name": "name",
+                       "id": "67890"}
+
+        policy = self.policies.get_by_data(policy_data)
+
+        response_policy = policy.delete_rule(12345)
+        self.assertEqual(response_policy.data, resources_data)
+        mock_delete.assert_called_once_with('/policies/67890/rules/12345', custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

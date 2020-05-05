@@ -169,6 +169,22 @@ class Policy(object):
 
         flags = {'replace_all_rules': replace_all_rules}
         self._client.do_post(resource_uri, rules, timeout, None, flags)[0]
+
+        self.__refresh()
+
+        return self
+
+    def delete_rule(self, rule_id, timeout=-1):
+        """Removes a policy rule
+        Args:
+            rule_id: Rule id to be deleted
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            self: Returns the policy object.
+        """
+        resource_uri = "{}/{}/rules/{}".format(URL, self.data["id"], rule_id)
+        self._client.do_delete(resource_uri, timeout, None)
         self.__refresh()
 
         return self
