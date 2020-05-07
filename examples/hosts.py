@@ -87,3 +87,8 @@ host = hosts.get_by_id(host_object.data["id"])
 response = host.shutdown_virtual_controller()
 print("\n\nshutdown virtual controller status : {}".format(response))
 print("\n\nplease power on the virtual controller manually")
+
+print("\n\ncancel virtual controller shutdown")
+host = hosts.get_by_id(host_object.data["id"])
+response = host.cancel_virtual_controller_shutdown()
+print("\n\nvirtual controller cancellation status : {}".format(response))

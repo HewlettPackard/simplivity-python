@@ -200,3 +200,16 @@ class Host(object):
 
         status = self._client.do_post(method_url, data, timeout)
         return status['shutdown_status']['status']
+
+    def cancel_virtual_controller_shutdown(self, timeout=-1):
+        """Cancels the virtual controller shutdown.
+
+        Args:
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          status: Possible values are 'SUCCESS', 'FAILURE', 'UNKNOWN', 'IN_PROGRESS'.
+        """
+        resource_uri = "{}/{}/cancel_virtual_controller_shutdown".format(URL, self.data["id"])
+        status = self._client.do_post(resource_uri, None, timeout)
+        return status['cancellation_status']['status']
