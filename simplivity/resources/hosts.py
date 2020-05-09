@@ -179,7 +179,8 @@ class Host(object):
     def get_virtual_controller_shutdown_status(self):
         """Retrieves the shutdown status of the Virtual Controller"""
         resource_uri = "{}/{}/virtual_controller_shutdown_status".format(URL, self.data["id"])
-        return self._client.do_get(resource_uri)
+        status = self._client.do_get(resource_uri)
+        return status['shutdown_status']['status']
 
     def shutdown_virtual_controller(self, ha_wait=True, timeout=-1):
         """Shuts down the Virtual Controller safely (by reaching HA compliance) or by force.
