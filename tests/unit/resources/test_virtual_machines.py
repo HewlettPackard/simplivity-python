@@ -230,7 +230,7 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_setup_backup_parameters(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': [{'name': 'name', 'id': '12345'}]}
+        mock_get.return_value = {'virtual_machine': [{'name': 'name', 'id': '12345'}]}
 
         username = "username"
         password = "password"
@@ -249,7 +249,7 @@ class VirtualMachinesTest(unittest.TestCase):
     def test_set_policy_with_policy_name(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
         mock_get.side_effect = [{'policies': [{'name': 'datastore', 'id': '12345'}]},
-                                {'virtual_machines': {'id': '12345'}}]
+                                {'virtual_machine': {'id': '12345'}}]
         policy_name = "policy name"
 
         vm1_data = {'name': 'name1', 'id': '12345'}
@@ -263,7 +263,7 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_set_policy_with_policy_obj(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': {'id': '12345'}}
+        mock_get.return_value = {'virtual_machine': {'id': '12345'}}
         policy_obj = self.policies.get_by_data({'id': 'policy12345', 'name': 'name'})
 
         vm1_data = {'name': 'name1', 'id': '12345'}
@@ -277,7 +277,7 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_power_off(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': {'id': '12345'}}
+        mock_get.return_value = {'virtual_machine': {'id': '12345'}}
 
         vm1_data = {'name': 'name1', 'id': '12345'}
         vm = self.machines.get_by_data(vm1_data)

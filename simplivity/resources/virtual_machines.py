@@ -167,7 +167,7 @@ class VirtualMachine(object):
     def __refresh(self):
         """Updates the VM data."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
-        self.data = self._client.do_get(resource_uri)
+        self.data = self._client.do_get(resource_uri)['virtual_machine']
 
     def clone(self, new_vm_name, app_consistent=False, datastore=None, timeout=-1):
         """Clones a virtual machine.

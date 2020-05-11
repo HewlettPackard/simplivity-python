@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - exception handling within the ovc client module
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
+    - resolve the virtual machine `__refresh` method
     - url encode query string to support values that contain spaces
 
 ### Removed
