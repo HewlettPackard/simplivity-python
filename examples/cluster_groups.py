@@ -75,3 +75,12 @@ print("\n\nget_by_name")
 cluster_group = cluster_groups.get_by_name(cluster_group_name)
 print(f"{cluster_group}")
 print(f"{pp.pformat(cluster_group.data)} \n")
+
+cluster_group_name = cluster_group_object.data["name"]
+print("\n\nrename")
+cluster_group_object.rename(f"renamed_{cluster_group_name}")
+print(f"{cluster_group_object}")
+print(f"{pp.pformat(cluster_group_object.data)} \n")
+
+# undo any modification of the unit under test that occurred during the example
+cluster_group_object.rename(cluster_group_name)
