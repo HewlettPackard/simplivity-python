@@ -144,7 +144,7 @@ class HostsTest(unittest.TestCase):
         host = self.hosts.get_by_data(host_data)
 
         virtual_controller_status = host.get_virtual_controller_shutdown_status()
-        self.assertEqual(virtual_controller_status, resource_data)
+        self.assertEqual(virtual_controller_status, 'NONE')
 
     @mock.patch.object(Connection, "post")
     def test_shutdown_virtual_controller_ha_wait(self, mock_post):

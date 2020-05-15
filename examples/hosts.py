@@ -80,7 +80,7 @@ print(f"{pp.pformat(host_hardware)} \n")
 
 print("\n\nget virtual controller shutdown status")
 virtual_controller_status = host.get_virtual_controller_shutdown_status()
-print(f"{pp.pformat(virtual_controller_status)} \n")
+print("\n\nvirtual controller shutdown status : {}".format(virtual_controller_status))
 
 print("\n\nshutdown virtual controller")
 host = hosts.get_by_id(host_object.data["id"])
