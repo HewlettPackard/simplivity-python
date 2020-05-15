@@ -167,7 +167,7 @@ class VirtualMachine(object):
     def __refresh(self):
         """Updates the VM data."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
-        self.data = self._client.do_get(resource_uri)
+        self.data = self._client.do_get(resource_uri)['virtual_machine']
 
     def clone(self, new_vm_name, app_consistent=False, datastore=None, timeout=-1):
         """Clones a virtual machine.
@@ -340,3 +340,22 @@ class VirtualMachine(object):
         self.__refresh()
 
         return self
+
+    def power_on(self, timeout=-1):
+        """Power on virtual machine.
+
+        Args:
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            self: Returns True if successfully power on the VM else False.
+        """
+        method_url = "{}/{}/power_on".format(URL, self.data["id"])
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.14+json'}
+
+        self._client.do_post(method_url, None, timeout, custom_headers)
+        self.__refresh()
+        if self.data["hypervisor_virtual_machine_power_state"] == "ON":
+            return True
+        else:
+            return False

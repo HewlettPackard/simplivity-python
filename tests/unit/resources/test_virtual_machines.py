@@ -230,7 +230,7 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_setup_backup_parameters(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': [{'name': 'name', 'id': '12345'}]}
+        mock_get.return_value = {'virtual_machine': [{'name': 'name', 'id': '12345'}]}
 
         username = "username"
         password = "password"
@@ -249,7 +249,7 @@ class VirtualMachinesTest(unittest.TestCase):
     def test_set_policy_with_policy_name(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
         mock_get.side_effect = [{'policies': [{'name': 'datastore', 'id': '12345'}]},
-                                {'virtual_machines': {'id': '12345'}}]
+                                {'virtual_machine': {'id': '12345'}}]
         policy_name = "policy name"
 
         vm1_data = {'name': 'name1', 'id': '12345'}
@@ -263,7 +263,7 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_set_policy_with_policy_obj(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': {'id': '12345'}}
+        mock_get.return_value = {'virtual_machine': {'id': '12345'}}
         policy_obj = self.policies.get_by_data({'id': 'policy12345', 'name': 'name'})
 
         vm1_data = {'name': 'name1', 'id': '12345'}
@@ -277,13 +277,43 @@ class VirtualMachinesTest(unittest.TestCase):
     @mock.patch.object(Connection, "get")
     def test_power_off(self, mock_get, mock_post):
         mock_post.return_value = None, [{'object_id': '12345'}]
-        mock_get.return_value = {'virtual_machines': {'id': '12345'}}
+        mock_get.return_value = {'virtual_machine': {'id': '12345'}}
 
         vm1_data = {'name': 'name1', 'id': '12345'}
         vm = self.machines.get_by_data(vm1_data)
 
         vm.power_off()
         mock_post.assert_called_once_with('/virtual_machines/12345/power_off', None, custom_headers={'Content-type': 'application/vnd.simplivity.v1.11+json'})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_power_on_success(self, mock_get, mock_post):
+        resource_data = {'name': 'name1', 'id': '12345', 'hypervisor_virtual_machine_power_state': 'ON'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {'virtual_machine': resource_data}
+
+        vm1_data = {'name': 'name1', 'id': '12345', 'hypervisor_virtual_machine_power_state': 'OFF'}
+        vm = self.machines.get_by_data(vm1_data)
+        boolreturn = vm.power_on()
+
+        self.assertEqual(vm.data, resource_data)
+        self.assertIsInstance(boolreturn, bool)
+        mock_post.assert_called_once_with('/virtual_machines/12345/power_on', None, custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_power_on_failure(self, mock_get, mock_post):
+        resource_data = {'name': 'name1', 'id': '12345', 'hypervisor_virtual_machine_power_state': 'OFF'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {'virtual_machine': resource_data}
+
+        vm1_data = {'name': 'name1', 'id': '12345', 'hypervisor_virtual_machine_power_state': 'OFF'}
+        vm = self.machines.get_by_data(vm1_data)
+        ispoweron = vm.power_on()
+
+        self.assertEqual(vm.data, resource_data)
+        self.assertIsInstance(ispoweron, bool)
+        mock_post.assert_called_once_with('/virtual_machines/12345/power_on', None, custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
 
 
 if __name__ == '__main__':

@@ -172,3 +172,9 @@ print("\nPower off")
 vm1 = machines.get_by_name(vm_1_name)
 vm_powered_off = vm1.power_off()
 print(f"{pp.pformat(vm_powered_off.data)} \n")
+
+print("\nPower on")
+vm1 = machines.get_by_name(vm_1_name)
+vm_powered_on = vm1.power_on()
+if (vm_powered_on):
+    print("\nVM Successfully powered on.")

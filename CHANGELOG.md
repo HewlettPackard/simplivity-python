@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <GET>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <DELETE>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
+    - endpoint support for /virtual_machines/{vmId}/power_on <POST>
     - missing ovc client host unit tests to improve code coverage
     - pull request template to facilitate pull requests
     - query string support for post operations
@@ -44,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - exception handling within the ovc client module
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
+    - resolve the virtual machine `__refresh` method
     - url encode query string to support values that contain spaces
 
 ### Removed
