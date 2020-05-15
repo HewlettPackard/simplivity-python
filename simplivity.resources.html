@@ -399,6 +399,18 @@ Accepts: Single value, comma-separated list</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Host resource.</p>
 <dl class="py method">
+<dt id="simplivity.resources.hosts.Host.cancel_virtual_controller_shutdown">
+<code class="sig-name descname">cancel_virtual_controller_shutdown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.cancel_virtual_controller_shutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.cancel_virtual_controller_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels the virtual controller shutdown.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>status: Possible values are ‘SUCCESS’, ‘FAILURE’, ‘UNKNOWN’, ‘IN_PROGRESS’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.hosts.Host.get_hardware">
 <code class="sig-name descname">get_hardware</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.get_hardware"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.get_hardware" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the hardware information for the host</p>
