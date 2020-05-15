@@ -165,6 +165,19 @@ class BackupTest(unittest.TestCase):
         data = {'virtual_machine_name': 'vm1', 'datastore_id': 'abcdef'}
         mock_post.assert_called_once_with('/backups/12345/restore?restore_original=False', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_lock(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        resource_data = {'name': 'name1', 'id': '12345', 'expiration_time': 'NA'}
+        mock_get.return_value = {backups.DATA_FIELD: [resource_data]}
+        backup_data = {'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-17T03:59:32Z'}
+        backup = self.backups.get_by_data(backup_data)
+        backup_obj = backup.lock()
+        self.assertEqual(backup_obj.data, resource_data)
+
+        mock_post.assert_called_once_with('/backups/12345/lock', None, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -81,7 +81,7 @@ print(f"{pp.pformat(backup.data)} \n")
 
 print("Create backup for the testing the restore functionality")
 vm = machines.get_by_name(test_vm_name)
-backup = vm.create_backup("backup_test_from_sdk_" + str(time.time()))
+backup = vm.create_backup("backup_test_from_sdk_" + str(time.time()), retention=120)
 print(f"{backup}")
 print(f"{pp.pformat(backup.data)} \n")
 
@@ -110,5 +110,10 @@ print(f"{pp.pformat(restored_vm.data)} \n")
 restored_vm = backup.restore(False, "Restored_Machine_SDK_anotherDS_Name", datastore_object.data["name"])
 print(f"{restored_vm}")
 print(f"{pp.pformat(restored_vm.data)} \n")
+
+print("\n\nsaves the specified backup to prevent it from expiring, verify: expiration_time set to NA")
+backup.lock()
+print(f"{backup}")
+print(f"{pp.pformat(backup.data)} \n")
 
 backup.delete()

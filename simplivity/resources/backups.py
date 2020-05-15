@@ -148,6 +148,12 @@ class Backup(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+        self._backups = Backups(self._connection)
+
+    def __refresh(self):
+        """Updates the backup data."""
+        resource_object = self._backups.get_by_id(self.data["id"])
+        self.data = resource_object.data
 
     def delete(self, timeout=-1):
         """Deletes the specified backup"""
@@ -184,3 +190,11 @@ class Backup(object):
         affected_object = self._client.do_post(resource_uri, data, timeout, None, flags)[0]
         virtual_machines_obj = virtual_machines.VirtualMachines(self._connection)
         return virtual_machines_obj.get_by_id(affected_object["object_id"])
+
+    def lock(self, timeout=-1):
+        """Saves the specified backup to prevent it from expiring"""
+        resource_uri = "{}/{}/lock".format(URL, self.data["id"])
+        self._client.do_post(resource_uri, None, timeout)
+        self.__refresh()
+
+        return self
