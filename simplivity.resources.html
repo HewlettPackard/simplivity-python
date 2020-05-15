@@ -430,6 +430,26 @@ Accepts: Single value, comma-separated list</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="simplivity.resources.hosts.Host.shutdown_virtual_controller">
+<code class="sig-name descname">shutdown_virtual_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ha_wait</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.shutdown_virtual_controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.shutdown_virtual_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shuts down the Virtual Controller safely (by reaching HA compliance) or by force.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>ha_wait: An indicator to show if the user wants to shut down the Virtual Controller safely or forcefully.</dt><dd><dl class="simple">
+<dt>Valid values:</dt><dd><p>True: Virtual Controller waits for the virtual machines to reach HA compliance before shutting down.
+False: Virtual Controller forced to shut down without waiting for HA compliance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>status: Possible values are ‘SUCCESS’, ‘FAILURE’, ‘UNKNOWN’, ‘IN_PROGRESS’.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">

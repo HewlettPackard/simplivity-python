@@ -212,7 +212,26 @@
 <div class="viewcode-block" id="Host.get_virtual_controller_shutdown_status"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.hosts.Host.get_virtual_controller_shutdown_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_virtual_controller_shutdown_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieves the shutdown status of the Virtual Controller&quot;&quot;&quot;</span>
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/virtual_controller_shutdown_status&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Host.shutdown_virtual_controller"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.hosts.Host.shutdown_virtual_controller">[docs]</a>    <span class="k">def</span> <span class="nf">shutdown_virtual_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ha_wait</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Shuts down the Virtual Controller safely (by reaching HA compliance) or by force.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ha_wait: An indicator to show if the user wants to shut down the Virtual Controller safely or forcefully.</span>
+<span class="sd">            Valid values:</span>
+<span class="sd">              True: Virtual Controller waits for the virtual machines to reach HA compliance before shutting down.</span>
+<span class="sd">              False: Virtual Controller forced to shut down without waiting for HA compliance.</span>
+<span class="sd">          timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            status: Possible values are &#39;SUCCESS&#39;, &#39;FAILURE&#39;, &#39;UNKNOWN&#39;, &#39;IN_PROGRESS&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/shutdown_virtual_controller&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ha_wait&quot;</span><span class="p">:</span> <span class="n">ha_wait</span><span class="p">}</span>
+
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s1">&#39;shutdown_status&#39;</span><span class="p">][</span><span class="s1">&#39;status&#39;</span><span class="p">]</span></div></div>
 </pre></div>
 
           </div>
