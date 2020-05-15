@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /datastore/{datastoreId}/resize <POST>
     - endpoint support for /datastore/{datastoreId}/set_policy <POST>
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
+    - endpoint support for /hosts/{hostId}/shutdown_virtual_controller <POST>
     - endpoint support for /hosts/{hostId}/hardware <GET>
     - endpoint support for /hosts/{hostId}/virtual_controller_shutdown_status <GET>
     - endpoint support for /omnistack_clusters/time_zone_list <GET>

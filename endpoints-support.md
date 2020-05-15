@@ -24,6 +24,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/hosts/{hostId}/remove_from_federation  </sub>						|POST      |
 |<sub>/hosts/{hostId}/hardware  </sub>						          |GET      |
 |<sub>/hosts/{hostId}/virtual_controller_shutdown_status  </sub>                          |GET      |
+|<sub>/hosts/{hostId}/shutdown_virtual_controller </sub>                                  |POST     |
 |     **OmniStack Clusters**
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |<sub>/omnistack_clusters/time_zone_list  </sub>                                          |GET       |

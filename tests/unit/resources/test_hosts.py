@@ -146,6 +146,27 @@ class HostsTest(unittest.TestCase):
         virtual_controller_status = host.get_virtual_controller_shutdown_status()
         self.assertEqual(virtual_controller_status, resource_data)
 
+    @mock.patch.object(Connection, "post")
+    def test_shutdown_virtual_controller_ha_wait(self, mock_post):
+        mock_post.return_value = None, {'shutdown_status': {'status': 'IN_PROGRESS'}}
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+        response = host.shutdown_virtual_controller()
+        self.assertEqual(response, 'IN_PROGRESS')
+        mock_post.assert_called_once_with("/hosts/12345/shutdown_virtual_controller",
+                                          {"ha_wait": True}, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    def test_shutdown_virtual_controller(self, mock_post):
+        mock_post.return_value = None, {'shutdown_status': {'status': 'IN_PROGRESS'}}
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        response = host.shutdown_virtual_controller(ha_wait=False)
+        self.assertEqual(response, 'IN_PROGRESS')
+        mock_post.assert_called_once_with("/hosts/12345/shutdown_virtual_controller",
+                                          {"ha_wait": False}, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
