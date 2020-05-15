@@ -167,6 +167,17 @@ class HostsTest(unittest.TestCase):
         mock_post.assert_called_once_with("/hosts/12345/shutdown_virtual_controller",
                                           {"ha_wait": False}, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    def test_cancel_virtual_controller_shutdown(self, mock_post):
+        mock_post.return_value = None, {'cancellation_status': {'status': 'SUCCESS'}}
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+
+        response = host.cancel_virtual_controller_shutdown()
+        self.assertEqual(response, "SUCCESS")
+        mock_post.assert_called_once_with("/hosts/12345/cancel_virtual_controller_shutdown", None,
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
