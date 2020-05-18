@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies <POST>
     - endpoint support for /policies/suspend <POST>
     - endpoint support for /policies/{policyId} <DELETE>
+    - endpoint support for /policies/{policyId}/rename <POST>
     - endpoint support for /policies/{policyId}/rules <POST>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <GET>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <DELETE>
