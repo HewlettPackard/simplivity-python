@@ -199,3 +199,21 @@ class Policy(object):
         """
         resource_uri = "{}/{}/rules/{}".format(URL, self.data["id"], rule_id)
         return self._client.do_get(resource_uri)
+
+    def rename(self, name, timeout=-1):
+        """Renames the specified policy
+        Args:
+            name: The new name of the specified policy.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Policy object.
+        """
+
+        resource_uri = "{}/{}/rename".format(URL, self.data["id"])
+
+        data = {'name': name}
+        self._client.do_post(resource_uri, data, timeout)
+        self.__refresh()
+
+        return self

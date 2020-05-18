@@ -123,5 +123,10 @@ policy.delete_rule(rule_id)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
 
+print("\n\nrename policy")
+policy.rename(f"renamed_{policy.data['name']}")
+print(f"{policy}")
+print(f"{pp.pformat(policy.data)} \n")
+
 print("\n\ndelete policy")
 policy.delete()
