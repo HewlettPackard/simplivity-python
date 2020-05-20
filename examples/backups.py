@@ -116,4 +116,10 @@ backup.lock()
 print(f"{backup}")
 print(f"{pp.pformat(backup.data)} \n")
 
+print("\n\nrename the backup")
+backup.rename(f"renamed_{backup.data['name']}")
+print(f"{backup}")
+print(f"{pp.pformat(backup.data)} \n")
+
+
 backup.delete()

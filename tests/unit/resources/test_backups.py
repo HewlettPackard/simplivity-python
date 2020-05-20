@@ -178,6 +178,21 @@ class BackupTest(unittest.TestCase):
 
         mock_post.assert_called_once_with('/backups/12345/lock', None, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_rename(self, mock_get, mock_post):
+        resource_data = {'name': 'backup1', 'id': '12345'}
+        backup = self.backups.get_by_data(resource_data)
+        backup_data = {'name': 'renamed_backup1', 'id': '12345'}
+        mock_get.return_value = {backups.DATA_FIELD: [backup_data]}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_obj = backup.rename(backup_data['name'])
+        self.assertIsInstance(backup_obj, backups.Backup)
+        self.assertEqual(backup_obj.data["name"], backup_data['name'])
+        mock_post.assert_called_once_with('/backups/12345/rename',
+                                          {'backup_name': backup_data['name']},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
