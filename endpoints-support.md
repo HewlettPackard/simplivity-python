@@ -33,6 +33,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **Policies**
 |<sub>/policies	</sub>                                                                    |GET       |
 |<sub>/policies</sub>                                                                     |POST      |
+|<sub>/policies/suspend </sub>                                                            |POST      |
 |<sub>/policies/{policyId} </sub>                                                         |DELETE    |
 |<sub>/policies/{policyId}/rules </sub>                                                   |POST      |
 |<sub>/policies/{policyId}/rules/{ruleId} </sub>                                          |GET       |

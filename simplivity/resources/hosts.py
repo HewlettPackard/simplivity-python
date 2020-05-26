@@ -147,6 +147,8 @@ class Hosts(ResourceBase):
 class Host(object):
     """Implements features available for single Host resource."""
 
+    OBJECT_TYPE = 'host'
+
     def __init__(self, connection, resource_client, data):
         self.data = data
         self._connection = connection

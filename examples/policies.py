@@ -30,6 +30,9 @@ config = {
 
 ovc = OVC(config)
 policies = ovc.policies
+hosts = ovc.hosts
+clusters = ovc.omnistack_clusters
+cluster_groups = ovc.cluster_groups
 
 print("\n\nget_all with default params")
 all_policies = policies.get_all()
@@ -122,6 +125,25 @@ rule_id = policy.data["rules"][0]['id']
 policy.delete_rule(rule_id)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
+
+print("\n\nsuspend policy on host")
+host = hosts.get_all()[0]
+policies.suspend(host)
+
+print("\n\nsuspend policy on omnistack_cluster")
+cluster = clusters.get_all()[0]
+policies.suspend(cluster)
+
+""" cluster_group options works only with setup having MVA, please use below code for setup with MVA
+cluster_group = cluster_groups.get_all()[0]
+print(f"{cluster_group}")
+print(f"{pp.pformat(cluster_group.data)} \n")
+policies.suspend(cluster_group)
+"""
+""" federation options works only with setup NOT having MVA, please use below code for setup without MVA
+print("\n\nsuspend policy on federation")
+policies.suspend()
+"""
 
 print("\n\ndelete policy")
 policy.delete()
