@@ -278,6 +278,21 @@ class PoliciesTest(unittest.TestCase):
         data = {'target_object_type': 'federation'}
         mock_post.assert_called_once_with('/policies/suspend', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_rename(self, mock_get, mock_post):
+        resource_data = {'name': 'policy0', 'id': '12345'}
+        policy = self.policies.get_by_data(resource_data)
+        policy_data = {'name': 'renamed_policy0', 'id': '12345'}
+        mock_get.return_value = {'policy': policy_data}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        policy = policy.rename(policy_data['name'])
+        self.assertIsInstance(policy, policies.Policy)
+        self.assertEqual(policy.data["name"], policy_data['name'])
+        mock_post.assert_called_once_with('/policies/12345/rename',
+                                          {'name': policy_data['name']},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
