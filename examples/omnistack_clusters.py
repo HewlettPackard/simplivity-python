@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 import pprint
 
 from simplivity.ovc_client import OVC
@@ -31,6 +30,9 @@ pp = pprint.PrettyPrinter(indent=4)
 
 ovc = OVC(config)
 clusters = ovc.omnistack_clusters
+
+# variable declaration
+cluster_1_name = "cluster1"
 
 print("\n\nget_all with default params")
 all_clusters = clusters.get_all()
@@ -78,3 +80,8 @@ print(f"{pp.pformat(cluster.data)} \n")
 print("\n\nget_time_zone_list")
 time_zones = clusters.get_time_zone_list()
 print(f"{pp.pformat(time_zones)} \n")
+
+print("\n\nget_connected_clusters")
+cluster1 = clusters.get_by_name(cluster_1_name)
+connected_clusters = cluster1.get_connected_clusters()
+print(f"{pp.pformat(connected_clusters)} \n")

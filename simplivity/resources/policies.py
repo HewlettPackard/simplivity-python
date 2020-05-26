@@ -18,6 +18,9 @@
 
 from simplivity.resources.resource import ResourceBase
 from simplivity.resources import virtual_machines
+from simplivity.resources.hosts import Host
+from simplivity.resources.omnistack_clusters import OmnistackCluster
+from simplivity.resources.cluster_groups import ClusterGroup
 
 URL = '/policies'
 DATA_FIELD = 'policies'
@@ -88,6 +91,26 @@ class Policies(ResourceBase):
 
         affected_object = self._client.do_post(URL, data, timeout, flags=flags)[0]
         return self.get_by_id(affected_object["object_id"])
+
+    def suspend(self, target=None, timeout=-1):
+        """Suspends policy-based backups on a specific targeted object
+            Args:
+                target: Target object.
+                        Allowed object of host, omnistack_cluster, cluster_group and default is federation
+                timeout: Time out for the request in seconds.
+
+            Returns:
+                None
+        """
+        data = {}
+        if isinstance(target, (Host, OmnistackCluster, ClusterGroup)):
+            data["target_object_type"] = target.OBJECT_TYPE
+            data["target_object_id"] = target.data["id"]
+        else:
+            data["target_object_type"] = 'federation'
+
+        resource_uri = "{}/suspend".format(URL)
+        self._client.do_post(resource_uri, data, timeout)
 
 
 class Policy(object):
