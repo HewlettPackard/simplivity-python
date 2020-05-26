@@ -196,6 +196,11 @@ consistency_type: The consistency type of the backups to return</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.cluster_groups.</code><code class="sig-name descname">ClusterGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/cluster_groups.html#ClusterGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single cluster group resource.</p>
+<dl class="py attribute">
+<dt id="simplivity.resources.cluster_groups.ClusterGroup.OBJECT_TYPE">
+<code class="sig-name descname">OBJECT_TYPE</code><em class="property"> = 'cluster_group'</em><a class="headerlink" href="#simplivity.resources.cluster_groups.ClusterGroup.OBJECT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -398,6 +403,11 @@ Accepts: Single value, comma-separated list</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.hosts.</code><code class="sig-name descname">Host</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single Host resource.</p>
+<dl class="py attribute">
+<dt id="simplivity.resources.hosts.Host.OBJECT_TYPE">
+<code class="sig-name descname">OBJECT_TYPE</code><em class="property"> = 'host'</em><a class="headerlink" href="#simplivity.resources.hosts.Host.OBJECT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="simplivity.resources.hosts.Host.cancel_virtual_controller_shutdown">
 <code class="sig-name descname">cancel_virtual_controller_shutdown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/hosts.html#Host.cancel_virtual_controller_shutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.hosts.Host.cancel_virtual_controller_shutdown" title="Permalink to this definition">¶</a></dt>
@@ -591,6 +601,11 @@ False: The current HPE OmniStack software for the host cannot roll back to the p
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.omnistack_clusters.</code><code class="sig-name descname">OmnistackCluster</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for single OmniStack cluster resource.</p>
+<dl class="py attribute">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackCluster.OBJECT_TYPE">
+<code class="sig-name descname">OBJECT_TYPE</code><em class="property"> = 'omnistack_cluster'</em><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster.OBJECT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -740,6 +755,24 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 <dt>Args:</dt><dd><p>data: Policy data</p>
 </dd>
 <dt>Returns:</dt><dd><p>object: Policy object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simplivity.resources.policies.Policies.suspend">
+<code class="sig-name descname">suspend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.suspend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suspends policy-based backups on a specific targeted object
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>target: Target object.</dt><dd><p>Allowed object of host, omnistack_cluster, cluster_group and default is federation</p>
+</dd>
+</dl>
+<p>timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>

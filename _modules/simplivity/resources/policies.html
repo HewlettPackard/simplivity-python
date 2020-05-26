@@ -51,6 +51,9 @@
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
 <span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">virtual_machines</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources.hosts</span> <span class="kn">import</span> <span class="n">Host</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources.omnistack_clusters</span> <span class="kn">import</span> <span class="n">OmnistackCluster</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources.cluster_groups</span> <span class="kn">import</span> <span class="n">ClusterGroup</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/policies&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;policies&#39;</span>
@@ -120,7 +123,27 @@
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
 
         <span class="n">affected_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">affected_object</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">affected_object</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Policies.suspend"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policies.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Suspends policy-based backups on a specific targeted object</span>
+<span class="sd">            Args:</span>
+<span class="sd">                target: Target object.</span>
+<span class="sd">                        Allowed object of host, omnistack_cluster, cluster_group and default is federation</span>
+<span class="sd">                timeout: Time out for the request in seconds.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="n">Host</span><span class="p">,</span> <span class="n">OmnistackCluster</span><span class="p">,</span> <span class="n">ClusterGroup</span><span class="p">)):</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">OBJECT_TYPE</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;federation&#39;</span>
+
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/suspend&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Policy"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy">[docs]</a><span class="k">class</span> <span class="nc">Policy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
