@@ -17,6 +17,7 @@
 from simplivity.resources.resource import ResourceBase
 from simplivity.resources import datastores
 from simplivity.resources import virtual_machines
+from simplivity.resources import cluster_groups
 
 URL = '/backups'
 DATA_FIELD = 'backups'
@@ -139,6 +140,38 @@ class Backups(ResourceBase):
         data = {"backup_id": backup_ids}
 
         self._client.do_post(method_url, data, timeout, None)
+
+    def set_retention(self, backups, retention, force=False, cluster_group=None, timeout=-1):
+        """Sets the retention time for the specified list of backups.
+
+        Args:
+          backups: The list of backup objects that you want to set the retention time for.
+          retention: The number of minutes to keep backups.
+          force: An indicator to force a retention time modification even if this action results in deleting backups.
+            Valid Values:
+              True: Sets the new retention time for the specified list of backups. This action may delete of one or more
+                    backups.
+              False: Does not make the requested retention time modification if this results in deleting one or more
+                     backups. This operation returns a list of backups that the requested modification deletes. If the
+                     requested modification does not delete the backups, the retention time modification occurs.
+          cluster_group: Object/name of the cluster group.
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          list: List of backup objects.
+        """
+        method_url = "{}/set_retention".format(URL)
+        backup_ids = [backup.data["id"] for backup in backups]
+        data = {"backup_id": backup_ids, "retention": retention, "force": force}
+        if cluster_group:
+            if not isinstance(cluster_group, cluster_groups.ClusterGroup):
+                # if passed by cluster_group name
+                cluster_group = cluster_groups.ClusterGroups(self._connection).get_by_name(cluster_group)
+            cluster_group_id = cluster_group.data["id"]
+            data["cluster_group_id"] = cluster_group_id
+        self._client.do_post(method_url, data, timeout)
+        comma_separated_ids = ','.join(backup_ids)
+        return self.get_all(filters={'id': comma_separated_ids})
 
 
 class Backup(object):
