@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
     - endpoint support for /backups/delete <POST>
+    - endpoint support for /backups/set_retention <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
     - endpoint support for /backups/{bkpId}/lock <POST>
     - endpoint support for /backups/{bkpId}/copy <POST>
