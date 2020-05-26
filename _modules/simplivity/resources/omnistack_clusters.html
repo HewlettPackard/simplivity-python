@@ -150,7 +150,21 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clusters</span> <span class="o">=</span> <span class="n">OmnistackClusters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+
+<div class="viewcode-block" id="OmnistackCluster.get_connected_clusters"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackCluster.get_connected_clusters">[docs]</a>    <span class="k">def</span> <span class="nf">get_connected_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves directly connected omnistack_clusters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of omnistack_clusters objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/connected_clusters&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">connected_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">method_url</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;omnistack_clusters&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_clusters</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">connected_clusters</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">clusters</span></div></div>
 </pre></div>
 
           </div>
