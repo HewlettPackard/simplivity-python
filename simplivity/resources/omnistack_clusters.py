@@ -118,3 +118,17 @@ class OmnistackCluster(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+        self._clusters = OmnistackClusters(self._connection)
+
+    def get_connected_clusters(self):
+        """Retrieves directly connected omnistack_clusters.
+
+        Returns:
+            list: List of omnistack_clusters objects.
+        """
+        method_url = "{}/{}/connected_clusters".format(URL, self.data["id"])
+        connected_clusters = self._client.do_get(method_url).get("omnistack_clusters", [])
+
+        clusters = [self._clusters.get_by_id(cluster["id"]) for cluster in connected_clusters]
+
+        return clusters
