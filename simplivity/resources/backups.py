@@ -17,6 +17,7 @@
 from simplivity.resources.resource import ResourceBase
 from simplivity.resources import datastores
 from simplivity.resources import virtual_machines
+from simplivity.resources import omnistack_clusters
 
 URL = '/backups'
 DATA_FIELD = 'backups'
@@ -215,3 +216,29 @@ class Backup(object):
         self.__refresh()
 
         return self
+
+    def copy(self, cluster=None, external_store_name=None, timeout=-1):
+        """Copies the specified backup to another omnistack_cluster or external store
+        Args:
+            cluster: Destination OmnistackCluster object/name.
+            external_store_name: The name of the external store.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Returns the new backup object.
+        """
+
+        resource_uri = "{}/{}/copy".format(URL, self.data["id"])
+        data = {}
+        if cluster:
+            if not isinstance(cluster, omnistack_clusters.OmnistackCluster):
+                # if passed name of the cluster
+                clusters_obj = omnistack_clusters.OmnistackClusters(self._connection)
+                cluster = clusters_obj.get_by_name(cluster)
+            data['destination_id'] = cluster.data['id']
+
+        if external_store_name:
+            data['external_store_name'] = external_store_name
+
+        affected_object = self._client.do_post(resource_uri, data, timeout)[0]
+        return self._backups.get_by_id(affected_object["object_id"])

@@ -36,6 +36,8 @@ datastores = ovc.datastores
 # variable declaration
 test_vm_name = "test_MySql-VM_restore"
 remote_datastore = "remoteDS"
+cluster1_name = "CC_Virt_0001"
+cluster2_name = "CC_Virt_0000"
 
 print("\n\nget_all with default params")
 all_backups = backups.get_all()
@@ -121,5 +123,16 @@ backup.rename(f"renamed_{backup.data['name']}")
 print(f"{backup}")
 print(f"{pp.pformat(backup.data)} \n")
 
+backup.delete()
 
+print("\n\ncopy backup")
+backup = vm.create_backup("backup_test_from_sdk_" + str(time.time()), cluster1_name)
+print(f"{backup}")
+print(f"{pp.pformat(backup.data)} \n")
+
+copy_backup = backup.copy(cluster2_name)
+print(f"{copy_backup}")
+print(f"{pp.pformat(copy_backup.data)} \n")
+
+copy_backup.delete()
 backup.delete()
