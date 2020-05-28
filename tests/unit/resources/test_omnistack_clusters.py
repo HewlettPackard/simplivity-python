@@ -112,6 +112,18 @@ class OmnistackClustersTest(unittest.TestCase):
         mock_get.assert_has_calls([call('/omnistack_clusters/12345/connected_clusters'),
                                   call('/omnistack_clusters?case=sensitive&id=12345&limit=500&offset=0&order=descending&sort=name')])
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_time_zone(self, mock_get, mock_post):
+        resource_data = {'id': '12345', 'name': 'name1', 'time_zone': 'Zulu'}
+        mock_get.return_value = {'omnistack_cluster': {'id': '12345', 'name': 'name1', 'time_zone': 'Africa/Accra'}}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        cluster = self.clusters.get_by_data(resource_data)
+        cluster_obj = cluster.set_time_zone("Africa/Accra")
+        self.assertEqual(cluster_obj.data['time_zone'], "Africa/Accra")
+        data = {'time_zone': 'Africa/Accra'}
+        mock_post.assert_called_once_with('/omnistack_clusters/12345/set_time_zone', data, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
