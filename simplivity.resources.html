@@ -55,6 +55,21 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.backups.Backup.rename">
+<code class="sig-name descname">rename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames the specified backup
+Args:</p>
+<blockquote>
+<div><p>new_name: The new name for the backup.
+timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>object: Backup object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backup.restore">
 <code class="sig-name descname">restore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">restore_original</span></em>, <em class="sig-param"><span class="n">virtual_machine_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">datastore</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.restore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new virtual machine or replaces the original virtual machine from the specified backup</p>
