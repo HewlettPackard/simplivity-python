@@ -44,7 +44,7 @@ for cluster in all_clusters:
 print("\n\nTotal number of clusters {}".format(count))
 cluster_object = all_clusters[0]
 
-print("\n\nget_all with filers")
+print("\n\nget_all with filters")
 all_clusters = clusters.get_all(filters={'name': cluster_object.data["name"]})
 count = len(all_clusters)
 for cluster in all_clusters:
@@ -85,3 +85,13 @@ print("\n\nget_connected_clusters")
 cluster1 = clusters.get_by_name(cluster_1_name)
 connected_clusters = cluster1.get_connected_clusters()
 print(f"{pp.pformat(connected_clusters)} \n")
+cluster = clusters.get_all(show_optional_fields=True,
+                           filters={'id': cluster.data["id"]})[0]
+ori_time_zone = cluster.data['time_zone']
+
+print("\n\nset_time_zone")
+cluster = cluster.set_time_zone("Zulu")
+print(f"{pp.pformat(cluster.data)} \n")
+# revert to original time zone
+cluster = cluster.set_time_zone(ori_time_zone)
+print(f"{pp.pformat(cluster.data)} \n")
