@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /backups/delete <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
     - endpoint support for /backups/{bkpId}/lock <POST>
+    - endpoint support for /backups/{bkpId}/rename <POST>
     - endpoint support for /backups/{bkpId}/restore <POST>
     - endpoint support for /cluster_groups <GET>
     - endpoint support for /datastore <POST>
@@ -24,7 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /hosts/{hostId}/virtual_controller_shutdown_status <GET>
     - endpoint support for /omnistack_clusters/time_zone_list <GET>
     - endpoint support for /omnistack_clusters/{clusterId}/connected_clusters  <GET>
+    - endpoint support for /omnistack_clusters/{clusterId}/set_time_zone <POST>
     - endpoint support for /policies <POST>
+    - endpoint support for /policies/resume <POST>
     - endpoint support for /policies/suspend <POST>
     - endpoint support for /policies/{policyId} <DELETE>
     - endpoint support for /policies/{policyId}/rename <POST>

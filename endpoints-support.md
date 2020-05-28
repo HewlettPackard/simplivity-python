@@ -11,6 +11,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups/delete  </sub>                                                             |POST      |
 |<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
 |<sub>/backups/{bkpId}/lock</sub>                                                            |POST    |
+|<sub>/backups/{bkpId}/rename</sub>                                                       |POST      |
 |<sub>/backups/{bkpId}/restore  </sub>                                                    |POST      |
 |     **Cluster Groups**
 |<sub>/cluster_groups  </sub>                                                             |GET       |
@@ -31,9 +32,11 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/omnistack_clusters	</sub>                                                        |GET       |
 |<sub>/omnistack_clusters/time_zone_list  </sub>                                          |GET       |
 |<sub>/omnistack_clusters/{clusterId}/connected_clusters  </sub>                          |GET       |
+|<sub>/omnistack_clusters/{clusterId}/set_time_zone </sub>                                |POST      |
 |     **Policies**
 |<sub>/policies	</sub>                                                                    |GET       |
 |<sub>/policies</sub>                                                                     |POST      |
+|<sub>/policies/resume </sub>                                                             |POST      |
 |<sub>/policies/suspend </sub>                                                            |POST      |
 |<sub>/policies/{policyId} </sub>                                                         |DELETE    |
 |<sub>/policies/{policyId}/rename</sub>                                                   |POST      |
