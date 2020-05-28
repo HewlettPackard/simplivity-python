@@ -145,7 +145,7 @@ newvm = newvm.move(vm_2_name, datastore_1_name)
 print(f"{newvm}")
 print(f"{pp.pformat(newvm.data)} \n")
 
-print("\ncreate_backup")
+print("\n\ncreate_backup")
 cluster = omnistack_clusters.get_by_name(omnistack_cluster_name)
 print("\nCluster data")
 print(f"{pp.pformat(cluster.data)} \n")
@@ -153,27 +153,28 @@ print(f"{pp.pformat(cluster.data)} \n")
 vm_backup = vm2.create_backup("backup_test_from_sdk_" + str(time.time()), cluster)
 print(f"{pp.pformat(vm_backup.data)} \n")
 
-print("Get backups of a single vm")
+print("\n\nGet backups of a single vm")
 backups = vm2.get_backups()
 pp.pprint(backups)
 
-print("\nSet backup parameters of a VM")
+print("\n\nSet backup parameters of a VM")
 guest_username = "svt"
 guest_password = "svtpassword"
 set_parameters = vm1.set_backup_parameters(guest_username, guest_password)
 print(f"{pp.pformat(set_parameters.data)} \n")
 
-print("\nSet policy")
+print("\n\nSet policy")
 vm1 = machines.get_by_name(vm_1_name)
 set_policy = vm1.set_policy(policy_name)
 print(f"{pp.pformat(set_policy.data)} \n")
 
-print("\nPower off")
+print("\n\npower off")
 vm1 = machines.get_by_name(vm_1_name)
 vm_powered_off = vm1.power_off()
-print(f"{pp.pformat(vm_powered_off.data)} \n")
+if (vm_powered_off):
+    print("\nVM Successfully powered off.")
 
-print("\nPower on")
+print("\n\npower on")
 vm1 = machines.get_by_name(vm_1_name)
 vm_powered_on = vm1.power_on()
 if (vm_powered_on):

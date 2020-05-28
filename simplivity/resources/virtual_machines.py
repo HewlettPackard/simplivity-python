@@ -339,7 +339,10 @@ class VirtualMachine(object):
         self._client.do_post(method_url, None, timeout, custom_headers)
         self.__refresh()
 
-        return self
+        if self.data["hypervisor_virtual_machine_power_state"] == "OFF":
+            return True
+        else:
+            return False
 
     def power_on(self, timeout=-1):
         """Power on virtual machine.
