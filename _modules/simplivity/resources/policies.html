@@ -143,11 +143,33 @@
             <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;federation&#39;</span>
 
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/suspend&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Policies.resume"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policies.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Resumes policy-based backups on a specific targeted object</span>
+<span class="sd">            Args:</span>
+<span class="sd">                target: Target object.</span>
+<span class="sd">                        Allowed object of host, omnistack_cluster, cluster_group and default is federation</span>
+<span class="sd">                timeout: Time out for the request in seconds.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="n">Host</span><span class="p">,</span> <span class="n">OmnistackCluster</span><span class="p">,</span> <span class="n">ClusterGroup</span><span class="p">)):</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">OBJECT_TYPE</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_object_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;federation&#39;</span>
+
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/resume&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Policy"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy">[docs]</a><span class="k">class</span> <span class="nc">Policy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Implements features available for a single Policy resource.&quot;&quot;&quot;</span>
+
+    <span class="n">OBJECT_TYPE</span> <span class="o">=</span> <span class="s2">&quot;policy&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
@@ -157,7 +179,7 @@
     <span class="k">def</span> <span class="nf">__refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates the policy data.&quot;&quot;&quot;</span>
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)[</span><span class="s1">&#39;policy&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJECT_TYPE</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Policy.get_vms"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.policies.Policy.get_vms">[docs]</a>    <span class="k">def</span> <span class="nf">get_vms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieves the virtual machines using this policy.</span>

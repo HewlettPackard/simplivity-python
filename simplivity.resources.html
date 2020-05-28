@@ -792,6 +792,24 @@ filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.policies.Policies.resume">
+<code class="sig-name descname">resume</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.resume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resumes policy-based backups on a specific targeted object
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>target: Target object.</dt><dd><p>Allowed object of host, omnistack_cluster, cluster_group and default is federation</p>
+</dd>
+</dl>
+<p>timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policies.suspend">
 <code class="sig-name descname">suspend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policies.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policies.suspend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Suspends policy-based backups on a specific targeted object
@@ -816,6 +834,11 @@ Args:</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.policies.</code><code class="sig-name descname">Policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single Policy resource.</p>
+<dl class="py attribute">
+<dt id="simplivity.resources.policies.Policy.OBJECT_TYPE">
+<code class="sig-name descname">OBJECT_TYPE</code><em class="property"> = 'policy'</em><a class="headerlink" href="#simplivity.resources.policies.Policy.OBJECT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="simplivity.resources.policies.Policy.create_rules">
 <code class="sig-name descname">create_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rules</span></em>, <em class="sig-param"><span class="n">replace_all_rules</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.create_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.create_rules" title="Permalink to this definition">¶</a></dt>
