@@ -198,3 +198,20 @@ class Backup(object):
         self.__refresh()
 
         return self
+
+    def rename(self, new_name, timeout=-1):
+        """Renames the specified backup
+        Args:
+            new_name: The new name for the backup.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: Backup object.
+        """
+
+        resource_uri = "{}/{}/rename".format(URL, self.data["id"])
+        data = {'backup_name': new_name}
+        self._client.do_post(resource_uri, data, timeout)
+        self.__refresh()
+
+        return self

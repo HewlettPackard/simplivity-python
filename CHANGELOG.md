@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /backups/delete <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
     - endpoint support for /backups/{bkpId}/lock <POST>
+    - endpoint support for /backups/{bkpId}/rename <POST>
     - endpoint support for /backups/{bkpId}/restore <POST>
     - endpoint support for /cluster_groups <GET>
     - endpoint support for /datastore <POST>
