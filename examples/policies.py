@@ -150,5 +150,28 @@ policy.rename(f"renamed_{policy.data['name']}")
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
 
+print("\n\nresume policy on omnistack_cluster")
+cluster = clusters.get_all()[0]
+policies.resume(cluster)
+
+print("\n\nresume policy on host")
+host = hosts.get_all()[0]
+policies.resume(host)
+
+"""
+print("\n\nresume policy on cluster group")
+cluster_group options works only with setup having MVA, please use below code for setup with MVA
+cluster_group = cluster_groups.get_all()[0]
+print(f"{cluster_group}")
+print(f"{pp.pformat(cluster_group.data)} \n")
+policies.resume(cluster_group)
+"""
+
+"""
+print("\n\nresume policy on federation")
+federation options works only with setup NOT having MVA, please use below code for setup without MVA
+policies.resume("federation")
+"""
+
 print("\n\ndelete policy")
 policy.delete()
