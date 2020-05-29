@@ -208,6 +208,18 @@ class DatastoresTest(unittest.TestCase):
         mock_post.assert_called_once_with('/datastores/12345/set_policy', {'policy_id': '4567'},
                                           custom_headers=None)
 
+    @mock.patch.object(Connection, "get")
+    def test_standard_hosts(self, mock_get):
+        resource_data = {'standard_hosts': [{'hypervisor_object_id': '1234', 'ip_address': '10.1.2.5',
+                         'name': 'host', 'shared': False, 'virtual_machine_count': 0}]}
+        mock_get.return_value = resource_data
+
+        datastore_data = {'id': '12345'}
+        datastore = self.datastores.get_by_data(datastore_data)
+
+        standard_hosts = datastore.standard_hosts()
+        self.assertEqual(standard_hosts, resource_data)
+
 
 if __name__ == '__main__':
     unittest.main()
