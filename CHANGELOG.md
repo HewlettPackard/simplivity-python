@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
     - exception handling within the ovc client module
+    - obtain access token when 'invalid_token' reached
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
     - resolve the virtual machine `__refresh` method

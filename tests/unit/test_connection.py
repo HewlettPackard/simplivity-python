@@ -231,20 +231,22 @@ class ConnectionTest(unittest.TestCase):
     @patch.object(Connection, 'login')
     @patch.object(Connection, 'get_connection')
     def test_login_again_if_token_expired(self, mock_connection, mock_login):
-        mock_response1 = Mock()
-        mock_response1.read.return_value = json.dumps({'error': 'invalid_token'}).encode('utf-8')
+        mock_invalid_token_response = Mock()
+        mock_invalid_token_response.read.return_value = json.dumps({'error': 'invalid_token'}).encode('utf-8')
 
-        mock_response2 = Mock()
-        mock_response2.read.return_value = json.dumps({'access_token': '1234567'}).encode('utf-8')
+        mock_retry_request_response = Mock()
+        mock_retry_request_response.read.return_value = json.dumps(self.response_body).encode('utf-8')
 
         mock_conn = mock_connection.return_value = Mock()
-        mock_conn.getresponse.side_effect = [mock_response1, mock_response2]
+        mock_conn.getresponse.side_effect = [mock_invalid_token_response, mock_retry_request_response]
 
         self.connection._username = 'username'
         self.connection._password = 'password'
 
         resp, body = self.connection.do_http('POST', '/rest/test', 'body')
         mock_login.assert_called_once_with('username', 'password')
+
+        self.assertEqual(body, self.expected_response_body)
 
     def test_get_connection_ssl_trust_all(self):
 

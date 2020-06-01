@@ -61,7 +61,7 @@ class Connection(object):
             tuple: Tuple with two members (HTTP response object and the response body in json).
         """
         http_headers = self._headers.copy()
-        path = "{}{}".format(self._base_url, path)
+        full_path = "{}{}".format(self._base_url, path)
 
         if login:
             user_pass = b64encode(b"simplivity:").decode("ascii")
@@ -78,22 +78,25 @@ class Connection(object):
         if custom_headers:
             http_headers.update(custom_headers)
 
+        resp = None
+        json_body = None
+
         try:
             if not self.__connection:
                 self.__connection = self.get_connection()
-            self.__connection.request(method, path, body, http_headers)
+            self.__connection.request(method, full_path, body, http_headers)
             resp = self.__connection.getresponse()
             response = resp.read()
-            body = json.loads(response.decode('utf-8'))
+            json_body = json.loads(response.decode('utf-8'))
         except http.client.HTTPException:
             raise exceptions.HPESimpliVityException(traceback.format_exc())
 
-        # Updates token if expired
-        if 'error' in body and body['error'] == 'invalid_token':
+        # Obtain a new token, if the Simplivity Product returns an invalid token error
+        if 'error' in json_body and json_body['error'] == 'invalid_token':
             self.login(self._username, self._password)
-            self.do_http(method, path, body, custom_headers)
+            resp, json_body = self.do_http(method, path, body, custom_headers)
 
-        return resp, body
+        return resp, json_body
 
     def get_connection(self):
         """Makes connection with the OVC.
