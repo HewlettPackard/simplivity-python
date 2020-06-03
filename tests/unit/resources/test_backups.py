@@ -288,6 +288,18 @@ class BackupTest(unittest.TestCase):
         data = {'backup_id': backup_ids, 'retention': 10, 'force': False}
         mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_cancel(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        resource_data = {'name': 'name1', 'id': '12345', 'state': 'SAVING'}
+        mock_get.return_value = {backups.DATA_FIELD: [resource_data]}
+        backup_data = {'name': 'name1', 'id': '12345', 'state': 'CANCELED'}
+        backup = self.backups.get_by_data(backup_data)
+        backup_obj = backup.cancel()
+        self.assertEqual(backup_obj.data, resource_data)
+        mock_post.assert_called_once_with('/backups/12345/cancel', None, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

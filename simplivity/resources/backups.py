@@ -231,3 +231,17 @@ class Backup(object):
         self.__refresh()
 
         return self
+
+    def cancel(self, timeout=-1):
+        """Cancels the specified running backup
+        Args:
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          object: Backup object.
+          Exception if the backup creation completes before cancellation.
+        """
+        resource_uri = "{}/{}/cancel".format(URL, self.data["id"])
+        self._client.do_post(resource_uri, None, timeout)
+        self.__refresh()
+        return self

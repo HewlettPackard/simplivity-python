@@ -11,6 +11,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups/delete  </sub>                                                             |POST      |
 |<sub>/backups/set_retention</sub>                                                        |POST      |
 |<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
+|<sub>/backups/{bkpId}/cancel</sub>                                                       |POST      |
 |<sub>/backups/{bkpId}/lock</sub>                                                            |POST    |
 |<sub>/backups/{bkpId}/restore  </sub>                                                    |POST      |
 |     **Cluster Groups**
