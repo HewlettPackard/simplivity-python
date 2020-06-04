@@ -120,8 +120,17 @@ for rule in all_rules:
     rule_obj = policy.get_rule(rule.get('id'))
     print(f"{pp.pformat(rule_obj)} \n")
 
-print("\n\ndelete rule")
+print("\n\nedit rule")
+updated_rule = {
+    "start_time": "16:30",
+    "end_time": "18:30"
+}
 rule_id = policy.data["rules"][0]['id']
+policy.edit_rule(rule_id, updated_rule)
+print(f"{policy}")
+print(f"{pp.pformat(policy.data)} \n")
+
+print("\n\ndelete rule")
 policy.delete_rule(rule_id)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")

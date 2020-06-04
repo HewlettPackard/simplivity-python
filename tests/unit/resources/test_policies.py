@@ -330,6 +330,21 @@ class PoliciesTest(unittest.TestCase):
                 'target_object_type': 'cluster_group'}
         mock_post.assert_called_once_with('/policies/resume', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "put")
+    @mock.patch.object(Connection, "get")
+    def test_edit_rule(self, mock_get, mock_put):
+        mock_put.return_value = None, [{'object_id': '67890'}]
+        updated_rule = {'frequency': 10, 'retention': 50}
+        resources_data = {"rules": [updated_rule], "name": "policy1", "id": "67890"}
+        mock_get.return_value = {'policy': resources_data}
+        policy_data = {"rules": [{"frequency": 5, "id": "12345", "retention": 1}], "name": "policy1",
+                       "id": "67890"}
+        policy = self.policies.get_by_data(policy_data)
+
+        response_policy = policy.edit_rule(12345, updated_rule)
+        self.assertEqual(response_policy.data, resources_data)
+        mock_put.assert_called_once_with('/policies/67890/rules/12345', updated_rule, custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

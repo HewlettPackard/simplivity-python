@@ -262,3 +262,42 @@ class Policy(object):
         self.__refresh()
 
         return self
+
+    def edit_rule(self, rule_id, rule, timeout=-1):
+        """Edits an existing policy rule
+        Args:
+            rule_id: Rule id to be edited
+            rule: Dictionary of fields from backup policy rule can change, except destination_name, id, number,
+                  and max_backups.
+                application_consistent: Set false for crash-consistent backups
+                                        Set true for application-consistent backups (for example, VSS or snapshot backups)
+                                        Default: false
+                consistency_type: Set to DEFAULT for a snapshot backup
+                                  Set to VSS for a Microsoft Volume Shadow Copy Service backup
+                                  Set to NONE for crash-consistent backups
+                                  Default: NONE
+                destination_id: The unique identifier (UID) of the omnistack_cluster to store the backup
+                                Default: local omnistack_cluster
+                days: The days of the week (for example, Mon,Fri), or month (for example, 1,15) to take backups or
+                      "last" to specify the last day of each month
+                      Default: All (that is, every day)
+                frequency: The number of minutes between backups
+                retention: The number of minutes to keep backups
+                start_time: The time to start the backups, for example, 14:30
+                            This time is local to the time zone of the Hypervisor Management System (HMS)
+                            Default: 00:00
+                end_time: The time to stop backing up, for example, 14:30
+                          This time is local to the time zone of the Hypervisor Management System (HMS)
+                          Default: 00:00
+                external_store_name: The name of the external_store
+
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            self: Returns the policy object.
+        """
+        resource_uri = "{}/{}/rules/{}".format(URL, self.data["id"], rule_id)
+        self._client.do_put(resource_uri, rule, timeout)
+        self.__refresh()
+
+        return self
