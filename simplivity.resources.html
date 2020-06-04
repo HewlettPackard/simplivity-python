@@ -920,6 +920,54 @@ timeout: Time out for the request in seconds.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.policies.Policy.edit_rule">
+<code class="sig-name descname">edit_rule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rule_id</span></em>, <em class="sig-param"><span class="n">rule</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.edit_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.edit_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edits an existing policy rule
+Args:</p>
+<blockquote>
+<div><p>rule_id: Rule id to be edited
+rule: Dictionary of fields from backup policy rule can change, except destination_name, id, number,</p>
+<blockquote>
+<div><blockquote>
+<div><p>and max_backups.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>application_consistent: Set false for crash-consistent backups</dt><dd><p>Set true for application-consistent backups (for example, VSS or snapshot backups)
+Default: false</p>
+</dd>
+<dt>consistency_type: Set to DEFAULT for a snapshot backup</dt><dd><p>Set to VSS for a Microsoft Volume Shadow Copy Service backup
+Set to NONE for crash-consistent backups
+Default: NONE</p>
+</dd>
+<dt>destination_id: The unique identifier (UID) of the omnistack_cluster to store the backup</dt><dd><p>Default: local omnistack_cluster</p>
+</dd>
+<dt>days: The days of the week (for example, Mon,Fri), or month (for example, 1,15) to take backups or</dt><dd><p>“last” to specify the last day of each month
+Default: All (that is, every day)</p>
+</dd>
+</dl>
+<p>frequency: The number of minutes between backups
+retention: The number of minutes to keep backups
+start_time: The time to start the backups, for example, 14:30</p>
+<blockquote>
+<div><p>This time is local to the time zone of the Hypervisor Management System (HMS)
+Default: 00:00</p>
+</div></blockquote>
+<dl class="simple">
+<dt>end_time: The time to stop backing up, for example, 14:30</dt><dd><p>This time is local to the time zone of the Hypervisor Management System (HMS)
+Default: 00:00</p>
+</dd>
+</dl>
+<p>external_store_name: The name of the external_store</p>
+</div></blockquote>
+<p>timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>self: Returns the policy object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policy.get_rule">
 <code class="sig-name descname">get_rule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rule_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.get_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.get_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the specified policy rule
