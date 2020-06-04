@@ -22,6 +22,7 @@ from simplivity import exceptions
 from simplivity.resources import backups
 from simplivity.resources import datastores
 from simplivity.resources import virtual_machines
+from simplivity.resources import omnistack_clusters
 
 
 class BackupTest(unittest.TestCase):
@@ -31,6 +32,7 @@ class BackupTest(unittest.TestCase):
         self.backups = backups.Backups(self.connection)
         self.datastores = datastores.Datastores(self.connection)
         self.virtual_machines = virtual_machines.VirtualMachines(self.connection)
+        self.clusters = omnistack_clusters.OmnistackClusters(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -191,6 +193,57 @@ class BackupTest(unittest.TestCase):
         self.assertEqual(backup_obj.data["name"], backup_data['name'])
         mock_post.assert_called_once_with('/backups/12345/rename',
                                           {'backup_name': backup_data['name']},
+                                          custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_copy_cluster_object(self, mock_get, mock_post):
+        resource_data = {'name': 'backup1', 'id': '12345', 'omnistack_cluster_id': 'cluster0'}
+        backup = self.backups.get_by_data(resource_data)
+        backup_data = {'name': 'backup1', 'id': '67890', 'omnistack_cluster_id': 'cluster1'}
+        mock_get.return_value = {backups.DATA_FIELD: [backup_data]}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        cluster_data = {'name': 'cluster1', 'id': '67890'}
+        cluster = self.clusters.get_by_data(cluster_data)
+
+        copy_backup = backup.copy(cluster)
+        self.assertIsInstance(copy_backup, backups.Backup)
+        self.assertEqual(copy_backup.data, backup_data)
+        mock_post.assert_called_once_with('/backups/12345/copy',
+                                          {'destination_id': '67890'},
+                                          custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_copy_cluster_name(self, mock_get, mock_post):
+        resource_data = {'name': 'backup1', 'id': '12345', 'omnistack_cluster_id': 'cluster0'}
+        cluster_data = {'name': 'cluster1', 'id': '67890'}
+        backup = self.backups.get_by_data(resource_data)
+        backup_data = {'name': 'backup1', 'id': '67890', 'omnistack_cluster_id': 'cluster1'}
+        mock_get.side_effect = [{omnistack_clusters.DATA_FIELD: [cluster_data]},
+                                {backups.DATA_FIELD: [backup_data]}]
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        copy_backup = backup.copy(cluster_data['name'])
+        self.assertIsInstance(copy_backup, backups.Backup)
+        self.assertEqual(copy_backup.data, backup_data)
+        mock_post.assert_called_once_with('/backups/12345/copy',
+                                          {'destination_id': '67890'},
+                                          custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_copy_external_store(self, mock_get, mock_post):
+        resource_data = {'name': 'backup1', 'id': '12345', 'external_store_name': ''}
+        backup = self.backups.get_by_data(resource_data)
+        backup_data = {'name': 'backup1', 'id': '67890', 'external_store_name': 'storeonce_catalyst_ds'}
+        mock_get.return_value = {backups.DATA_FIELD: [backup_data]}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+
+        copy_backup = backup.copy(external_store_name='storeonce_catalyst_ds')
+        self.assertIsInstance(copy_backup, backups.Backup)
+        self.assertEqual(copy_backup.data, backup_data)
+        mock_post.assert_called_once_with('/backups/12345/copy',
+                                          {'external_store_name': 'storeonce_catalyst_ds'},
                                           custom_headers=None)
 
 

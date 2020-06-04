@@ -10,6 +10,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups	</sub>                                                                    |GET       |
 |<sub>/backups/delete  </sub>                                                             |POST      |
 |<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
+|<sub>/backups/{bkpId}/copy</sub>                                                            |POST    |
 |<sub>/backups/{bkpId}/lock</sub>                                                            |POST    |
 |<sub>/backups/{bkpId}/rename</sub>                                                       |POST      |
 |<sub>/backups/{bkpId}/restore  </sub>                                                    |POST      |
