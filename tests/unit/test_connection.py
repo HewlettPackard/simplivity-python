@@ -43,12 +43,17 @@ class ConnectionTest(unittest.TestCase):
         self.request_body = {"request body": "content"}
         self.response_body = {"response body": "content"}
 
+        self.error_response_body = {"message": "this is an error message"}
+
         self.dumped_request_body = json.dumps(self.request_body.copy())
         self.expected_response_body = self.response_body.copy()
 
-    def __make_http_response(self, status):
+    def __make_http_response(self, status, response_body=None):
+        if response_body is None:
+            response_body = self.response_body
+
         mock_response = Mock(status=status)
-        mock_response.read.return_value = json.dumps(self.response_body).encode('utf-8')
+        mock_response.read.return_value = json.dumps(response_body).encode('utf-8')
         return mock_response
 
     def __create_fake_mapped_file(self):
@@ -91,6 +96,16 @@ class ConnectionTest(unittest.TestCase):
 
     @patch.object(HTTPSConnection, 'request')
     @patch.object(HTTPSConnection, 'getresponse')
+    def test_get_when_status_is_ok(self, mock_response, mock_request):
+        mock_request.return_value = {}
+        mock_response.return_value = self.__make_http_response(status=200)
+
+        body = self.connection.get('/path')
+
+        self.assertEqual(body, self.response_body)
+
+    @patch.object(HTTPSConnection, 'request')
+    @patch.object(HTTPSConnection, 'getresponse')
     def test_post_should_do_rest_call_when_status_ok(self, mock_response, mock_request):
         mock_request.return_value = {}
         mock_response.return_value = self.__make_http_response(status=200)
@@ -113,42 +128,59 @@ class ConnectionTest(unittest.TestCase):
 
     @patch.object(HTTPSConnection, 'request')
     @patch.object(HTTPSConnection, 'getresponse')
+    def test_get_should_raise_exception_when_status_internal_error(self, mock_response, mock_request):
+        mock_request.return_value = {}
+        mock_response.return_value = self.__make_http_response(
+            status=401,
+            response_body=self.error_response_body
+        )
+
+        with self.assertRaises(HPESimpliVityException) as context:
+            self.connection.get('/path')
+
+        self.assertTrue(self.error_response_body.get('message') in context.exception.msg)
+
+    @patch.object(HTTPSConnection, 'request')
+    @patch.object(HTTPSConnection, 'getresponse')
     def test_post_should_raise_exception_when_status_internal_error(self, mock_response, mock_request):
         mock_request.return_value = {}
-        mock_response.return_value = self.__make_http_response(status=401)
+        mock_response.return_value = self.__make_http_response(
+            status=401,
+            response_body=self.error_response_body
+        )
 
-        try:
+        with self.assertRaises(HPESimpliVityException) as context:
             self.connection.post('/path', self.request_body)
-        except HPESimpliVityException as e:
-            self.assertEqual(str(e), str((None, self.expected_response_body)))
-        else:
-            self.fail()
+
+        self.assertTrue(self.error_response_body.get('message') in context.exception.msg)
 
     @patch.object(HTTPSConnection, 'request')
     @patch.object(HTTPSConnection, 'getresponse')
     def test_post_should_raise_exception_when_status_forbidden(self, mock_response, mock_request):
         mock_request.return_value = {}
-        mock_response.return_value = self.__make_http_response(status=403)
+        mock_response.return_value = self.__make_http_response(
+            status=403,
+            response_body=self.error_response_body
+        )
 
-        try:
+        with self.assertRaises(HPESimpliVityException) as context:
             self.connection.post('/path', self.request_body)
-        except HPESimpliVityException as e:
-            self.assertEqual(str(e), str((None, self.expected_response_body)))
-        else:
-            self.fail()
+
+        self.assertTrue(self.error_response_body.get('message') in context.exception.msg)
 
     @patch.object(HTTPSConnection, 'request')
     @patch.object(HTTPSConnection, 'getresponse')
     def test_post_should_raise_exception_when_status_not_found(self, mock_response, mock_request):
         mock_request.return_value = {}
-        mock_response.return_value = self.__make_http_response(status=404)
+        mock_response.return_value = self.__make_http_response(
+            status=404,
+            response_body=self.error_response_body
+        )
 
-        try:
+        with self.assertRaises(HPESimpliVityException) as context:
             self.connection.post('/path', self.request_body)
-        except HPESimpliVityException as e:
-            self.assertEqual(str(e), str((None, self.expected_response_body)))
-        else:
-            self.fail()
+
+        self.assertTrue(self.error_response_body.get('message') in context.exception.msg)
 
     @patch.object(HTTPSConnection, 'request')
     @patch.object(HTTPSConnection, 'getresponse')
@@ -220,6 +252,12 @@ class ConnectionTest(unittest.TestCase):
 
         self.assertTrue('timed out' in context.exception.msg)
 
+    def test_do_http_without_access_token(self):
+        self.connection._access_token = None
+        with self.assertRaises(HPESimpliVityException) as context:
+            resp, body = self.connection.do_http('POST', '/rest/test', 'body')
+        self.assertTrue('please login' in context.exception.msg)
+
     @patch.object(Connection, 'do_http')
     def test_login(self, mock_post):
         mock_post.return_value = (None, {'access_token': '1234567'})
@@ -228,14 +266,23 @@ class ConnectionTest(unittest.TestCase):
 
         self.assertEqual(self.connection._access_token, '1234567')
 
+    @patch.object(Connection, 'do_http')
+    def test_login_with_unexpected_body(self, mock_post):
+        mock_post.return_value = (None, {})
+
+        with self.assertRaises(HPESimpliVityException) as context:
+            self.connection.login('username', 'password')
+
+        self.assertTrue('Invalid credentials' in context.exception.msg)
+
     @patch.object(Connection, 'login')
     @patch.object(Connection, 'get_connection')
     def test_login_again_if_token_expired(self, mock_connection, mock_login):
-        mock_invalid_token_response = Mock()
-        mock_invalid_token_response.read.return_value = json.dumps({'error': 'invalid_token'}).encode('utf-8')
-
-        mock_retry_request_response = Mock()
-        mock_retry_request_response.read.return_value = json.dumps(self.response_body).encode('utf-8')
+        mock_invalid_token_response = self.__make_http_response(
+            status=401,
+            response_body={'error': 'invalid_token'}
+        )
+        mock_retry_request_response = self.__make_http_response(status=200)
 
         mock_conn = mock_connection.return_value = Mock()
         mock_conn.getresponse.side_effect = [mock_invalid_token_response, mock_retry_request_response]
@@ -247,6 +294,11 @@ class ConnectionTest(unittest.TestCase):
         mock_login.assert_called_once_with('username', 'password')
 
         self.assertEqual(body, self.expected_response_body)
+
+    def test_logout(self):
+        self.connection.logout()
+
+        self.assertIsNone(self.connection._access_token)
 
     def test_get_connection_ssl_trust_all(self):
 
