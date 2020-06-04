@@ -178,6 +178,33 @@ class HostsTest(unittest.TestCase):
         mock_post.assert_called_once_with("/hosts/12345/cancel_virtual_controller_shutdown", None,
                                           custom_headers=None)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_capacity(self, mock_get):
+        resource_data = {"metrics": [{"name": "used_logical_capacity",
+                                      "data_points": [{"value": 0,
+                                                       "date": "2020-06-02T10:04:00Z"}]}]}
+
+        mock_get.return_value = resource_data
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+        capacity_data = host.get_capacity()
+        self.assertEqual(capacity_data, resource_data)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_capacity_fields(self, mock_get):
+        resource_data = {"metrics": [{"name": "used_logical_capacity",
+                                      "data_points": [{"value": 0,
+                                                       "date": "2020-06-02T10:04:00Z"}]},
+                                     {"name": "used_capacity",
+                                      "data_points": [{"value": 0,
+                                                       "date": "2020-06-02T10:04:00Z"}]}]}
+
+        mock_get.return_value = resource_data
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+        capacity_data = host.get_capacity("used_logical_capacity, used_capacity")
+        self.assertEqual(capacity_data, resource_data)
+
 
 if __name__ == '__main__':
     unittest.main()

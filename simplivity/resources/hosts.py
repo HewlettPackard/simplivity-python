@@ -215,3 +215,24 @@ class Host(object):
         resource_uri = "{}/{}/cancel_virtual_controller_shutdown".format(URL, self.data["id"])
         status = self._client.do_post(resource_uri, None, timeout)
         return status['cancellation_status']['status']
+
+    def get_capacity(self, fields=None, time_offset=0, range=43200, resolution="MINUTE"):
+        """Gets host capacity.
+
+        Args:
+          fields: Comma-separated list of fields to include in the returned objects.
+          time_offset: A time offset in seconds (from now) or a datetime, expressed in ISO-8601 form,
+                       based on Coordinated Universal Time (UTC).
+          range: A range in seconds (the duration from the specified point in time).
+          resolution: The resolution (SECOND, MINUTE, HOUR, or DAY).
+
+        Returns:
+          dict: Dictionary of the capacity details.
+        """
+        resource_uri = "{}/{}/capacity".format(URL, self.data["id"])
+        filters = {'time_offset': time_offset, 'range': range, 'resolution': resolution}
+
+        if fields:
+            filters["fields"] = fields
+
+        return self._client.do_get(resource_uri, filters)

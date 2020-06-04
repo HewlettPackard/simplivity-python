@@ -92,3 +92,10 @@ print("\n\ncancel virtual controller shutdown")
 host = hosts.get_by_id(host_object.data["id"])
 response = host.cancel_virtual_controller_shutdown()
 print("\n\nvirtual controller cancellation status : {}".format(response))
+
+print("\n\nget capacity of the host")
+host_capacity = host.get_capacity()
+print(f"{pp.pformat(host_capacity)} \n")
+
+host_capacity = host.get_capacity("used_logical_capacity, used_capacity")
+print(f"{pp.pformat(host_capacity)} \n")
