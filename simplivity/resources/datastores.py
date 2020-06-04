@@ -203,3 +203,13 @@ class Datastore(object):
         self.__refresh()
 
         return self
+
+    def standard_hosts(self):
+        """Gets the standard hosts that can share a datastore.
+
+        Returns:
+            list: List of standard hosts objects.
+
+        """
+        resource_uri = "{}/{}/standard_hosts".format(URL, self.data["id"])
+        return self._client.do_get(resource_uri)

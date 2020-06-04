@@ -105,6 +105,11 @@ datastore_object.set_policy(policy_object)
 print(f"{datastore_object}")
 print(f"{pp.pformat(datastore_object.data)} \n")
 
+# Get standard hosts on the datastore
+print("\n\nget standard hosts on the datastore")
+hosts = datastore_object.standard_hosts()
+print(f"{pp.pformat(hosts)} \n")
+
 print("\n\ndatastore delete")
 all_datastores = datastores.get_all()
 count = len(all_datastores)
