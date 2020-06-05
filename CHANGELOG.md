@@ -67,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - resolve failing unit test cases
     - resolve the virtual machine `__refresh` method
     - url encode query string to support values that contain spaces
+    - resolve `do_get` method to append filters to uri
 
 ### Removed
     - external test dependency for mock module    
