@@ -116,7 +116,32 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cluster_groups</span> <span class="o">=</span> <span class="n">ClusterGroups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates the cluster_group data.&quot;&quot;&quot;</span>
+        <span class="n">resource_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cluster_groups</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">resource_object</span><span class="o">.</span><span class="n">data</span>
+
+<div class="viewcode-block" id="ClusterGroup.rename"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.cluster_groups.ClusterGroup.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Rename a cluster_group.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: The name of the cluster group.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        object: ClusterGroup object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/rename&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cluster_group_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="c1"># The Response Class has an embedded affected_objects list; however</span>
+        <span class="c1"># the list is not being populated for this POST operation.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__refresh</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div></div>
 </pre></div>
 
           </div>
