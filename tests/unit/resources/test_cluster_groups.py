@@ -90,6 +90,25 @@ class ClusterGroupsTest(unittest.TestCase):
         self.assertIsInstance(obj, cluster_groups.ClusterGroup)
         self.assertEqual(obj.data, resource_data)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_rename(self, mock_get, mock_post):
+        resource_data = {"id": "12345"}
+        resource_object = self.cluster_groups.get_by_data(resource_data)
+
+        cluster_group_data = {"id": "12345", "name": "renamed_cluster_group_12345"}
+
+        mock_get.return_value = {cluster_groups.DATA_FIELD: [cluster_group_data]}
+        mock_post.return_value = (None, [])
+
+        resource_object.rename(cluster_group_data["name"])
+
+        mock_post.assert_called_once_with(
+            f"/cluster_groups/{resource_data['id']}/rename",
+            {"cluster_group_name": cluster_group_data["name"]},
+            custom_headers=None,
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

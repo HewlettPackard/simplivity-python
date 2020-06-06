@@ -84,3 +84,28 @@ class ClusterGroup(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+        self._cluster_groups = ClusterGroups(self._connection)
+
+    def __refresh(self):
+        """Updates the cluster_group data."""
+        resource_object = self._cluster_groups.get_by_id(self.data["id"])
+        self.data = resource_object.data
+
+    def rename(self, name, timeout=-1):
+        """Rename a cluster_group.
+
+        Args:
+            name: The name of the cluster group.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+        object: ClusterGroup object.
+        """
+        resource_uri = "{}/{}/rename".format(URL, self.data["id"])
+        data = {"cluster_group_name": name}
+        self._client.do_post(resource_uri, data, timeout)
+        # The Response Class has an embedded affected_objects list; however
+        # the list is not being populated for this POST operation.
+        self.__refresh()
+
+        return self
