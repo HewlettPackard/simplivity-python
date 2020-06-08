@@ -130,6 +130,40 @@ policy.edit_rule(rule_id, updated_rule)
 print(f"{policy}")
 print(f"{pp.pformat(policy.data)} \n")
 
+print("\n\nbackup edit impact report for policy")
+rule_id_1 = policy.data["rules"][1]['id']
+multiple_rules_update = [
+    {
+        "rule_id": rule_id,
+        "start_time": "14:30",
+        "end_time": "15:30",
+        "application_consistent": False,
+        "frequency": 3,
+        "retention": 5
+    },
+    {
+        "rule_id": rule_id_1,
+        "frequency": 5,
+        "retention": 6
+    }
+]
+single_rule_update = {
+    "rule_id": rule_id,
+    "frequency": 10,
+    "retention": 12
+}
+print("\n\nbackup impact report for policy multiple rules")
+edit_impact_report = policy.impact_edit_rules(multiple_rules_update)
+print(f"{pp.pformat(edit_impact_report)} \n")
+
+print("\n\nbackup impact report for policy single rule")
+edit_impact_report = policy.impact_edit_rules(single_rule_update)
+print(f"{pp.pformat(edit_impact_report)} \n")
+
+print("\n\nbackup impact report for policy single rule and replace")
+edit_impact_report = policy.impact_edit_rules(single_rule_update, True)
+print(f"{pp.pformat(edit_impact_report)} \n")
+
 print("\n\ndelete rule")
 policy.delete_rule(rule_id)
 print(f"{policy}")

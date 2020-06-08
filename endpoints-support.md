@@ -47,6 +47,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/policies/suspend</sub>                                      |POST    |
 |<sub>/policies/{policyId}</sub>                                   |DELETE  |
 |<sub>/policies/{policyId}/impact_report/create_rules</sub>        |POST    |
+|<sub>/policies/{policyId}/impact_report/edit_rules</sub>          |POST    |
 |<sub>/policies/{policyId}/rename</sub>                            |POST    |
 |<sub>/policies/{policyId}/rules</sub>                             |POST    |
 |<sub>/policies/{policyId}/rules/{ruleId}</sub>                    |GET     |
