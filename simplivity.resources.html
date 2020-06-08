@@ -485,6 +485,75 @@ Accepts: Single value, comma-separated list</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-simplivity.resources.external_stores">
+<span id="simplivity-resources-external-stores-module"></span><h2>simplivity.resources.external_stores module<a class="headerlink" href="#module-simplivity.resources.external_stores" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simplivity.resources.external_stores.ExternalStore">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.external_stores.</code><code class="sig-name descname">ExternalStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements features available for a single External store resources.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="simplivity.resources.external_stores.ExternalStores">
+<em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.external_stores.</code><code class="sig-name descname">ExternalStores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simplivity.resources.resource.ResourceBase" title="simplivity.resources.resource.ResourceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">simplivity.resources.resource.ResourceBase</span></code></a></p>
+<p>Implements features available for SimpliVity External store resources.</p>
+<dl class="py method">
+<dt id="simplivity.resources.external_stores.ExternalStores.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pagination</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">page_size</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sort</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">'descending'</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">case_sensitive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStores.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStores.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all external stores
+Args:</p>
+<blockquote>
+<div><p>pagination: True if need pagination
+page_size: Size of the page (Required when pagination is on)
+limit: A positive integer that represents the maximum number of results to return
+offset: A positive integer that directs the service to start returning</p>
+<blockquote>
+<div><p>the &lt;offset value&gt; instance, up to the limit.</p>
+</div></blockquote>
+<p>sort: The name of the field where the sort occurs
+order: The sort order preference. Valid values: ascending or descending.
+filters: Dictionary with filter values. Example: {‘name’: ‘name’}</p>
+<blockquote>
+<div><dl class="simple">
+<dt>name: The name of the external_stores to return.</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk characters as a wildcard.</p>
+</dd>
+</dl>
+<p>omnistack_cluster_id: The name of the omnistack_cluster that is associated with the instances to return
+cluster_group_id:The unique identifiers (UIDs) of the cluster_groups associated with the external stores to return</p>
+<blockquote>
+<div><p>Accepts: Single value, comma-separated list</p>
+</div></blockquote>
+<dl class="simple">
+<dt>management_ip: The IP address of the external store</dt><dd><p>Accepts: Single value, comma-separated list, pattern using one or more asterisk characters as a wildcard</p>
+</dd>
+<dt>type: The type of external store</dt><dd><p>Default: StoreOnceOnPrem</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: list of resources</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simplivity.resources.external_stores.ExternalStores.get_by_data">
+<code class="sig-name descname">get_by_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStores.get_by_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStores.get_by_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets ExternalStore object from data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data: ExternalStore data</p>
+</dd>
+<dt>Returns:</dt><dd><p>object: ExternalStore object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-simplivity.resources.hosts">
 <span id="simplivity-resources-hosts-module"></span><h2>simplivity.resources.hosts module<a class="headerlink" href="#module-simplivity.resources.hosts" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">

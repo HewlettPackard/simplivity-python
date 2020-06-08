@@ -63,6 +63,7 @@
 <span class="kn">from</span> <span class="nn">simplivity.resources.omnistack_clusters</span> <span class="kn">import</span> <span class="n">OmnistackClusters</span>
 <span class="kn">from</span> <span class="nn">simplivity.resources.policies</span> <span class="kn">import</span> <span class="n">Policies</span>
 <span class="kn">from</span> <span class="nn">simplivity.resources.virtual_machines</span> <span class="kn">import</span> <span class="n">VirtualMachines</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources.external_stores</span> <span class="kn">import</span> <span class="n">ExternalStores</span>
 
 
 <div class="viewcode-block" id="OVC"><a class="viewcode-back" href="../../simplivity.html#simplivity.ovc_client.OVC">[docs]</a><span class="k">class</span> <span class="nc">OVC</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -85,6 +86,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__backups</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__hosts</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__cluster_groups</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__external_stores</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="OVC.from_json_file"><a class="viewcode-back" href="../../simplivity.html#simplivity.ovc_client.OVC.from_json_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_json_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
@@ -219,7 +221,19 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cluster_groups</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__cluster_groups</span> <span class="o">=</span> <span class="n">ClusterGroups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cluster_groups</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cluster_groups</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">external_stores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the External stores client.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            External stores object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__external_stores</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__external_stores</span> <span class="o">=</span> <span class="n">ExternalStores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__external_stores</span></div>
 </pre></div>
 
           </div>

@@ -28,6 +28,14 @@ simplivity.resources.datastores module
    :undoc-members:
    :show-inheritance:
 
+simplivity.resources.external\_stores module
+--------------------------------------------
+
+.. automodule:: simplivity.resources.external_stores
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 simplivity.resources.hosts module
 ---------------------------------
 
