@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/resume <POST>
     - endpoint support for /policies/suspend <POST>
     - endpoint support for /policies/{policyId} <DELETE>
+    - endpoint support for /policies/{policyId}/impact_report/create_rules <POST>
     - endpoint support for /policies/{policyId}/rename <POST>
     - endpoint support for /policies/{policyId}/rules <POST>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <GET>

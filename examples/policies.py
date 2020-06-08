@@ -182,5 +182,17 @@ federation options works only with setup NOT having MVA, please use below code f
 policies.resume("federation")
 """
 
+print("\n\nbackup impact report for policy single rule")
+impact_report = policy.impact_create_rules(single_rule)
+print(f"{pp.pformat(impact_report)} \n")
+
+print("\n\nbackup impact report for policy single rule and replace")
+impact_report = policy.impact_create_rules(single_rule, True)
+print(f"{pp.pformat(impact_report)} \n")
+
+print("\n\nbackup impact report for policy multiple rules")
+impact_report = policy.impact_create_rules(multiple_rules)
+print(f"{pp.pformat(impact_report)} \n")
+
 print("\n\ndelete policy")
 policy.delete()
