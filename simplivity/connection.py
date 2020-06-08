@@ -45,7 +45,6 @@ class Connection(object):
 
         self._headers = {'Accept': 'application/json'}
         self._base_url = "https://{}/api".format(ovc_ip)
-        self.__connection = None
 
     def do_http(self, method, path, body, custom_headers=None, login=False):
         """Makes http calls.
@@ -61,7 +60,7 @@ class Connection(object):
             tuple: Tuple with two members (HTTP response object and the response body in json).
         """
         http_headers = self._headers.copy()
-        path = "{}{}".format(self._base_url, path)
+        full_path = "{}{}".format(self._base_url, path)
 
         if login:
             user_pass = b64encode(b"simplivity:").decode("ascii")
@@ -79,21 +78,21 @@ class Connection(object):
             http_headers.update(custom_headers)
 
         try:
-            if not self.__connection:
-                self.__connection = self.get_connection()
-            self.__connection.request(method, path, body, http_headers)
-            resp = self.__connection.getresponse()
-            response = resp.read()
-            body = json.loads(response.decode('utf-8'))
+            connection = self.get_connection()
+            connection.request(method, full_path, body, http_headers)
+            resp = connection.getresponse()
+            resp_body = resp.read()
+            connection.close()
+            json_body = json.loads(resp_body.decode('utf-8'))
         except http.client.HTTPException:
             raise exceptions.HPESimpliVityException(traceback.format_exc())
 
-        # Updates token if expired
-        if 'error' in body and body['error'] == 'invalid_token':
+        # Obtain a new token, if the Simplivity Product returns an invalid token error.
+        if 'error' in json_body and json_body['error'] == 'invalid_token':
             self.login(self._username, self._password)
-            self.do_http(method, path, body, custom_headers)
+            resp, json_body = self.do_http(method, path, body, custom_headers)
 
-        return resp, body
+        return resp, json_body
 
     def get_connection(self):
         """Makes connection with the OVC.

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
     - endpoint support for /backups/delete <POST>
+    - endpoint support for /backups/set_retention <POST>
     - endpoint support for /backups/{bkpId} <DELETE>
     - endpoint support for /backups/{bkpId}/lock <POST>
     - endpoint support for /backups/{bkpId}/copy <POST>
@@ -41,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <PUT>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - endpoint support for /virtual_machines/{vmId}/power_on <POST>
+    - missing connection unit tests to improve code coverage
     - missing ovc client host unit tests to improve code coverage
     - pull request template to facilitate pull requests
     - query string support for post operations
@@ -57,6 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
     - exception handling within the ovc client module
+    - obtain access token when 'invalid_token' reached
+    - remove the caching the http.client.HTTPSConnection object
     - required __init__.py files to support unit test discovery
     - resolve failing unit test cases
     - resolve the virtual machine `__refresh` method
