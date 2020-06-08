@@ -224,6 +224,34 @@ consistency_type: The consistency type of the backups to return</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="simplivity.resources.backups.Backups.set_retention">
+<code class="sig-name descname">set_retention</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backups</span></em>, <em class="sig-param"><span class="n">retention</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cluster_group</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backups.set_retention"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backups.set_retention" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the retention time for the specified list of backups.</p>
+<dl>
+<dt>Args:</dt><dd><p>backups: The list of backup objects that you want to set the retention time for.
+retention: The number of minutes to keep backups.
+force: An indicator to force a retention time modification even if this action results in deleting backups.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Valid Values:</dt><dd><dl class="simple">
+<dt>True: Sets the new retention time for the specified list of backups. This action may delete of one or more</dt><dd><p>backups.</p>
+</dd>
+<dt>False: Does not make the requested retention time modification if this results in deleting one or more</dt><dd><p>backups. This operation returns a list of backups that the requested modification deletes. If the
+requested modification does not delete the backups, the retention time modification occurs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>cluster_group: Object/name of the cluster group.
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: List of backup objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

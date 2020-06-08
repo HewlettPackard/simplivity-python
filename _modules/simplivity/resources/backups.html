@@ -52,6 +52,7 @@
 <span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">datastores</span>
 <span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">virtual_machines</span>
 <span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">omnistack_clusters</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">cluster_groups</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/backups&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;backups&#39;</span>
@@ -173,7 +174,41 @@
         <span class="n">backup_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">backup</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">backup</span> <span class="ow">in</span> <span class="n">backups</span><span class="p">]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;backup_id&quot;</span><span class="p">:</span> <span class="n">backup_ids</span><span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Backups.set_retention"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backups.set_retention">[docs]</a>    <span class="k">def</span> <span class="nf">set_retention</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backups</span><span class="p">,</span> <span class="n">retention</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cluster_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the retention time for the specified list of backups.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          backups: The list of backup objects that you want to set the retention time for.</span>
+<span class="sd">          retention: The number of minutes to keep backups.</span>
+<span class="sd">          force: An indicator to force a retention time modification even if this action results in deleting backups.</span>
+<span class="sd">            Valid Values:</span>
+<span class="sd">              True: Sets the new retention time for the specified list of backups. This action may delete of one or more</span>
+<span class="sd">                    backups.</span>
+<span class="sd">              False: Does not make the requested retention time modification if this results in deleting one or more</span>
+<span class="sd">                     backups. This operation returns a list of backups that the requested modification deletes. If the</span>
+<span class="sd">                     requested modification does not delete the backups, the retention time modification occurs.</span>
+<span class="sd">          cluster_group: Object/name of the cluster group.</span>
+<span class="sd">          timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          list: List of backup objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/set_retention&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="n">backup_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">backup</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">backup</span> <span class="ow">in</span> <span class="n">backups</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;backup_id&quot;</span><span class="p">:</span> <span class="n">backup_ids</span><span class="p">,</span> <span class="s2">&quot;retention&quot;</span><span class="p">:</span> <span class="n">retention</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="n">force</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">cluster_group</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster_group</span><span class="p">,</span> <span class="n">cluster_groups</span><span class="o">.</span><span class="n">ClusterGroup</span><span class="p">):</span>
+                <span class="c1"># if passed by cluster_group name</span>
+                <span class="n">cluster_group</span> <span class="o">=</span> <span class="n">cluster_groups</span><span class="o">.</span><span class="n">ClusterGroups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">cluster_group</span><span class="p">)</span>
+            <span class="n">cluster_group_id</span> <span class="o">=</span> <span class="n">cluster_group</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;cluster_group_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_group_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="n">comma_separated_ids</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">backup_ids</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">comma_separated_ids</span><span class="p">})</span></div></div>
 
 
 <div class="viewcode-block" id="Backup"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backup">[docs]</a><span class="k">class</span> <span class="nc">Backup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
