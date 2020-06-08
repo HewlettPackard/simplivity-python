@@ -136,3 +136,21 @@ print(f"{pp.pformat(copy_backup.data)} \n")
 
 copy_backup.delete()
 backup.delete()
+
+print("\n\nset retention")
+vm = machines.get_by_name(test_vm_name)
+backup1 = vm.create_backup("backup_test_from_sdk_set_retention1_" + str(time.time()))
+print(f"{backup1}")
+print(f"{pp.pformat(backup1.data)} \n")
+backup2 = vm.create_backup("backup_test_from_sdk_set_retention2_" + str(time.time()))
+print(f"{backup2}")
+print(f"{pp.pformat(backup2.data)} \n")
+
+backup_list = [backup1, backup2]
+backup_obj = backups.set_retention(backup_list, 10)
+
+for backup in backup_obj:
+    print(f"{backup}")
+    print(f"{pp.pformat(backup.data)} \n")
+
+backups.delete_multiple_backups(backup_list)
