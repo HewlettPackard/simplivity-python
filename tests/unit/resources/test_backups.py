@@ -23,6 +23,7 @@ from simplivity.resources import backups
 from simplivity.resources import datastores
 from simplivity.resources import virtual_machines
 from simplivity.resources import omnistack_clusters
+from simplivity.resources import cluster_groups
 
 
 class BackupTest(unittest.TestCase):
@@ -33,6 +34,7 @@ class BackupTest(unittest.TestCase):
         self.datastores = datastores.Datastores(self.connection)
         self.virtual_machines = virtual_machines.VirtualMachines(self.connection)
         self.clusters = omnistack_clusters.OmnistackClusters(self.connection)
+        self.cluster_groups = cluster_groups.ClusterGroups(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -245,6 +247,126 @@ class BackupTest(unittest.TestCase):
         mock_post.assert_called_once_with('/backups/12345/copy',
                                           {'external_store_name': 'storeonce_catalyst_ds'},
                                           custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_false_cluster_obj(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        cluster_group_data = {"id": "12345", 'name': 'cluster_group1'}
+        cluster_group = self.cluster_groups.get_by_data(cluster_group_data)
+        mock_get.return_value = {backups.DATA_FIELD: backup_ret_data}
+        backup_obj = self.backups.set_retention(backup_list, 10, False, cluster_group)
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': False, 'cluster_group_id': "12345"}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_true_cluster_obj(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        cluster_group_data = {"id": "12345", 'name': 'cluster_group1'}
+        cluster_group = self.cluster_groups.get_by_data(cluster_group_data)
+        mock_get.return_value = {backups.DATA_FIELD: backup_ret_data}
+        backup_obj = self.backups.set_retention(backup_list, 10, True, cluster_group)
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': True, 'cluster_group_id': "12345"}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_true_cluster_name(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        resource_data = [{'id': '12345', 'name': 'cluster_group1'}]
+        mock_get.side_effect = [{cluster_groups.DATA_FIELD: resource_data}, {backups.DATA_FIELD: backup_ret_data}]
+        backup_obj = self.backups.set_retention(backup_list, 10, True, '12345')
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': True, 'cluster_group_id': "12345"}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_false_cluster_name(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        resource_data = [{'id': '12345', 'name': 'cluster_group1'}]
+        mock_get.side_effect = [{cluster_groups.DATA_FIELD: resource_data}, {backups.DATA_FIELD: backup_ret_data}]
+        backup_obj = self.backups.set_retention(backup_list, 10, False, '12345')
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': False, 'cluster_group_id': "12345"}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_true_cluster_none(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        mock_get.return_value = {backups.DATA_FIELD: backup_ret_data}
+        backup_obj = self.backups.set_retention(backup_list, 10, True)
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': True}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_set_retention_force_false_cluster_none(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        backup_data = [{'name': 'name1', 'id': '12345', 'expiration_time': 'NA'},
+                       {'name': 'name2', 'id': '67890', 'expiration_time': 'NA'}]
+        backup_ret_data = [{'name': 'name1', 'id': '12345', 'expiration_time': '2020-05-22T15:51:56Z'},
+                           {'name': 'name2', 'id': '67890', 'expiration_time': '2020-05-22T15:51:56Z'}]
+        backup_list = [self.backups.get_by_data(entry) for entry in backup_data]
+        backup_ids = [backup.data['id'] for backup in backup_list]
+        mock_get.return_value = {backups.DATA_FIELD: backup_ret_data}
+        backup_obj = self.backups.set_retention(backup_list, 10)
+        self.assertIsInstance(backup_obj[0], backups.Backup)
+        self.assertEqual(backup_obj[0].data, backup_ret_data[0])
+        data = {'backup_id': backup_ids, 'retention': 10, 'force': False}
+        mock_post.assert_called_once_with('/backups/set_retention', data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_cancel(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        resource_data = {'name': 'name1', 'id': '12345', 'state': 'SAVING'}
+        mock_get.return_value = {backups.DATA_FIELD: [resource_data]}
+        backup_data = {'name': 'name1', 'id': '12345', 'state': 'CANCELED'}
+        backup = self.backups.get_by_data(backup_data)
+        backup_obj = backup.cancel()
+        self.assertEqual(backup_obj.data, resource_data)
+        mock_post.assert_called_once_with('/backups/12345/cancel', None, custom_headers=None)
 
 
 if __name__ == '__main__':

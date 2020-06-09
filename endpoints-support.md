@@ -9,7 +9,9 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **Backups**
 |<sub>/backups</sub>                                               |GET     |
 |<sub>/backups/delete</sub>                                        |POST    |
+|<sub>/backups/set_retention</sub>                                 |POST    |
 |<sub>/backups/{bkpId}</sub>                                       |DELETE  |
+|<sub>/backups/{bkpId}/cancel</sub>                                |POST    |
 |<sub>/backups/{bkpId}/copy</sub>                                  |POST    |
 |<sub>/backups/{bkpId}/lock</sub>                                  |POST    |
 |<sub>/backups/{bkpId}/rename</sub>                                |POST    |
@@ -24,6 +26,8 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/datastores/{datastoreId}/resize</sub>                       |POST    |
 |<sub>/datastores/{datastoreId}/set_policy</sub>                   |POST    |
 |<sub>/datastores/{datastoreId}/standard_hosts</sub>               |GET     |
+|     **External Stores**
+|<sub>/external_stores</sub>                                       |GET     |
 |     **Hosts**
 |<sub>/hosts</sub>                                                 |GET     |
 |<sub>/hosts/{hostId}/cancel_virtual_controller_shutdown</sub>     |POST    |
