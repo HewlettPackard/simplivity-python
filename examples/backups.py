@@ -154,3 +154,17 @@ for backup in backup_obj:
     print(f"{pp.pformat(backup.data)} \n")
 
 backups.delete_multiple_backups(backup_list)
+
+print("\n\ncancels the specified running backup")
+vm = machines.get_by_name(test_vm_name)
+backup = vm.create_backup("backup_test_from_sdk_" + str(time.time()))
+print(f"{backup}")
+print(f"{pp.pformat(backup.data)} \n")
+try:
+    backup_obj = backup.cancel()
+    print(f"{backup_obj}")
+    print(f"{pp.pformat(backup_obj.data)} \n")
+# Exception will be raised if the backup is created before cancellation
+except HPESimpliVityException as e:
+    print(f"{e}")
+backup.delete()

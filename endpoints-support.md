@@ -9,19 +9,13 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **Backups**
 |<sub>/backups</sub>                                               |GET     |
 |<sub>/backups/delete</sub>                                        |POST    |
+|<sub>/backups/set_retention</sub>                                 |POST    |
 |<sub>/backups/{bkpId}</sub>                                       |DELETE  |
+|<sub>/backups/{bkpId}/cancel</sub>                                |POST    |
 |<sub>/backups/{bkpId}/copy</sub>                                  |POST    |
 |<sub>/backups/{bkpId}/lock</sub>                                  |POST    |
 |<sub>/backups/{bkpId}/rename</sub>                                |POST    |
 |<sub>/backups/{bkpId}/restore</sub>                               |POST    |
-|<sub>/backups	</sub>                                                                    |GET       |
-|<sub>/backups/delete  </sub>                                                             |POST      |
-|<sub>/backups/set_retention</sub>                                                        |POST      |
-|<sub>/backups/{bkpId}  </sub>                                                            |DELETE    |
-|<sub>/backups/{bkpId}/copy</sub>                                                            |POST    |
-|<sub>/backups/{bkpId}/lock</sub>                                                            |POST    |
-|<sub>/backups/{bkpId}/rename</sub>                                                       |POST      |
-|<sub>/backups/{bkpId}/restore  </sub>                                                    |POST      |
 |     **Cluster Groups**
 |<sub>/cluster_groups</sub>                                        |GET     |
 |<sub>/cluster_groups/{clusterGroupId}/rename</sub>                |POST    |
