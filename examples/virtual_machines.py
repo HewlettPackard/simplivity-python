@@ -179,3 +179,10 @@ vm1 = machines.get_by_name(vm_1_name)
 vm_powered_on = vm1.power_on()
 if (vm_powered_on):
     print("\nVM Successfully powered on.")
+
+print("\n\nImpact report for multiple vms applied policy")
+vm1 = machines.get_by_name(vm_1_name)
+vm2 = machines.get_by_name(vm_2_name)
+vms = [vm1, vm2]
+report = machines.policy_impact_report(policy, vms)
+print(f"{pp.pformat(report)} \n")
