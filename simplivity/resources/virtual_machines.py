@@ -386,3 +386,22 @@ class VirtualMachine(object):
             return True
         else:
             return False
+
+    def validate_backup_credentials(self, guest_username, guest_password, timeout=-1):
+        """Validates the credentials for the virtual machine want to backup.
+
+        Args:
+            guest_username: Username of the virtual machine.
+            guest_password: Password of the virtual machine.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            status: Possible values are 'VALID', 'INVALID'.
+        """
+        method_url = "{}/{}/validate_backup_credentials".format(URL, self.data["id"])
+        data = {"guest_username": guest_username,
+                "guest_password": guest_password}
+
+        status = self._client.do_post(method_url, data, timeout)
+
+        return status['credentials_validation']['status']
