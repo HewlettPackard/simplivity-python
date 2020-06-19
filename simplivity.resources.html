@@ -789,6 +789,23 @@ False: The current HPE OmniStack software for the host cannot roll back to the p
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackCluster.get_throughput">
+<code class="sig-name descname">get_throughput</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">destination_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">range</span><span class="o">=</span><span class="default_value">43200</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster.get_throughput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster.get_throughput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the throughput between each pair of omnistack_clusters in the federation</p>
+<dl>
+<dt>Args:</dt><dd><p>destination_id : The unique identifier (UID) of the omnistack_clusters to return
+time_offset : A time offset in seconds (from now) or a datetime,</p>
+<blockquote>
+<div><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0</p>
+</div></blockquote>
+<p>range : A range in seconds (the duration from the specified point in time) Default: 43200</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Dictionary of cluster_throughput object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackCluster.set_time_zone">
 <code class="sig-name descname">set_time_zone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_zone</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster.set_time_zone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster.set_time_zone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the time zone for a cluster.</p>
@@ -1292,10 +1309,11 @@ custom_headers: Allows to set custom http headers.</p>
 
 <dl class="py method">
 <dt id="simplivity.resources.resource.ResourceClient.do_get">
-<code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">do_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uri</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/resource.html#ResourceClient.do_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.resource.ResourceClient.do_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes get requests</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>uri: URI of the resource</p>
+<dt>Args:</dt><dd><p>uri: URI of the resource
+filters: Dictionary of filters, example: {‘name’: ‘name’}</p>
 </dd>
 <dt>Returns:</dt><dd><p>Returns: Returns the resource data</p>
 </dd>
@@ -1757,7 +1775,7 @@ policy: policy object</p>
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

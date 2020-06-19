@@ -167,6 +167,25 @@
 
         <span class="k">return</span> <span class="n">clusters</span></div>
 
+<div class="viewcode-block" id="OmnistackCluster.get_throughput"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.omnistack_clusters.OmnistackCluster.get_throughput">[docs]</a>    <span class="k">def</span> <span class="nf">get_throughput</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="mi">43200</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the throughput between each pair of omnistack_clusters in the federation</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            destination_id : The unique identifier (UID) of the omnistack_clusters to return</span>
+<span class="sd">            time_offset : A time offset in seconds (from now) or a datetime,</span>
+<span class="sd">                        expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0</span>
+<span class="sd">            range : A range in seconds (the duration from the specified point in time) Default: 43200</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary of cluster_throughput object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/throughput&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time_offset&#39;</span><span class="p">:</span> <span class="n">time_offset</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">destination_id</span><span class="p">):</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;destination_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">destination_id</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates the omnistack cluster data.&quot;&quot;&quot;</span>
         <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
@@ -243,7 +262,7 @@
       &copy;2019, Hewlett Packard Enterprise Development LP.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
