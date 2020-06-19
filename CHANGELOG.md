@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <GET>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <DELETE>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <PUT>
+    - endpoint support for /security/certificates <GET>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - endpoint support for /virtual_machines/{vmId}/power_on <POST>
     - missing connection unit tests to improve code coverage

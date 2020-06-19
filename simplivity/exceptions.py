@@ -92,3 +92,14 @@ class HPESimpliVityAuthenticationError(HPESimpliVityException):
        msg (str): Exception message.
     """
     pass
+
+
+class HPESimpliVityMethodNotSupportedError(HPESimpliVityException):
+    """
+    SimpliVity Method not supported Exception.
+    The exception is raised when the method is not supported on SimpliVity uri.
+
+    Attributes:
+       msg (str): Exception message.
+    """
+    pass
