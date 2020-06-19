@@ -112,6 +112,47 @@ class OmnistackClustersTest(unittest.TestCase):
         mock_get.assert_has_calls([call('/omnistack_clusters/12345/connected_clusters'),
                                   call('/omnistack_clusters?case=sensitive&id=12345&limit=500&offset=0&order=descending&sort=name')])
 
+    @mock.patch.object(Connection, "get")
+    def test_get_throughput_without_filters(self, mock_get):
+        cluster_data = {'name': 'name1', 'id': '12345'}
+        resource_data = {'start_time': '2020-06-09T01:10:55Z', 'end_time': '2020-06-09T13:10:55Z',
+                         'cluster_throughput': [{'average_throughput': '12345',
+                                                 'data': {'date_of_minimum': '2020-06-09T11:45:00Z',
+                                                          'minimum_throughput': '141',
+                                                          'date_of_maximum': '2020-06-09T11:41:00Z',
+                                                          'maximum_throughput': '3298',
+                                                          'data_points': [
+                                                              {'value': '3298', 'date': '2020-06-09T11:41:00Z'},
+                                                              {'value': '814', 'date': '2020-06-09T11:42:00Z'}]}}]}
+
+        mock_get.return_value = resource_data
+        cluster = self.clusters.get_by_data(cluster_data)
+        obj = cluster.get_throughput()
+        self.assertEqual(obj, resource_data)
+        mock_get.assert_has_calls([call('/omnistack_clusters/12345/throughput?range=43200&time_offset=0')])
+
+    @mock.patch.object(Connection, "get")
+    def test_get_throughput_with_filters(self, mock_get):
+        cluster_data = {'name': 'name1', 'id': '12345'}
+        resource_data = {'start_time': '2020-06-09T01:10:55Z', 'end_time': '2020-06-09T13:10:55Z',
+                         'cluster_throughput': [{'source_omnistack_cluster_id': '12345',
+                                                 'destination_omnistack_cluster_id': '123456',
+                                                 'average_throughput': '12345',
+                                                 'data': {'date_of_minimum': '2020-06-09T11:45:00Z',
+                                                          'minimum_throughput': '141',
+                                                          'date_of_maximum': '2020-06-09T11:41:00Z',
+                                                          'maximum_throughput': '3298',
+                                                          'data_points': [
+                                                              {'value': '3298', 'date': '2020-06-09T11:41:00Z'},
+                                                              {'value': '814', 'date': '2020-06-09T11:42:00Z'}]}}]}
+
+        mock_get.return_value = resource_data
+        cluster = self.clusters.get_by_data(cluster_data)
+        obj = cluster.get_throughput("123456", 0, 200)
+
+        self.assertEqual(obj, resource_data)
+        mock_get.assert_has_calls([call('/omnistack_clusters/12345/throughput?destination_id=123456&range=200&time_offset=0')])
+
     @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
     def test_set_time_zone(self, mock_get, mock_post):

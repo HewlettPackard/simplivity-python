@@ -30,6 +30,7 @@ from simplivity.resources.omnistack_clusters import OmnistackClusters
 from simplivity.resources.policies import Policies
 from simplivity.resources.virtual_machines import VirtualMachines
 from simplivity.resources.external_stores import ExternalStores
+from simplivity.resources.certificates import Certificates
 
 OS_ENVIRON_CREDENTIALS = {
     'SIMPLIVITYSDK_USERNAME': 'simplicity',
@@ -194,6 +195,16 @@ class OVCTest(unittest.TestCase):
     def test_lazy_loading_external_groups(self):
         external_stores = self._ovc.external_stores
         self.assertEqual(external_stores, self._ovc.external_stores)
+
+    def test_certificates_has_right_type(self):
+        self.assertIsInstance(self._ovc.certificates, Certificates)
+
+    def test_certificates_has_value(self):
+        self.assertIsNotNone(self._ovc.certificates)
+
+    def test_lazy_loading_certificates(self):
+        certificates = self._ovc.certificates
+        self.assertEqual(certificates, self._ovc.certificates)
 
 
 if __name__ == '__main__':
