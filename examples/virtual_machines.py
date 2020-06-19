@@ -168,6 +168,10 @@ vm1 = machines.get_by_name(vm_1_name)
 set_policy = vm1.set_policy(policy_name)
 print(f"{pp.pformat(set_policy.data)} \n")
 
+print("\n\nvalidating the credentials for the virtual machine")
+status = vm1.validate_backup_credentials(guest_username, guest_password)
+print(f"{pp.pformat(status)} \n")
+
 print("\n\npower off")
 vm1 = machines.get_by_name(vm_1_name)
 vm_powered_off = vm1.power_off()
