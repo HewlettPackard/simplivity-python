@@ -12,6 +12,14 @@ simplivity.resources.backups module
    :undoc-members:
    :show-inheritance:
 
+simplivity.resources.certificates module
+----------------------------------------
+
+.. automodule:: simplivity.resources.certificates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 simplivity.resources.cluster\_groups module
 -------------------------------------------
 
