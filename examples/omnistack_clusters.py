@@ -95,3 +95,8 @@ print(f"{pp.pformat(cluster.data)} \n")
 # revert to original time zone
 cluster = cluster.set_time_zone(ori_time_zone)
 print(f"{pp.pformat(cluster.data)} \n")
+
+print("\n\nget_throughput")
+cluster1 = clusters.get_by_name(cluster_1_name)
+cluster_throuput = cluster1.get_throughput('', 0, 50)
+print(f"{pp.pformat(cluster_throuput)} \n")

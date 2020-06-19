@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /omnistack_clusters/time_zone_list <GET>
     - endpoint support for /omnistack_clusters/{clusterId}/connected_clusters  <GET>
     - endpoint support for /omnistack_clusters/{clusterId}/set_time_zone <POST>
+    - endpoint support for /omnistack_clusters/{clusterId}/throughput <GET>
     - endpoint support for /policies <POST>
     - endpoint support for /policies/resume <POST>
     - endpoint support for /policies/suspend <POST>
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <GET>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <DELETE>
     - endpoint support for /policies/{policyId}/rules/{ruleId} <PUT>
+    - endpoint support for /security/certificates <GET>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - endpoint support for /virtual_machines/{vmId}/power_on <POST>
     - endpoint support for /virtual_machines/policy_impact_report/apply_policy <POST>
@@ -68,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - resolve failing unit test cases
     - resolve the virtual machine `__refresh` method
     - url encode query string to support values that contain spaces
+    - resolve `do_get` method to append filters to uri
 
 ### Removed
     - external test dependency for mock module    

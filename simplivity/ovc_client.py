@@ -30,6 +30,7 @@ from simplivity.resources.omnistack_clusters import OmnistackClusters
 from simplivity.resources.policies import Policies
 from simplivity.resources.virtual_machines import VirtualMachines
 from simplivity.resources.external_stores import ExternalStores
+from simplivity.resources.certificates import Certificates
 
 
 class OVC(object):
@@ -53,6 +54,7 @@ class OVC(object):
         self.__hosts = None
         self.__cluster_groups = None
         self.__external_stores = None
+        self.__certificates = None
 
     @classmethod
     def from_json_file(cls, file_name):
@@ -200,3 +202,15 @@ class OVC(object):
         if not self.__external_stores:
             self.__external_stores = ExternalStores(self.__connection)
         return self.__external_stores
+
+    @property
+    def certificates(self):
+        """
+        Gets the certificates client.
+
+        Returns:
+            Certificates object
+        """
+        if not self.__certificates:
+            self.__certificates = Certificates(self.__connection)
+        return self.__certificates

@@ -133,6 +133,25 @@ class OmnistackCluster(object):
 
         return clusters
 
+    def get_throughput(self, destination_id=None, time_offset=0, range=43200):
+        """Calculates the throughput between each pair of omnistack_clusters in the federation
+
+        Args:
+            destination_id : The unique identifier (UID) of the omnistack_clusters to return
+            time_offset : A time offset in seconds (from now) or a datetime,
+                        expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0
+            range : A range in seconds (the duration from the specified point in time) Default: 43200
+
+        Returns:
+            dict: Dictionary of cluster_throughput object.
+        """
+        method_url = "{}/{}/throughput".format(URL, self.data["id"])
+        filters = {'time_offset': time_offset, 'range': range}
+        if (destination_id):
+            filters['destination_id'] = destination_id
+
+        return self._client.do_get(method_url, filters)
+
     def __refresh(self):
         """Updates the omnistack cluster data."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
