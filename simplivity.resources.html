@@ -1251,6 +1251,53 @@ Default: 00:00</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.policies.Policy.impact_edit_rules">
+<code class="sig-name descname">impact_edit_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rules</span></em>, <em class="sig-param"><span class="n">replace_all_rules</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.impact_edit_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.impact_edit_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a backup impact reported based on proposed changes to the rules for the policy
+Args:</p>
+<blockquote>
+<div><dl>
+<dt>rules: Array of rules.(below are the parameter that can be passed in the array)</dt><dd><p>[Mandatory Parameters]
+rule_id: The unique identifier (UID) of the policy rule
+frequency: The number of minutes between backups
+retention: The number of minutes to keep backups
+[Optional Parameters]
+application_consistent: Set false for crash-consistent backups</p>
+<blockquote>
+<div><p>Set true for application-consistent backups (for example, VSS or snapshot backups)
+Default: false</p>
+</div></blockquote>
+<dl class="simple">
+<dt>consistency_type: Set to DEFAULT for a snapshot backup</dt><dd><p>Set to VSS for a Microsoft Volume Shadow Copy Service backup
+Set to NONE for crash-consistent backups
+Default: NONE</p>
+</dd>
+<dt>destination_id: The unique identifier (UID) of the omnistack_cluster to store the backup</dt><dd><p>Default: local omnistack_cluster</p>
+</dd>
+<dt>days: The days of the week (for example, Mon,Fri), or month (for example, 1,15) to take backups or</dt><dd><p>“last” to specify the last day of each month
+Default: All (that is, every day)</p>
+</dd>
+<dt>start_time: The time to start the backups, for example, 14:30</dt><dd><p>This time is local to the time zone of the Hypervisor Management System (HMS)
+Default: 00:00</p>
+</dd>
+<dt>end_time: The time to stop backing up, for example, 14:30</dt><dd><p>This time is local to the time zone of the Hypervisor Management System (HMS)
+Default: 00:00</p>
+</dd>
+</dl>
+<p>external_store_name: The name of the external_store</p>
+</dd>
+<dt>replace_all_rules: If set to True, replaces the existing rules with new rules</dt><dd><p>If set to False, adds the new rules to existing set of rules</p>
+</dd>
+</dl>
+<p>timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict : Returns the dictionary for impact report of rules.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.policies.Policy.rename">
 <code class="sig-name descname">rename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/policies.html#Policy.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.policies.Policy.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renames the specified policy
