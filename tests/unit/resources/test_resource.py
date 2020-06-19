@@ -91,6 +91,15 @@ class ResourceTest(unittest.TestCase):
         self.resource_client.do_get(url)
         mock_get.assert_called_once_with(url)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_call_filters(self, mock_get):
+        url = "/api/resource"
+        filters = {'cluster_id': 'ASFADF'}
+
+        self.resource_client.do_get(url, filters)
+        expected_url = "/api/resource?cluster_id=ASFADF"
+        mock_get.assert_called_once_with(expected_url)
+
     @mock.patch.object(Connection, "post")
     def test_post_call(self, mock_post):
         url = "/api/resource"
