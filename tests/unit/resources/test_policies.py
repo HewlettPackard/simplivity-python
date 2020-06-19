@@ -403,6 +403,66 @@ class PoliciesTest(unittest.TestCase):
         mock_post.assert_called_once_with('/policies/12345/impact_report/create_rules?replace_all_rules=False', rules,
                                           custom_headers={"Content-type": "application/vnd.simplivity.v1.14+json"})
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_impact_edit_rules(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        policy_data = {"name": "policy1", "id": "12345"}
+
+        mock_get.return_value = {'policy': policy_data}
+        policy_obj = self.policies.get_by_data(policy_data)
+        rules = {
+            "rule_id": "123456",
+            "frequency": 2,
+            "retention": 6
+        }
+        report = policy_obj.impact_edit_rules(rules)
+        self.assertEqual(report, resource_data)
+        mock_post.assert_called_once_with('/policies/12345/impact_report/edit_rules?replace_all_rules=False', [rules],
+                                          custom_headers={"Content-type": "application/vnd.simplivity.v1.14+json"})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_impact_edit_replace_rules(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        policy_data = {"name": "policy1", "id": "12345"}
+
+        mock_get.return_value = {'policy': policy_data}
+        policy_obj = self.policies.get_by_data(policy_data)
+        rules = {
+            "rule_id": "123456",
+            "frequency": 10,
+            "retention": 5
+        }
+        report = policy_obj.impact_edit_rules(rules, replace_all_rules=True)
+        self.assertEqual(report, resource_data)
+        mock_post.assert_called_once_with('/policies/12345/impact_report/edit_rules?replace_all_rules=True', [rules],
+                                          custom_headers={"Content-type": "application/vnd.simplivity.v1.14+json"})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_impact_edit_multiple_rules(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        policy_data = {"name": "policy1", "id": "12345"}
+
+        mock_get.return_value = {'policy': policy_data}
+        policy_obj = self.policies.get_by_data(policy_data)
+        rules = [{"rule_id": "123456", "frequency": 5, "retention": 1},
+                 {"rule_id": "123457", "frequency": 10, "retention": 2}]
+        report = policy_obj.impact_edit_rules(rules)
+        self.assertEqual(report, resource_data)
+        mock_post.assert_called_once_with('/policies/12345/impact_report/edit_rules?replace_all_rules=False', rules,
+                                          custom_headers={"Content-type": "application/vnd.simplivity.v1.14+json"})
+
 
 if __name__ == '__main__':
     unittest.main()
