@@ -612,6 +612,28 @@ cluster_group_id:The unique identifiers (UIDs) of the cluster_groups associated 
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="simplivity.resources.external_stores.ExternalStores.register_external_store">
+<code class="sig-name descname">register_external_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">management_ip</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">cluster</span></em>, <em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">management_port</span><span class="o">=</span><span class="default_value">9387</span></em>, <em class="sig-param"><span class="n">storage_port</span><span class="o">=</span><span class="default_value">9388</span></em>, <em class="sig-param"><span class="n">external_store_type</span><span class="o">=</span><span class="default_value">'StoreOnceOnPrem'</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStores.register_external_store"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStores.register_external_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register the external store.
+Args:</p>
+<blockquote>
+<div><p>management_ip: The IP address of the external store
+name: The name of the external_store
+cluster: Destination OmnistackCluster object/name.
+username: The client name of the external store
+password: The client password of the external store
+management_port: The management IP port of the external store. Default: 9387
+storage_port: The storage IP port of the external store. Default: 9388
+external_store_type: The type of external store. Default: StoreOnceOnPrem
+timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>object: External store object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

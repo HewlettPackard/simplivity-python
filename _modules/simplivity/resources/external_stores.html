@@ -49,6 +49,7 @@
 <span class="c1">##</span>
 
 <span class="kn">from</span> <span class="nn">simplivity.resources.resource</span> <span class="kn">import</span> <span class="n">ResourceBase</span>
+<span class="kn">from</span> <span class="nn">simplivity.resources</span> <span class="kn">import</span> <span class="n">omnistack_clusters</span>
 
 <span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;/external_stores&#39;</span>
 <span class="n">DATA_FIELD</span> <span class="o">=</span> <span class="s1">&#39;external_stores&#39;</span>
@@ -109,7 +110,39 @@
 <span class="sd">            object: ExternalStore object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">ExternalStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">ExternalStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExternalStores.register_external_store"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.external_stores.ExternalStores.register_external_store">[docs]</a>    <span class="k">def</span> <span class="nf">register_external_store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">management_ip</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">management_port</span><span class="o">=</span><span class="mi">9387</span><span class="p">,</span>
+                                <span class="n">storage_port</span><span class="o">=</span><span class="mi">9388</span><span class="p">,</span> <span class="n">external_store_type</span><span class="o">=</span><span class="s1">&#39;StoreOnceOnPrem&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Register the external store.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            management_ip: The IP address of the external store</span>
+<span class="sd">            name: The name of the external_store</span>
+<span class="sd">            cluster: Destination OmnistackCluster object/name.</span>
+<span class="sd">            username: The client name of the external store</span>
+<span class="sd">            password: The client password of the external store</span>
+<span class="sd">            management_port: The management IP port of the external store. Default: 9387</span>
+<span class="sd">            storage_port: The storage IP port of the external store. Default: 9388</span>
+<span class="sd">            external_store_type: The type of external store. Default: StoreOnceOnPrem</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: External store object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;management_ip&#39;</span><span class="p">:</span> <span class="n">management_ip</span><span class="p">,</span> <span class="s1">&#39;management_port&#39;</span><span class="p">:</span> <span class="n">management_port</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span> <span class="s1">&#39;storage_port&#39;</span><span class="p">:</span> <span class="n">storage_port</span><span class="p">,</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">external_store_type</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackCluster</span><span class="p">):</span>
+            <span class="c1"># if passed name of the cluster</span>
+            <span class="n">clusters_obj</span> <span class="o">=</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackClusters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">clusters_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;omnistack_cluster_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="ExternalStore"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.external_stores.ExternalStore">[docs]</a><span class="k">class</span> <span class="nc">ExternalStore</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
