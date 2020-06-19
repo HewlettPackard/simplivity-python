@@ -58,6 +58,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/security/certificates</sub>                                 |GET     |
 |     **Virtual Machines**
 |<sub>/virtual_machines</sub>                                      |GET     |
+|<sub>/virtual_machines/policy_impact_report/apply_policy</sub>    |POST    |
 |<sub>/virtual_machines/set_policy</sub>                           |POST    |
 |<sub>/virtual_machines/{vmId}</sub>                               |GET     |
 |<sub>/virtual_machines/{vmId}/backup</sub>                        |POST    |

@@ -153,6 +153,30 @@ class VirtualMachines(ResourceBase):
 
         return self.get_all(filters={'id': comma_separated_ids})
 
+    def policy_impact_report(self, policy, vms, timeout=-1):
+        """Generate a backup impact reported based on proposed application of a policy to one or more virtual machines.
+
+        Args:
+            policy: Policy object/name
+            vms: List of vm objects
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            dict: Returns the dictionary for impact report of policy applied on virtual machines.
+        """
+        method_url = "{}/policy_impact_report/apply_policy".format(URL)
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.14+json'}
+
+        vm_ids = [vm.data["id"] for vm in vms]
+        if not isinstance(policy, policies.Policy):
+            # if passed name of the policy
+            policy = policies.Policies(self._connection).get_by_name(policy)
+
+        data = {"virtual_machine_id": vm_ids,
+                "policy_id": policy.data["id"]}
+
+        return self._client.do_post(method_url, data, timeout, custom_headers)
+
 
 class VirtualMachine(object):
     """Implements features available for a single VM."""

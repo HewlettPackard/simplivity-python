@@ -333,6 +333,59 @@ class VirtualMachinesTest(unittest.TestCase):
         self.assertIsInstance(ispoweron, bool)
         mock_post.assert_called_once_with('/virtual_machines/12345/power_on', None, custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_policy_impact_report(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        vm_data = {'name': 'name1', 'id': 'id1'}
+        vm = self.machines.get_by_data(vm_data)
+        policy_obj = self.policies.get_by_data({'name': 'name', 'id': 'id'})
+        mock_get.side_effect = [{"name": "policy1", "id": "12345"}, [vm]]
+
+        self.machines.policy_impact_report(policy_obj, [vm])
+        mock_post.assert_called_once_with('/virtual_machines/policy_impact_report/apply_policy',
+                                          {'policy_id': 'id', 'virtual_machine_id': ['id1']},
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_policy_impact_report_with_multiple_vms(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        vm_data = [{'name': 'name1', 'id': 'id1'},
+                   {'name': 'name2', 'id': 'id2'}]
+        vm_objs = [self.machines.get_by_data(entry) for entry in vm_data]
+        policy_obj = self.policies.get_by_data({'name': 'name', 'id': 'id'})
+        mock_get.side_effect = [{"name": "policy1", "id": "12345"}, vm_objs]
+
+        self.machines.policy_impact_report(policy_obj, vm_objs)
+        mock_post.assert_called_once_with('/virtual_machines/policy_impact_report/apply_policy',
+                                          {'policy_id': 'id', 'virtual_machine_id': ['id1', 'id2']},
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_policy_impact_report_with_policy_name(self, mock_get, mock_post):
+        data = {"projected_retained_backups_level": 0, "daily_backup_rate": 2, "backup_rate_level": 0,
+                "projected_retained_backups": 0, "daily_backup_rate_limit": 217, "retained_backups_limit": 75}
+        resource_data = {"schedule_after_change": data, "schedule_before_change": data}
+        mock_post.return_value = None, resource_data
+        vm_data = [{'name': 'name1', 'id': 'id1'},
+                   {'name': 'name2', 'id': 'id2'}]
+        vm_objs = [self.machines.get_by_data(entry) for entry in vm_data]
+        policy_data = [{"name": "policy1", "id": "12345"}]
+        mock_get.side_effect = [{policies.DATA_FIELD: policy_data}, vm_objs]
+
+        self.machines.policy_impact_report("policy1", vm_objs)
+        mock_post.assert_called_once_with('/virtual_machines/policy_impact_report/apply_policy',
+                                          {'policy_id': '12345', 'virtual_machine_id': ['id1', 'id2']},
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
+
 
 if __name__ == '__main__':
     unittest.main()
