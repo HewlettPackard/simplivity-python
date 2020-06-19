@@ -69,3 +69,4 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/virtual_machines/{vmId}/power_off</sub>                     |POST    |
 |<sub>/virtual_machines/{vmId}/power_on</sub>                      |POST    |
 |<sub>/virtual_machines/{vmId}/set_policy</sub>                    |POST    |
+|<sub>/virtual_machines/{vmId}/validate_backup_credentials</sub>   |POST    |

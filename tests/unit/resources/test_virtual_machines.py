@@ -386,6 +386,22 @@ class VirtualMachinesTest(unittest.TestCase):
                                           {'policy_id': '12345', 'virtual_machine_id': ['id1', 'id2']},
                                           custom_headers={'Content-type': 'application/vnd.simplivity.v1.14+json'})
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_validate_backup_credentials(self, mock_get, mock_post):
+        mock_post.return_value = None, {'credentials_validation': {'status': 'VALID'}}
+        mock_get.return_value = {'virtual_machine': [{'name': 'name', 'id': '12345'}]}
+
+        username = "username"
+        password = "password"
+        vm1_data = {'name': 'name1', 'id': '12345'}
+        vm = self.machines.get_by_data(vm1_data)
+        status = vm.validate_backup_credentials(username, password)
+
+        self.assertEqual(status, 'VALID')
+        mock_post.assert_called_once_with('/virtual_machines/12345/validate_backup_credentials', {'guest_username': username, 'guest_password': password},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()
