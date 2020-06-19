@@ -164,6 +164,10 @@ print("\n\nbackup impact report for policy single rule and replace")
 edit_impact_report = policy.impact_edit_rules(single_rule_update, True)
 print(f"{pp.pformat(edit_impact_report)} \n")
 
+print("\n\nbackup impact report based on proposed deletion of a policy rule")
+impact_report_delete = policy.impact_report_delete_rule(rule_id)
+print(f"{pp.pformat(impact_report_delete)} \n")
+
 print("\n\ndelete rule")
 policy.delete_rule(rule_id)
 print(f"{policy}")
