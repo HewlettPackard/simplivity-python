@@ -20,6 +20,7 @@ from unittest import mock
 from simplivity.connection import Connection
 from simplivity import exceptions
 from simplivity.resources import external_stores
+from simplivity.resources import omnistack_clusters as clusters
 
 
 class ExternalStoresTest(unittest.TestCase):
@@ -27,6 +28,7 @@ class ExternalStoresTest(unittest.TestCase):
         self.connection = Connection('127.0.0.1')
         self.connection._access_token = "123456789"
         self.external_stores = external_stores.ExternalStores(self.connection)
+        self.clusters = clusters.OmnistackClusters(self.connection)
 
     @mock.patch.object(Connection, "get")
     def test_get_all_returns_resource_obj(self, mock_get):
@@ -68,6 +70,43 @@ class ExternalStoresTest(unittest.TestCase):
         external_store_obj = self.external_stores.get_by_data(resource_data)
         self.assertIsInstance(external_store_obj, external_stores.ExternalStore)
         self.assertEqual(external_store_obj.data, resource_data)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_register_external_store_cluster_object(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+        cluster_obj = self.clusters.get_by_data(cluster_data)
+        resource_data = {'management_ip': '10.0.75,112', 'name': 'storeonce_cat1'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {external_stores.DATA_FIELD: [resource_data]}
+        external_store = self.external_stores.register_external_store('10.0.75,112', 'storeonce_cat1', cluster_obj,
+                                                                      'Admin', 'svtrfs')
+
+        self.assertIsInstance(external_store, external_stores.ExternalStore)
+        self.assertEqual(external_store.data, resource_data)
+        data = {'management_ip': '10.0.75,112', 'management_port': 9387,
+                'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345',
+                'username': 'Admin', 'password': 'svtrfs', 'storage_port': 9388,
+                'type': 'StoreOnceOnPrem'}
+        mock_post.assert_called_once_with(external_stores.URL, data, custom_headers=None)
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_register_external_store_cluster_name(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+        resource_data = {'management_ip': '10.0.75,112', 'name': 'storeonce_cat1'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.side_effect = [{clusters.DATA_FIELD: [cluster_data]}, {external_stores.DATA_FIELD: [resource_data]}]
+        external_store = self.external_stores.register_external_store('10.0.75,112', 'storeonce_cat1', 'cluster1',
+                                                                      'Admin', 'svtrfs')
+
+        self.assertIsInstance(external_store, external_stores.ExternalStore)
+        self.assertEqual(external_store.data, resource_data)
+        data = {'management_ip': '10.0.75,112', 'management_port': 9387,
+                'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345',
+                'username': 'Admin', 'password': 'svtrfs', 'storage_port': 9388,
+                'type': 'StoreOnceOnPrem'}
+        mock_post.assert_called_once_with(external_stores.URL, data, custom_headers=None)
 
 
 if __name__ == '__main__':

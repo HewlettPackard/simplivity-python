@@ -15,6 +15,7 @@
 ##
 
 from simplivity.resources.resource import ResourceBase
+from simplivity.resources import omnistack_clusters
 
 URL = '/external_stores'
 DATA_FIELD = 'external_stores'
@@ -76,6 +77,38 @@ class ExternalStores(ResourceBase):
         """
 
         return ExternalStore(self._connection, self._client, data)
+
+    def register_external_store(self, management_ip, name, cluster, username, password, management_port=9387,
+                                storage_port=9388, external_store_type='StoreOnceOnPrem', timeout=-1):
+        """ Register the external store.
+        Args:
+            management_ip: The IP address of the external store
+            name: The name of the external_store
+            cluster: Destination OmnistackCluster object/name.
+            username: The client name of the external store
+            password: The client password of the external store
+            management_port: The management IP port of the external store. Default: 9387
+            storage_port: The storage IP port of the external store. Default: 9388
+            external_store_type: The type of external store. Default: StoreOnceOnPrem
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: External store object.
+        """
+
+        data = {'management_ip': management_ip, 'management_port': management_port, 'name': name,
+                'username': username, 'password': password, 'storage_port': storage_port,
+                'type': external_store_type}
+
+        if not isinstance(cluster, omnistack_clusters.OmnistackCluster):
+            # if passed name of the cluster
+            clusters_obj = omnistack_clusters.OmnistackClusters(self._connection)
+            cluster = clusters_obj.get_by_name(cluster)
+
+        data['omnistack_cluster_id'] = cluster.data['id']
+        self._client.do_post(URL, data, timeout)
+
+        return self.get_by_name(name)
 
 
 class ExternalStore(object):

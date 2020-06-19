@@ -26,9 +26,20 @@ config = {
     }
 }
 
+# variable declaration
+management_ip = '<storeonce_management_ip>'
+management_port = '<storeonce_management_port>'
+external_store_type = '<external_store_type>'
+external_store_name = '<storeonce_storename>'
+username = '<storeonce_username>'
+password = '<storeonce_password>'
+storage_port = '<storage_port>'
+cluster_name = '<cluster_name>'
+
 pp = pprint.PrettyPrinter(indent=4)
 ovc = OVC(config)
 external_stores = ovc.external_stores
+clusters = ovc.omnistack_clusters
 
 print("\n\nget_all with default params")
 all_external_stores = external_stores.get_all()
@@ -37,11 +48,11 @@ for external_store in all_external_stores:
     print(f"{external_store}")
     print(f"{pp.pformat(external_store.data)} \n")
 
-print("\n\nTotal number of backups {}".format(count))
-backup_object = all_external_stores[0]
+print("\n\nTotal number of external stores {}".format(count))
+external_store_object = all_external_stores[0]
 
 print("\n\nget_all with filters")
-all_external_stores = external_stores.get_all(filters={'name': backup_object.data["name"]})
+all_external_stores = external_stores.get_all(filters={'name': external_store_object.data["name"]})
 for external_store in all_external_stores:
     print(f"{external_store}")
     print(f"{pp.pformat(external_store.data)} \n")
@@ -60,3 +71,11 @@ while not end:
         pagination.next_page()
     except HPESimpliVityException:
         end = True
+
+print("\n\nregister external store")
+cluster_obj = clusters.get_by_name(cluster_name)
+external_store_obj = external_stores.register_external_store(management_ip, external_store_name,
+                                                             cluster_obj, username, password)
+
+print(f"{external_store_obj}")
+print(f"{pp.pformat(external_store_obj.data)} \n")
