@@ -33,13 +33,14 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/hosts/{hostId}/cancel_virtual_controller_shutdown</sub>     |POST    |
 |<sub>/hosts/{hostId}/remove_from_federation</sub>                 |POST    |
 |<sub>/hosts/{hostId}/hardware</sub>                               |GET     |
-|<sub>/hosts/{hostId}/shutdown_virtual_controller </sub>           |POST    |
+|<sub>/hosts/{hostId}/shutdown_virtual_controller</sub>            |POST    |
 |<sub>/hosts/{hostId}/virtual_controller_shutdown_status</sub>     |GET     |
 |     **OmniStack Clusters**
 |<sub>/omnistack_clusters</sub>                                    |GET     |
 |<sub>/omnistack_clusters/time_zone_list</sub>                     |GET     |
 |<sub>/omnistack_clusters/{clusterId}/connected_clusters</sub>     |GET     |
 |<sub>/omnistack_clusters/{clusterId}/set_time_zone</sub>          |POST    |
+|<sub>/omnistack_clusters/{clusterId}/throughput</sub>             |GET     |
 |     **Policies**
 |<sub>/policies</sub>                                              |GET     |
 |<sub>/policies</sub>                                              |POST    |

@@ -212,15 +212,19 @@ class ResourceClient(object):
 
         return affected_resources
 
-    def do_get(self, uri):
+    def do_get(self, uri, filters=None):
         """Makes get requests
 
         Args:
             uri: URI of the resource
+            filters: Dictionary of filters, example: {'name': 'name'}
 
         Returns:
             Returns: Returns the resource data
         """
+        if filters and isinstance(filters, dict):
+            uri = build_uri_with_query_string(uri, filters)
+
         return self._connection.get(uri)
 
     def do_post(self, uri, data, timeout, custom_headers=None, flags=None):
