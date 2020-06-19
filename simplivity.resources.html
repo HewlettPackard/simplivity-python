@@ -1800,6 +1800,20 @@ and hypervisor_is_template.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachines.policy_impact_report">
+<code class="sig-name descname">policy_impact_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em>, <em class="sig-param"><span class="n">vms</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.policy_impact_report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.policy_impact_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a backup impact reported based on proposed application of a policy to one or more virtual machines.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>policy: Policy object/name
+vms: List of vm objects
+timeout: Time out for the request in seconds.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Returns the dictionary for impact report of policy applied on virtual machines.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms">
 <code class="sig-name descname">set_policy_for_multiple_vms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em>, <em class="sig-param"><span class="n">vms</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachines.set_policy_for_multiple_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachines.set_policy_for_multiple_vms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the backup policy for virtual machines.</p>

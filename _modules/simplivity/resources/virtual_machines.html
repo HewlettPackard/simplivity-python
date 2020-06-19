@@ -185,7 +185,31 @@
         <span class="n">vm_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">resource</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">affected_resources</span><span class="p">]</span>
         <span class="n">comma_separated_ids</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vm_ids</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">comma_separated_ids</span><span class="p">})</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">comma_separated_ids</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="VirtualMachines.policy_impact_report"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachines.policy_impact_report">[docs]</a>    <span class="k">def</span> <span class="nf">policy_impact_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">vms</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate a backup impact reported based on proposed application of a policy to one or more virtual machines.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            policy: Policy object/name</span>
+<span class="sd">            vms: List of vm objects</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Returns the dictionary for impact report of policy applied on virtual machines.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/policy_impact_report/apply_policy&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1.14+json&#39;</span><span class="p">}</span>
+
+        <span class="n">vm_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">vm</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policy</span><span class="p">):</span>
+            <span class="c1"># if passed name of the policy</span>
+            <span class="n">policy</span> <span class="o">=</span> <span class="n">policies</span><span class="o">.</span><span class="n">Policies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;virtual_machine_id&quot;</span><span class="p">:</span> <span class="n">vm_ids</span><span class="p">,</span>
+                <span class="s2">&quot;policy_id&quot;</span><span class="p">:</span> <span class="n">policy</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="VirtualMachine"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine">[docs]</a><span class="k">class</span> <span class="nc">VirtualMachine</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
