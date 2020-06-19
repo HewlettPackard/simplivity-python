@@ -419,7 +419,26 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;hypervisor_virtual_machine_power_state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ON&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span></div></div>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="VirtualMachine.validate_backup_credentials"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.virtual_machines.VirtualMachine.validate_backup_credentials">[docs]</a>    <span class="k">def</span> <span class="nf">validate_backup_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guest_username</span><span class="p">,</span> <span class="n">guest_password</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validates the credentials for the virtual machine want to backup.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            guest_username: Username of the virtual machine.</span>
+<span class="sd">            guest_password: Password of the virtual machine.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            status: Possible values are &#39;VALID&#39;, &#39;INVALID&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/validate_backup_credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;guest_username&quot;</span><span class="p">:</span> <span class="n">guest_username</span><span class="p">,</span>
+                <span class="s2">&quot;guest_password&quot;</span><span class="p">:</span> <span class="n">guest_password</span><span class="p">}</span>
+
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">method_url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s1">&#39;credentials_validation&#39;</span><span class="p">][</span><span class="s1">&#39;status&#39;</span><span class="p">]</span></div></div>
 </pre></div>
 
           </div>
