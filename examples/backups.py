@@ -39,6 +39,10 @@ remote_datastore = "remoteDS"
 cluster1_name = "CC_Virt_0001"
 cluster2_name = "CC_Virt_0000"
 virtual_disk = "tinyvm32_ATF_0.vmdk"
+# The virtual machine where you want to restore the files
+target_vm_name = "win2k8_template"
+# List of paths to the files in this format: virtual_machine_disk_name/partition_number/path_to_file
+paths = ['win2k8_template_test.vmdk/2/Users/desktop.ini', 'win2k8_template_test.vmdk/2/guestvmtest.csv', 'win2k8_template_test.vmdk/2/Windows/win.ini']
 
 print("\n\nget_all with default params")
 all_backups = backups.get_all()
@@ -177,3 +181,16 @@ print(f"{pp.pformat(partition_data)}")
 print("\n\nget virtual disk partition files")
 partition_data = backup_object.get_virtual_disk_partition_files(virtual_disk, 1, "/")
 print(f"{pp.pformat(partition_data)}")
+
+vm = machines.get_by_name(test_vm_name)
+backup = vm.create_backup("backup_test_from_sdk_" + str(time.time()))
+print(f"{backup}")
+print(f"{pp.pformat(backup.data)} \n")
+try:
+    print("\n\nbackup restore files")
+    target_vm = machines.get_by_name(target_vm_name)
+    target_vm_id = target_vm.data["id"]
+    backup.restore_files(target_vm_id, paths)
+except HPESimpliVityException as e:
+    print(f"{e}")
+backup.delete()

@@ -321,3 +321,20 @@ class Backup(object):
                 'file_path': file_path}
 
         return self._client.do_get(resource_uri, data)
+
+    def restore_files(self, virtual_machine_id, paths, timeout=-1):
+        """Restores files from specific partition
+
+        Args:
+           virtual_machine_id: The identification number of the virtual machine where you want to restore the files.
+           paths: List of path to the files in this format: virtual_machine_disk_name/partition_number/path_to_file.
+
+        Returns:
+           None
+        """
+        resource_uri = "{}/{}/restore_files".format(URL, self.data["id"])
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.9+json'}
+        data = {"virtual_machine_id": virtual_machine_id,
+                "paths": paths}
+
+        self._client.do_post(resource_uri, data, timeout, custom_headers)
