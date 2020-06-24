@@ -51,6 +51,20 @@ class Certificates(ResourceBase):
         """ Method not available on resource"""
         raise exceptions.HPESimpliVityMethodNotSupportedError("Method get_by_name is not supported")
 
+    def add_certificate(self, certificate, timeout=-1):
+        """Add a SSL certificate to the HPE SimpliVity trust store
+
+        Args:
+            certificate: Base64 encoded SSL certificate.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            dict : Returns the certificate details.
+        """
+
+        data = {"certificate": certificate}
+        return self._client.do_post(URL, data, timeout)
+
 
 class Certificate(object):
     """Implements features available for single Certificate resource."""
