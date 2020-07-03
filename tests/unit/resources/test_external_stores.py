@@ -88,7 +88,8 @@ class ExternalStoresTest(unittest.TestCase):
                 'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345',
                 'username': 'Admin', 'password': 'svtrfs', 'storage_port': 9388,
                 'type': 'StoreOnceOnPrem'}
-        mock_post.assert_called_once_with(external_stores.URL, data, custom_headers=None)
+        mock_post.assert_called_once_with(external_stores.URL, data,
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.11+json'})
 
     @mock.patch.object(Connection, "post")
     @mock.patch.object(Connection, "get")
@@ -106,7 +107,8 @@ class ExternalStoresTest(unittest.TestCase):
                 'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345',
                 'username': 'Admin', 'password': 'svtrfs', 'storage_port': 9388,
                 'type': 'StoreOnceOnPrem'}
-        mock_post.assert_called_once_with(external_stores.URL, data, custom_headers=None)
+        mock_post.assert_called_once_with(external_stores.URL, data,
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.11+json'})
 
 
 if __name__ == '__main__':
