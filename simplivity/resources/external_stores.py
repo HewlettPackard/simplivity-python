@@ -106,7 +106,8 @@ class ExternalStores(ResourceBase):
             cluster = clusters_obj.get_by_name(cluster)
 
         data['omnistack_cluster_id'] = cluster.data['id']
-        self._client.do_post(URL, data, timeout)
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.11+json'}
+        self._client.do_post(URL, data, timeout, custom_headers)
 
         return self.get_by_name(name)
 
