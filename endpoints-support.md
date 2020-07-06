@@ -71,6 +71,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/virtual_machines/{vmId}/backup_parameters</sub>                                       |POST    |
 |<sub>/virtual_machines/{vmId}/backups</sub>                                                 |GET     |
 |<sub>/virtual_machines/{vmId}/clone</sub>                                                   |POST    |
+|<sub>/virtual_machines/{vmId}/metrics</sub>                                                 |GET     |
 |<sub>/virtual_machines/{vmId}/move</sub>                                                    |POST    |
 |<sub>/virtual_machines/{vmId}/power_off</sub>                                               |POST    |
 |<sub>/virtual_machines/{vmId}/power_on</sub>                                                |POST    |
