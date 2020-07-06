@@ -231,3 +231,21 @@ class Datastore(object):
         self.__refresh()
 
         return self
+
+    def unshare(self, host_name, timeout=-1):
+        """Stop sharing a datastore.
+
+        Args:
+          host_name: The name of the standard host that needs to stop sharing a datastore.
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          object: Datastore object.
+        """
+
+        resource_uri = "{}/{}/unshare".format(URL, self.data["id"])
+        data = {"host_name": host_name}
+        self._client.do_post(resource_uri, data, timeout)
+        self.__refresh()
+
+        return self

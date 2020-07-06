@@ -33,6 +33,9 @@ config = {
 ovc = OVC(config)
 datastores = ovc.datastores
 
+# variable declaration
+standard_host_name = "127.0.0.1"
+
 print("\n\nget_all with default params")
 all_datastores = datastores.get_all()
 for datastore in all_datastores:
@@ -109,6 +112,18 @@ print(f"{pp.pformat(datastore_object.data)} \n")
 print("\n\nget standard hosts on the datastore")
 hosts = datastore_object.standard_hosts()
 print(f"{pp.pformat(hosts)} \n")
+
+# Share a datastore
+print("\n\nshare a datastore")
+datastore_obj = datastore_object.share(standard_host_name)
+print(f"{pp.pformat(datastore_obj)} \n")
+print(f"{pp.pformat(datastore_obj.data)} \n")
+
+# Stop sharing a datastore
+print("\n\nstop sharing a datastore")
+datastore_obj = datastore_object.unshare(standard_host_name)
+print(f"{pp.pformat(datastore_obj)} \n")
+print(f"{pp.pformat(datastore_obj.data)} \n")
 
 print("\n\ndatastore delete")
 all_datastores = datastores.get_all()
