@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /datastore/{datastoreId}/standard_hosts <GET>
     - endpoint support for /external_stores <GET>
     - endpoint support for /external_stores <POST>
+    - endpoint support for /external_stores/update_credentials <POST>
     - endpoint support for /hosts/{hostId}/capacity <GET>
     - endpoint support for /hosts/{hostId}/cancel_virtual_controller_shutdown <POST>
     - endpoint support for /hosts/{hostId}/remove_from_federation <POST>    
