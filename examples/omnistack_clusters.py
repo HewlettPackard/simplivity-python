@@ -100,3 +100,7 @@ print("\n\nget_throughput")
 cluster1 = clusters.get_by_name(cluster_1_name)
 cluster_throuput = cluster1.get_throughput('', 0, 50)
 print(f"{pp.pformat(cluster_throuput)} \n")
+
+print("\n\nget metrics report for cluster")
+cluster_metrics = cluster1.get_metrics()
+print(f"{pp.pformat(cluster_metrics)} \n")
