@@ -30,15 +30,9 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/external_stores</sub>                                                                 |GET     |
 |<sub>/external_stores</sub>                                                                 |POST    |
 |     **Hosts**
-|<sub>/hosts</sub>                                                 |GET     |
-|<sub>/hosts/{hostId}/cancel_virtual_controller_shutdown</sub>     |POST    |
-|<sub>/hosts/{hostId}/capacity</sub>                               |GET     |
-|<sub>/hosts/{hostId}/remove_from_federation</sub>                 |POST    |
-|<sub>/hosts/{hostId}/hardware</sub>                               |GET     |
-|<sub>/hosts/{hostId}/shutdown_virtual_controller</sub>            |POST    |
-|<sub>/hosts/{hostId}/virtual_controller_shutdown_status</sub>     |GET     |
 |<sub>/hosts</sub>                                                                           |GET     |
 |<sub>/hosts/{hostId}/cancel_virtual_controller_shutdown</sub>                               |POST    |
+|<sub>/hosts/{hostId}/capacity</sub>                                                         |GET     |
 |<sub>/hosts/{hostId}/remove_from_federation</sub>                                           |POST    |
 |<sub>/hosts/{hostId}/hardware</sub>                                                         |GET     |
 |<sub>/hosts/{hostId}/shutdown_virtual_controller</sub>                                      |POST    |
@@ -52,6 +46,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **Policies**
 |<sub>/policies</sub>                                                                        |GET     |
 |<sub>/policies</sub>                                                                        |POST    |
+|<sub>/policies/policy_schedule_report</sub>                                                 |GET     |
 |<sub>/policies/resume </sub>                                                                |POST    |
 |<sub>/policies/suspend</sub>                                                                |POST    |
 |<sub>/policies/{policyId}</sub>                                                             |DELETE  |
