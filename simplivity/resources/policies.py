@@ -391,3 +391,17 @@ class Policy(object):
         flags = {'replace_all_rules': replace_all_rules}
 
         return self._client.do_post(resource_uri, rules, timeout, custom_headers, flags)
+
+    def impact_report_delete_rule(self, rule_id, timeout=-1):
+        """Generate a backup impact reported based on proposed deletion of a policy rule
+        Args:
+          rule_id: The unique identifier (UID) of the policy rule you want to access
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          dict : Returns the dictionary for impact report of rules.
+        """
+        resource_uri = "{}/{}/rules/{}/impact_report/delete_rule".format(URL, self.data["id"], rule_id)
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.9+json'}
+
+        return self._client.do_post(resource_uri, None, timeout, custom_headers)
