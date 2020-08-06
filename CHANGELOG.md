@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /datastore/{datastoreId} <DELETE>
     - endpoint support for /datastore/{datastoreId}/resize <POST>
     - endpoint support for /datastore/{datastoreId}/set_policy <POST>
+    - endpoint support for /datastore/{datastoreId}/share <POST>
     - endpoint support for /datastore/{datastoreId}/standard_hosts <GET>
     - endpoint support for /external_stores <GET>
     - endpoint support for /external_stores <POST>
