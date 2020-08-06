@@ -213,3 +213,21 @@ class Datastore(object):
         """
         resource_uri = "{}/{}/standard_hosts".format(URL, self.data["id"])
         return self._client.do_get(resource_uri)
+
+    def share(self, host_name, timeout=-1):
+        """Share a datastore.
+
+        Args:
+          host_name: The name of the standard host that you want sharing a datastore.
+          timeout: Time out for the request in seconds.
+
+        Returns:
+          object: Datastore object.
+        """
+
+        resource_uri = "{}/{}/share".format(URL, self.data["id"])
+        data = {"host_name": host_name}
+        self._client.do_post(resource_uri, data, timeout)
+        self.__refresh()
+
+        return self

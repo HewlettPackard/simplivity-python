@@ -220,6 +220,24 @@ class DatastoresTest(unittest.TestCase):
         standard_hosts = datastore.standard_hosts()
         self.assertEqual(standard_hosts, resource_data)
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_share(self, mock_get, mock_post):
+        resource_data = {'name': 'ds1', 'id': '12345'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {'datastore': resource_data}
+
+        datastore_data = {'name': 'ds1', 'id': '12345', 'shares': [{'address': '127.0.0.1',
+                                                                    'host': 'host1',
+                                                                    'rw': True}]}
+        datastore = self.datastores.get_by_data(datastore_data)
+        datastore_obj = datastore.share("host1")
+        self.assertIsInstance(datastore_obj, datastores.Datastore)
+        self.assertEqual(datastore_obj.data, resource_data)
+        mock_post.assert_called_once_with('/datastores/12345/share',
+                                          {'host_name': "host1"},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

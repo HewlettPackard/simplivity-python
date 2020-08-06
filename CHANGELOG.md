@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /datastore/{datastoreId} <DELETE>
     - endpoint support for /datastore/{datastoreId}/resize <POST>
     - endpoint support for /datastore/{datastoreId}/set_policy <POST>
+    - endpoint support for /datastore/{datastoreId}/share <POST>
     - endpoint support for /datastore/{datastoreId}/standard_hosts <GET>
     - endpoint support for /external_stores <GET>
     - endpoint support for /external_stores <POST>
@@ -37,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /omnistack_clusters/{clusterId}/set_time_zone <POST>
     - endpoint support for /omnistack_clusters/{clusterId}/throughput <GET>
     - endpoint support for /policies <POST>
+    - endpoint support for /policies/policy_schedule_report <GET>
     - endpoint support for /policies/resume <POST>
     - endpoint support for /policies/suspend <POST>
     - endpoint support for /policies/{policyId} <DELETE>
