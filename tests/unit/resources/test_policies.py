@@ -16,6 +16,7 @@
 
 import unittest
 from unittest import mock
+from unittest.mock import call
 from urllib.parse import quote_plus
 
 from simplivity.connection import Connection
@@ -478,6 +479,33 @@ class PoliciesTest(unittest.TestCase):
         self.assertEqual(report, resource_data)
         mock_post.assert_called_once_with('/policies/12345/rules/56789/impact_report/delete_rule', None,
                                           custom_headers={"Content-type": "application/vnd.simplivity.v1.9+json"})
+
+    @mock.patch.object(Connection, "get")
+    def test_policy_schedule_report_with_cluster_group_id(self, mock_get):
+        resource_data = {'backup_rate_level': 0, 'daily_backup_rate': 123, 'daily_backup_rate_limit': 12345,
+                         'projected_retained_backups': 123, 'projected_retained_backups_level': 0,
+                         'retained_backups_limit': 1234}
+        cluster_group_data = {"name": "cluster123", "id": "12345", "clusters": ["abc123", "def123"]}
+        cluster_group = self.clusters.get_by_data(cluster_group_data)
+        cluster_group_id = cluster_group.data["id"]
+        mock_get.return_value = resource_data
+        policy_data = {"name": "policy1", "id": "12345"}
+        policy_obj = self.policies.get_by_data(policy_data)
+        report = policy_obj.policy_schedule_report(cluster_group_id)
+        self.assertEqual(report, resource_data)
+        mock_get.assert_has_calls([call('/policies/policy_schedule_report?cluster_group_id=12345')])
+
+    @mock.patch.object(Connection, "get")
+    def test_policy_schedule_report_without_cluster_group_id(self, mock_get):
+        resource_data = {'backup_rate_level': 0, 'daily_backup_rate': 123, 'daily_backup_rate_limit': 12345,
+                         'projected_retained_backups': 123, 'projected_retained_backups_level': 0,
+                         'retained_backups_limit': 1234}
+        mock_get.return_value = resource_data
+        policy_data = {"name": "policy1", "id": "12345"}
+        policy_obj = self.policies.get_by_data(policy_data)
+        report = policy_obj.policy_schedule_report()
+        self.assertEqual(report, resource_data)
+        mock_get.assert_has_calls([call('/policies/policy_schedule_report')])
 
 
 if __name__ == '__main__':
