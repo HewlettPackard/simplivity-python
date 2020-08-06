@@ -405,3 +405,19 @@ class Policy(object):
         custom_headers = {'Content-type': 'application/vnd.simplivity.v1.9+json'}
 
         return self._client.do_post(resource_uri, None, timeout, custom_headers)
+
+    def policy_schedule_report(self, cluster_group_id=None):
+        """Retrieves the policy schedule report
+
+           Args:
+                cluster_group_id: Unique identifier of cluster group
+
+           Returns:
+                dict: Dictionary for policy schedule report
+        """
+        resource_uri = "{}/policy_schedule_report".format(URL)
+        data = {}
+        if cluster_group_id:
+            data = {"cluster_group_id": cluster_group_id}
+
+        return self._client.do_get(resource_uri, data)

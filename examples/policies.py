@@ -232,5 +232,12 @@ print("\n\nbackup impact report for policy multiple rules")
 impact_report = policy.impact_create_rules(multiple_rules)
 print(f"{pp.pformat(impact_report)} \n")
 
+print("\n\nretrieves the policy schedule report")
+cluster_group = cluster_groups.get_all()[0]
+print(f"{pp.pformat(cluster_group.data)} \n")
+cluster_group_id = cluster_group.data["id"]
+policy_report = policy.policy_schedule_report(cluster_group_id)
+print(f"{pp.pformat(policy_report)} \n")
+
 print("\n\ndelete policy")
 policy.delete()
