@@ -16,6 +16,7 @@
 
 import unittest
 from unittest import mock
+from unittest.mock import call
 
 from simplivity.connection import Connection
 from simplivity import exceptions
@@ -367,6 +368,22 @@ class BackupTest(unittest.TestCase):
         backup_obj = backup.cancel()
         self.assertEqual(backup_obj.data, resource_data)
         mock_post.assert_called_once_with('/backups/12345/cancel', None, custom_headers=None)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_virtual_disk_partitions(self, mock_get):
+        resource_data = {"partitions": [{
+                         "partition_number": 1,
+                         "size": 32868352,
+                         "disk_type": "BIOS",
+                         "mountable": True
+                         }]}
+        mock_get.return_value = resource_data
+        backup_data = {'name': 'name1', 'id': '12345'}
+        backup = self.backups.get_by_data(backup_data)
+        virtual_disk = "tinyvm32_ATF_0.vmdk"
+        partition_data = backup.get_virtual_disk_partitions(virtual_disk)
+        self.assertEqual(partition_data, resource_data)
+        mock_get.assert_has_calls([call('/backups/12345/virtual_disk_partitions?virtual_disk=tinyvm32_ATF_0.vmdk')])
 
 
 if __name__ == '__main__':

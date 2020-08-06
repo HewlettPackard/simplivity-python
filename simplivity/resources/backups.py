@@ -289,3 +289,17 @@ class Backup(object):
 
         affected_object = self._client.do_post(resource_uri, data, timeout)[0]
         return self._backups.get_by_id(affected_object["object_id"])
+
+    def get_virtual_disk_partitions(self, virtual_disk):
+        """Retrieves partition information for the virtual disk associated with the backup
+        Args:
+            virtual_disk: The name of the virtual hard disk for the virtual machine.
+
+        Returns:
+            dict: Returns dictionary containing partition information for the virtual disk associated.
+        """
+
+        resource_uri = "{}/{}/virtual_disk_partitions".format(URL, self.data["id"])
+        data = {'virtual_disk': virtual_disk}
+
+        return self._client.do_get(resource_uri, data)
