@@ -16,6 +16,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/backups/{bkpId}/lock</sub>                                                            |POST    |
 |<sub>/backups/{bkpId}/rename</sub>                                                          |POST    |
 |<sub>/backups/{bkpId}/restore</sub>                                                         |POST    |
+|<sub>/backups/{bkpId}/virtual_disk_partitions</sub>                                         |GET     |
 |     **Cluster Groups**
 |<sub>/cluster_groups</sub>                                                                  |GET     |
 |<sub>/cluster_groups/{clusterGroupId}/rename</sub>                                          |POST    |

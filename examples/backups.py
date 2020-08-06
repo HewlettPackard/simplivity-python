@@ -38,6 +38,7 @@ test_vm_name = "test_MySql-VM_restore"
 remote_datastore = "remoteDS"
 cluster1_name = "CC_Virt_0001"
 cluster2_name = "CC_Virt_0000"
+virtual_disk = "tinyvm32_ATF_0.vmdk"
 
 print("\n\nget_all with default params")
 all_backups = backups.get_all()
@@ -168,3 +169,7 @@ try:
 except HPESimpliVityException as e:
     print(f"{e}")
 backup.delete()
+
+print("\n\nget virtual disk partitions")
+partition_data = backup_object.get_virtual_disk_partitions(virtual_disk)
+print(f"{pp.pformat(partition_data)}")

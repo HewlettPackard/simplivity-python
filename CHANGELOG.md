@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /backups/{bkpId}/copy <POST>
     - endpoint support for /backups/{bkpId}/rename <POST>
     - endpoint support for /backups/{bkpId}/restore <POST>
+    - endpoint support for /backups/{bkpId}/virtual_disk_partitions <GET>
     - endpoint support for /cluster_groups <GET>
     - endpoint support for /cluster_groups/{clusterGroupId}/rename <POST>
     - endpoint support for /datastore <POST>
