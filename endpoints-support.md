@@ -31,6 +31,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **External Stores**
 |<sub>/external_stores</sub>                                                                 |GET     |
 |<sub>/external_stores</sub>                                                                 |POST    |
+|<sub>/external_stores/update_credentials</sub>                                              |POST    |
 |     **Hosts**
 |<sub>/hosts</sub>                                                                           |GET     |
 |<sub>/hosts/{hostId}/cancel_virtual_controller_shutdown</sub>                               |POST    |
@@ -44,6 +45,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/omnistack_clusters</sub>                                                              |GET     |
 |<sub>/omnistack_clusters/time_zone_list</sub>                                               |GET     |
 |<sub>/omnistack_clusters/{clusterId}/connected_clusters</sub>                               |GET     |
+|<sub>/omnistack_clusters/{clusterId}/metrics</sub>                                          |GET     |
 |<sub>/omnistack_clusters/{clusterId}/set_time_zone</sub>                                    |POST    |
 |<sub>/omnistack_clusters/{clusterId}/throughput</sub>                                       |GET     |
 |     **Policies**
