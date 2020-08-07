@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /hosts/{hostId}/virtual_controller_shutdown_status <GET>
     - endpoint support for /omnistack_clusters/time_zone_list <GET>
     - endpoint support for /omnistack_clusters/{clusterId}/connected_clusters  <GET>
+    - endpoint support for /omnistack_clusters/{clusterId}/metrics  <GET>
     - endpoint support for /omnistack_clusters/{clusterId}/set_time_zone <POST>
     - endpoint support for /omnistack_clusters/{clusterId}/throughput <GET>
     - endpoint support for /policies <POST>
