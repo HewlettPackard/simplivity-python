@@ -79,3 +79,7 @@ external_store_obj = external_stores.register_external_store(management_ip, exte
 
 print(f"{external_store_obj}")
 print(f"{pp.pformat(external_store_obj.data)} \n")
+
+print("\n\nupdate external store access credential")
+# We can provide the updated credential to access the external store
+external_stores.update_credentials(external_store_name, username, password)

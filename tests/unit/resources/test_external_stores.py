@@ -110,6 +110,17 @@ class ExternalStoresTest(unittest.TestCase):
         mock_post.assert_called_once_with(external_stores.URL, data,
                                           custom_headers={'Content-type': 'application/vnd.simplivity.v1.11+json'})
 
+    @mock.patch.object(Connection, "post")
+    def test_update_credential(self, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        self.external_stores.update_credentials('storeonce_cat1', 'Admin',
+                                                'pass12', '127.12.34.12')
+        data = {'name': 'storeonce_cat1', 'username': 'Admin',
+                'password': 'pass12', 'management_ip': '127.12.34.12'}
+
+        mock_post.assert_called_once_with('/external_stores/update_credentials', data,
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.15+json'})
+
 
 if __name__ == '__main__':
     unittest.main()
