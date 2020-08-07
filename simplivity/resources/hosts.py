@@ -236,3 +236,20 @@ class Host(object):
             filters["fields"] = fields
 
         return self._client.do_get(resource_uri, filters)
+
+    def get_metrics(self, time_offset=0, range=43200, resolution="MINUTE"):
+        """Retrieves throughput, IOPS, and latency data for the host.
+
+        Args:
+          time_offset: A time offset in seconds (from now) or a datetime, expressed in ISO-8601 form,
+                       based on Coordinated Universal Time (UTC).
+          range: A range in seconds (the duration from the specified point in time).
+          resolution: The resolution (SECOND, MINUTE, HOUR, or DAY).
+
+        Returns:
+          dict: Dictionary of the metrics details.
+        """
+        resource_uri = "{}/{}/metrics".format(URL, self.data["id"])
+        filters = {'time_offset': time_offset, 'range': range, 'resolution': resolution}
+
+        return self._client.do_get(resource_uri, filters)

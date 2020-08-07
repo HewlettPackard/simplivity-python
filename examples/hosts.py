@@ -99,3 +99,7 @@ print(f"{pp.pformat(host_capacity)} \n")
 
 host_capacity = host.get_capacity("used_logical_capacity, used_capacity")
 print(f"{pp.pformat(host_capacity)} \n")
+
+print("\n\nretrieves throughput, IOPS, and latency data for the host")
+host_metrics = host.get_metrics()
+print(f"{pp.pformat(host_metrics)} \n")
