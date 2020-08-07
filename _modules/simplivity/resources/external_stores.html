@@ -143,7 +143,29 @@
         <span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1.11+json&#39;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExternalStores.update_credentials"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.external_stores.ExternalStores.update_credentials">[docs]</a>    <span class="k">def</span> <span class="nf">update_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">management_ip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the IP address or credentials that HPE SimpliVity uses to access the external stores</span>
+
+<span class="sd">         Args:</span>
+<span class="sd">            name: The name of the external_store</span>
+<span class="sd">            username: The client name of the external store</span>
+<span class="sd">            password: The client password of the external store</span>
+<span class="sd">            management_ip: The IP address of the external store</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: External store object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/update_credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">password</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">management_ip</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;management_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">management_ip</span>
+
+        <span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1.15+json&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="ExternalStore"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.external_stores.ExternalStore">[docs]</a><span class="k">class</span> <span class="nc">ExternalStore</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
