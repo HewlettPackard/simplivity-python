@@ -269,6 +269,23 @@
         <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
             <span class="n">filters</span><span class="p">[</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fields</span>
 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Host.get_metrics"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.hosts.Host.get_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">get_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="mi">43200</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;MINUTE&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves throughput, IOPS, and latency data for the host.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          time_offset: A time offset in seconds (from now) or a datetime, expressed in ISO-8601 form,</span>
+<span class="sd">                       based on Coordinated Universal Time (UTC).</span>
+<span class="sd">          range: A range in seconds (the duration from the specified point in time).</span>
+<span class="sd">          resolution: The resolution (SECOND, MINUTE, HOUR, or DAY).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          dict: Dictionary of the metrics details.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/metrics&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time_offset&#39;</span><span class="p">:</span> <span class="n">time_offset</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">,</span> <span class="s1">&#39;resolution&#39;</span><span class="p">:</span> <span class="n">resolution</span><span class="p">}</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span></div></div>
 </pre></div>
 
