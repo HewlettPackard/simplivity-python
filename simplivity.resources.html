@@ -1771,6 +1771,23 @@ timeout: Time out for the request in seconds.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.virtual_machines.VirtualMachine.get_metrics">
+<code class="sig-name descname">get_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">range</span><span class="o">=</span><span class="default_value">43200</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="o">=</span><span class="default_value">'MINUTE'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves throughput, IOPS, and latency data for the virtual machine</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>time_offset: A time offset in seconds (from now) or a datetime,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0</p>
+</dd>
+</dl>
+<p>range: A range in seconds (the duration from the specified point in time) Default: 43200
+resolution: The resolution (SECOND, MINUTE, HOUR, or DAY) Default: MINUTE</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Dictionary of metrics object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.virtual_machines.VirtualMachine.move">
 <code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_vm_name</span></em>, <em class="sig-param"><span class="n">datastore</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/virtual_machines.html#VirtualMachine.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.virtual_machines.VirtualMachine.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves a virtual machine to another datastore.</p>
