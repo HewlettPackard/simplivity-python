@@ -54,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <PUT>
     - endpoint support for /policies/{policyId}/rules/{ruleId}/impact_report/delete_rule <POST>
     - endpoint support for /security/certificates <GET>
+    - endpoint support for /virtual_machines/{vmId}/metrics <GET>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - endpoint support for /virtual_machines/{vmId}/power_on <POST>
     - endpoint support for /virtual_machines/policy_impact_report/apply_policy <POST>

@@ -405,3 +405,20 @@ class VirtualMachine(object):
         status = self._client.do_post(method_url, data, timeout)
 
         return status['credentials_validation']['status']
+
+    def get_metrics(self, time_offset=0, range=43200, resolution='MINUTE'):
+        """Retrieves throughput, IOPS, and latency data for the virtual machine
+
+        Args:
+            time_offset: A time offset in seconds (from now) or a datetime,
+                        expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0
+            range: A range in seconds (the duration from the specified point in time) Default: 43200
+            resolution: The resolution (SECOND, MINUTE, HOUR, or DAY) Default: MINUTE
+
+        Returns:
+            dict: Dictionary of metrics object.
+        """
+        method_url = "{}/{}/metrics".format(URL, self.data["id"])
+        filters = {'time_offset': time_offset, 'range': range, 'resolution': resolution}
+
+        return self._client.do_get(method_url, filters)

@@ -402,6 +402,23 @@ class VirtualMachinesTest(unittest.TestCase):
         mock_post.assert_called_once_with('/virtual_machines/12345/validate_backup_credentials', {'guest_username': username, 'guest_password': password},
                                           custom_headers=None)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_metrics(self, mock_get):
+        resource_data = {"metrics": [{"name": "iops",
+                                      "data_points": [{
+                                          "reads": 0,
+                                          "writes": 0,
+                                          "date": "2020-06-22T14:05:00Z"
+                                      }]
+                                      }]
+                         }
+        mock_get.return_value = resource_data
+        vm_data = {'name': 'VM1', 'id': '12345'}
+        vm = self.machines.get_by_data(vm_data)
+        response = vm.get_metrics()
+        self.assertEqual(response, resource_data)
+        mock_get.assert_has_calls([call('/virtual_machines/12345/metrics?range=43200&resolution=MINUTE&time_offset=0')])
+
 
 if __name__ == '__main__':
     unittest.main()

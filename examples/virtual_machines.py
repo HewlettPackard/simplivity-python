@@ -190,3 +190,7 @@ vm2 = machines.get_by_name(vm_2_name)
 vms = [vm1, vm2]
 report = machines.policy_impact_report(policy, vms)
 print(f"{pp.pformat(report)} \n")
+
+print("\n\nget vm metrics data")
+metrics_response = vm1.get_metrics()
+print(f"{pp.pformat(metrics_response)} \n")
