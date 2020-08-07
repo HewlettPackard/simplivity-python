@@ -903,6 +903,23 @@ False: The current HPE OmniStack software for the host cannot roll back to the p
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.omnistack_clusters.OmnistackCluster.get_metrics">
+<code class="sig-name descname">get_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">range</span><span class="o">=</span><span class="default_value">43200</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="o">=</span><span class="default_value">'MINUTE'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves throughput, IOPS, and latency data for cluster.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>time_offset: A time offset in seconds (from now) or a datetime,</dt><dd><p>expressed in ISO-8601 form, based on Coordinated Universal Time (UTC) Default: 0</p>
+</dd>
+</dl>
+<p>range: A range in seconds (the duration from the specified point in time) Default: 43200
+resolution: The resolution (SECOND, MINUTE, HOUR, or DAY) Default: MINUTE</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Dictionary of metrics object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.omnistack_clusters.OmnistackCluster.get_throughput">
 <code class="sig-name descname">get_throughput</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">destination_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">range</span><span class="o">=</span><span class="default_value">43200</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/omnistack_clusters.html#OmnistackCluster.get_throughput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.omnistack_clusters.OmnistackCluster.get_throughput" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the throughput between each pair of omnistack_clusters in the federation</p>
