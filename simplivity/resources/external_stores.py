@@ -111,6 +111,28 @@ class ExternalStores(ResourceBase):
 
         return self.get_by_name(name)
 
+    def update_credentials(self, name, username, password, management_ip=None, timeout=-1):
+        """Update the IP address or credentials that HPE SimpliVity uses to access the external stores
+
+         Args:
+            name: The name of the external_store
+            username: The client name of the external store
+            password: The client password of the external store
+            management_ip: The IP address of the external store
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            object: External store object.
+        """
+
+        resource_uri = "{}/update_credentials".format(URL)
+        data = {'name': name, 'username': username, 'password': password}
+        if management_ip:
+            data['management_ip'] = management_ip
+
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.15+json'}
+        self._client.do_post(resource_uri, data, timeout, custom_headers)
+
 
 class ExternalStore(object):
     """Implements features available for a single External store resources."""

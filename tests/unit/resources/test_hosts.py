@@ -16,6 +16,7 @@
 
 import unittest
 from unittest import mock
+from unittest.mock import call
 
 from simplivity.connection import Connection
 from simplivity import exceptions
@@ -204,6 +205,20 @@ class HostsTest(unittest.TestCase):
         host = self.hosts.get_by_data(host_data)
         capacity_data = host.get_capacity("used_logical_capacity, used_capacity")
         self.assertEqual(capacity_data, resource_data)
+
+    @mock.patch.object(Connection, "get")
+    def test_get_metrics(self, mock_get):
+        resource_data = {"metrics": [{"name": "iops",
+                                      "data_points": [{"reads": 0,
+                                                       "writes": 0,
+                                                       "date": "2020-07-06T19:24:00Z"}]}]}
+
+        mock_get.return_value = resource_data
+        host_data = {"id": "12345"}
+        host = self.hosts.get_by_data(host_data)
+        metrics_data = host.get_metrics()
+        self.assertEqual(metrics_data, resource_data)
+        mock_get.assert_has_calls([call('/hosts/12345/metrics?range=43200&resolution=MINUTE&time_offset=0')])
 
 
 if __name__ == '__main__':
