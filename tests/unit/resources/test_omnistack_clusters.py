@@ -165,6 +165,23 @@ class OmnistackClustersTest(unittest.TestCase):
         data = {'time_zone': 'Africa/Accra'}
         mock_post.assert_called_once_with('/omnistack_clusters/12345/set_time_zone', data, custom_headers=None)
 
+    @mock.patch.object(Connection, "get")
+    def test_get_metrics(self, mock_get):
+        resource_data = {"metrics": [{"name": "iops",
+                                      "data_points": [{
+                                          "reads": 0,
+                                          "writes": 0,
+                                          "date": "2020-06-22T14:05:00Z"
+                                      }]
+                                      }]
+                         }
+        mock_get.return_value = resource_data
+        cluster_data = {'name': 'cluster', 'id': '12345'}
+        cluster = self.clusters.get_by_data(cluster_data)
+        response = cluster.get_metrics()
+        self.assertEqual(response, resource_data)
+        mock_get.assert_has_calls([call('/omnistack_clusters/12345/metrics?range=43200&resolution=MINUTE&time_offset=0')])
+
 
 if __name__ == '__main__':
     unittest.main()
