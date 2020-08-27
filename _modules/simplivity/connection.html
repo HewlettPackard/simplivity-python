@@ -111,18 +111,20 @@
         <span class="k">if</span> <span class="n">custom_headers</span><span class="p">:</span>
             <span class="n">http_headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">custom_headers</span><span class="p">)</span>
 
+        <span class="n">json_body</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_connection</span><span class="p">()</span>
             <span class="n">connection</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">full_path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">http_headers</span><span class="p">)</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
             <span class="n">resp_body</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">json_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp_body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">resp_body</span><span class="p">:</span>
+                <span class="n">json_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp_body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
         <span class="k">except</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPException</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">HPESimpliVityException</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
 
         <span class="c1"># Obtain a new token, if the Simplivity Product returns an invalid token error.</span>
-        <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">json_body</span> <span class="ow">and</span> <span class="n">json_body</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;invalid_token&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">json_body</span> <span class="ow">and</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">json_body</span> <span class="ow">and</span> <span class="n">json_body</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;invalid_token&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_password</span><span class="p">)</span>
             <span class="n">resp</span><span class="p">,</span> <span class="n">json_body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_http</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span>
 
