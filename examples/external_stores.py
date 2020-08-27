@@ -83,3 +83,7 @@ print(f"{pp.pformat(external_store_obj.data)} \n")
 print("\n\nupdate external store access credential")
 # We can provide the updated credential to access the external store
 external_stores.update_credentials(external_store_name, username, password)
+
+print("\n\nunregister external store")
+cluster_obj = clusters.get_by_name(cluster_name)
+external_store_obj.unregister_external_store(cluster_obj)

@@ -33,6 +33,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |     **External Stores**
 |<sub>/external_stores</sub>                                                                 |GET     |
 |<sub>/external_stores</sub>                                                                 |POST    |
+|<sub>/external_stores/unregister</sub>                                                      |POST    |
 |<sub>/external_stores/update_credentials</sub>                                              |POST    |
 |     **Hosts**
 |<sub>/hosts</sub>                                                                           |GET     |

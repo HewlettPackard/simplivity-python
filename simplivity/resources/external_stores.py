@@ -141,3 +141,25 @@ class ExternalStore(object):
         self.data = data
         self._connection = connection
         self._client = resource_client
+
+    def unregister_external_store(self, cluster, timeout=-1):
+        """ Removes the external store as a backup destination for the cluster.
+        Backups remain on the external store,but they can no longer be managed by HPE SimpliVity.
+        Args:
+            cluster: Destination OmnistackCluster object/name.
+            timeout: Time out for the request in seconds.
+
+        Returns:
+            None
+        """
+
+        resource_uri = "{}/unregister".format(URL)
+        data = {'name': self.data["name"]}
+        if not isinstance(cluster, omnistack_clusters.OmnistackCluster):
+            # if passed name of the cluster
+            clusters_obj = omnistack_clusters.OmnistackClusters(self._connection)
+            cluster = clusters_obj.get_by_name(cluster)
+
+        data['omnistack_cluster_id'] = cluster.data['id']
+        custom_headers = {'Content-type': 'application/vnd.simplivity.v1.15+json'}
+        self._client.do_post(resource_uri, data, timeout, custom_headers)

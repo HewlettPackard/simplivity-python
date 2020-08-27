@@ -121,6 +121,37 @@ class ExternalStoresTest(unittest.TestCase):
         mock_post.assert_called_once_with('/external_stores/update_credentials', data,
                                           custom_headers={'Content-type': 'application/vnd.simplivity.v1.15+json'})
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_unregister_external_store_cluster_name(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {clusters.DATA_FIELD: [cluster_data]}
+        resource_data = {'name': 'storeonce_cat1'}
+
+        external_store_obj = self.external_stores.get_by_data(resource_data)
+        external_store_obj.unregister_external_store('cluster1')
+
+        data = {'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345'}
+        mock_post.assert_called_once_with('/external_stores/unregister', data,
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.15+json'})
+
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_unregister_external_store_cluster_obj(self, mock_get, mock_post):
+        cluster_data = {'name': 'cluster1', 'id': '12345'}
+        cluster_obj = self.clusters.get_by_data(cluster_data)
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        mock_get.return_value = {clusters.DATA_FIELD: [cluster_data]}
+        resource_data = {'name': 'storeonce_cat1'}
+
+        external_store_obj = self.external_stores.get_by_data(resource_data)
+        external_store_obj.unregister_external_store(cluster_obj)
+
+        data = {'name': 'storeonce_cat1', 'omnistack_cluster_id': '12345'}
+        mock_post.assert_called_once_with('/external_stores/unregister', data,
+                                          custom_headers={'Content-type': 'application/vnd.simplivity.v1.15+json'})
+
 
 if __name__ == '__main__':
     unittest.main()
