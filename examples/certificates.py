@@ -31,6 +31,9 @@ config = {
 ovc = OVC(config)
 certificates = ovc.certificates
 
+# global variables
+certificate_str = "<Certificate String> e.g. --BEGIN CERTIFICATE-- * --END CERTIFICATE--"
+
 print("\n\nget_all with default params")
 all_certificates = certificates.get_all()
 count = len(all_certificates)
@@ -39,3 +42,7 @@ for certificate in all_certificates:
     print(f"{pp.pformat(certificate.data)} \n")
 
 print(f"Total number of policies : {count}")
+
+print("\n\nadd SSL certificate to simplivity trust store")
+response = certificates.add_certificate(certificate_str)
+print(f"{pp.pformat(response)} \n")

@@ -60,6 +60,24 @@ class SecurityCertificatesTest(unittest.TestCase):
 
         self.assertEqual(error.exception.msg, "Method get_by_id is not supported")
 
+    @mock.patch.object(Connection, "post")
+    def test_add_certificate(self, mock_post):
+        certificate_detail = "-----BEGIN CERTIFICATE-----\nMIIEETCCALfslHOA==\n-----END CERTIFICATE-----"
+        resource_data = {
+            "certificate": certificate_detail,
+            "hash": "701b27e9223654a697cf7052c71872016",
+            "subject": "OU=Test,O=vc-123-12-12,ST=UNR,C=US,DC=local,DC=vsphere,CN=CA",
+            "issuer": "OU=Test,O=vc-123-12-12,ST=UNR,C=US,DC=local,DC=vsphere,CN=CA",
+            "serialno": "asdga2353456sfsh"}
+
+        mock_post.return_value = None, resource_data
+        response = self.certificates.add_certificate(certificate_detail)
+        self.assertEqual(response, resource_data)
+
+        mock_post.assert_called_once_with(certificates.URL,
+                                          {'certificate': certificate_detail},
+                                          custom_headers=None)
+
 
 if __name__ == '__main__':
     unittest.main()

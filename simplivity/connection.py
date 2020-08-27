@@ -77,18 +77,20 @@ class Connection(object):
         if custom_headers:
             http_headers.update(custom_headers)
 
+        json_body = None
         try:
             connection = self.get_connection()
             connection.request(method, full_path, body, http_headers)
             resp = connection.getresponse()
             resp_body = resp.read()
             connection.close()
-            json_body = json.loads(resp_body.decode('utf-8'))
+            if resp_body:
+                json_body = json.loads(resp_body.decode('utf-8'))
         except http.client.HTTPException:
             raise exceptions.HPESimpliVityException(traceback.format_exc())
 
         # Obtain a new token, if the Simplivity Product returns an invalid token error.
-        if 'error' in json_body and json_body['error'] == 'invalid_token':
+        if json_body and 'error' in json_body and json_body['error'] == 'invalid_token':
             self.login(self._username, self._password)
             resp, json_body = self.do_http(method, path, body, custom_headers)
 

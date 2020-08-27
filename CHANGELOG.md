@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - endpoint support for /policies/{policyId}/rules/{ruleId} <PUT>
     - endpoint support for /policies/{policyId}/rules/{ruleId}/impact_report/delete_rule <POST>
     - endpoint support for /security/certificates <GET>
+    - endpoint support for /security/certificates <POST>
     - endpoint support for /virtual_machines/{vmId}/metrics <GET>
     - endpoint support for /virtual_machines/{vmId}/power_off <POST>
     - endpoint support for /virtual_machines/{vmId}/power_on <POST>
@@ -84,6 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - resolve the virtual machine `__refresh` method
     - url encode query string to support values that contain spaces
     - resolve `do_get` method to append filters to uri
+    - resolve add check to `do_http` method for empty response body
 
 ### Removed
     - external test dependency for mock module    
