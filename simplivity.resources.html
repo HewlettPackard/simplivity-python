@@ -80,6 +80,22 @@ timeout: Time out for the request in seconds.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="simplivity.resources.backups.Backup.get_virtual_disk_partition_files">
+<code class="sig-name descname">get_virtual_disk_partition_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual_disk</span></em>, <em class="sig-param"><span class="n">partition_number</span></em>, <em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.get_virtual_disk_partition_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.get_virtual_disk_partition_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the virtual hard disk files from the backup
+Args:</p>
+<blockquote>
+<div><p>virtual_disk: The name of the virtual hard disk for the virtual machine.
+partition_number: The partition number of the virtual disk associated with the backup.
+file_path: The path in the partition that has the file information you want. e.g. for root directory use “/”.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: Returns dictionary containing virtual hard disk files from the backup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="simplivity.resources.backups.Backup.get_virtual_disk_partitions">
 <code class="sig-name descname">get_virtual_disk_partitions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual_disk</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.get_virtual_disk_partitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.get_virtual_disk_partitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves partition information for the virtual disk associated with the backup
