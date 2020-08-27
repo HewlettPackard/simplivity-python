@@ -385,6 +385,26 @@ class BackupTest(unittest.TestCase):
         self.assertEqual(partition_data, resource_data)
         mock_get.assert_has_calls([call('/backups/12345/virtual_disk_partitions?virtual_disk=tinyvm32_ATF_0.vmdk')])
 
+    @mock.patch.object(Connection, "get")
+    def test_get_virtual_disk_partition_files(self, mock_get):
+        resource_data = {"virtual_disk_partition_files": [{
+                         "name": "grub",
+                         "directory": True,
+                         "symbolic_link": False,
+                         "size": 0,
+                         "last_modified": "2013-01-18T14:51:43Z",
+                         "file_level_restore_available": True
+                         }]}
+        mock_get.return_value = resource_data
+        backup_data = {'name': 'name1', 'id': '12345'}
+        backup = self.backups.get_by_data(backup_data)
+        virtual_disk = "tinyvm32_ATF_0.vmdk"
+        partition_number = 1
+        file_path = "/"
+        partition_data = backup.get_virtual_disk_partition_files(virtual_disk, partition_number, file_path)
+        self.assertEqual(partition_data, resource_data)
+        mock_get.assert_has_calls([call('/backups/12345/virtual_disk_partition_files?file_path=%2F&partition_number=1&virtual_disk=tinyvm32_ATF_0.vmdk')])
+
 
 if __name__ == '__main__':
     unittest.main()

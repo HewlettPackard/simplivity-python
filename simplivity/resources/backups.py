@@ -303,3 +303,21 @@ class Backup(object):
         data = {'virtual_disk': virtual_disk}
 
         return self._client.do_get(resource_uri, data)
+
+    def get_virtual_disk_partition_files(self, virtual_disk, partition_number, file_path):
+        """Retrieves the virtual hard disk files from the backup
+        Args:
+            virtual_disk: The name of the virtual hard disk for the virtual machine.
+            partition_number: The partition number of the virtual disk associated with the backup.
+            file_path: The path in the partition that has the file information you want. e.g. for root directory use "/".
+
+        Returns:
+            dict: Returns dictionary containing virtual hard disk files from the backup.
+        """
+
+        resource_uri = "{}/{}/virtual_disk_partition_files".format(URL, self.data["id"])
+        data = {'virtual_disk': virtual_disk,
+                'partition_number': partition_number,
+                'file_path': file_path}
+
+        return self._client.do_get(resource_uri, data)

@@ -173,3 +173,7 @@ backup.delete()
 print("\n\nget virtual disk partitions")
 partition_data = backup_object.get_virtual_disk_partitions(virtual_disk)
 print(f"{pp.pformat(partition_data)}")
+
+print("\n\nget virtual disk partition files")
+partition_data = backup_object.get_virtual_disk_partition_files(virtual_disk, 1, "/")
+print(f"{pp.pformat(partition_data)}")
