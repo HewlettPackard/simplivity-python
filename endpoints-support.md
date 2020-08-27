@@ -29,6 +29,7 @@ Refer SimpliVity REST API doc for the resource endpoints documentation [HPE Simp
 |<sub>/datastores/{datastoreId}/set_policy</sub>                                             |POST    |
 |<sub>/datastores/{datastoreId}/share</sub>                                                  |POST    |
 |<sub>/datastores/{datastoreId}/standard_hosts</sub>                                         |GET     |
+|<sub>/datastores/{datastoreId}/unshare</sub>                                                |POST    |
 |     **External Stores**
 |<sub>/external_stores</sub>                                                                 |GET     |
 |<sub>/external_stores</sub>                                                                 |POST    |
