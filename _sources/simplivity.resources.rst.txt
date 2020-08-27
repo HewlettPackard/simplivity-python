@@ -92,7 +92,6 @@ simplivity.resources.virtual\_machines module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 
