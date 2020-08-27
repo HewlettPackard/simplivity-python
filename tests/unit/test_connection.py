@@ -308,6 +308,20 @@ class ConnectionTest(unittest.TestCase):
         self.assertEqual(conn.port, 443)
         self.assertEqual(conn._context.protocol, ssl.PROTOCOL_TLSv1_2)
 
+    @patch.object(Connection, 'login')
+    @patch.object(Connection, 'get_connection')
+    def test_do_http_with_none_response(self, mock_connection, mock_login):
+        mock_none_response = self.__make_http_response(
+            status=204,
+            response_body=None
+        )
+        mock_conn = mock_connection.return_value = Mock()
+        mock_conn.getresponse.return_value = mock_none_response
+
+        resp, body = self.connection.do_http('POST', '/rest/test', 'body')
+
+        self.assertEqual(body, self.expected_response_body)
+
 
 if __name__ == '__main__':
     unittest.main()
