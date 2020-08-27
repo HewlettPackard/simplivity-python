@@ -174,7 +174,29 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">resource_client</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">resource_client</span>
+
+<div class="viewcode-block" id="ExternalStore.unregister_external_store"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.external_stores.ExternalStore.unregister_external_store">[docs]</a>    <span class="k">def</span> <span class="nf">unregister_external_store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Removes the external store as a backup destination for the cluster.</span>
+<span class="sd">        Backups remain on the external store,but they can no longer be managed by HPE SimpliVity.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            cluster: Destination OmnistackCluster object/name.</span>
+<span class="sd">            timeout: Time out for the request in seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/unregister&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackCluster</span><span class="p">):</span>
+            <span class="c1"># if passed name of the cluster</span>
+            <span class="n">clusters_obj</span> <span class="o">=</span> <span class="n">omnistack_clusters</span><span class="o">.</span><span class="n">OmnistackClusters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">)</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">clusters_obj</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;omnistack_cluster_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1.15+json&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

@@ -622,6 +622,22 @@ Accepts: Single value, comma-separated list</p>
 <em class="property">class </em><code class="sig-prename descclassname">simplivity.resources.external_stores.</code><code class="sig-name descname">ExternalStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">resource_client</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements features available for a single External store resources.</p>
+<dl class="py method">
+<dt id="simplivity.resources.external_stores.ExternalStore.unregister_external_store">
+<code class="sig-name descname">unregister_external_store</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cluster</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/external_stores.html#ExternalStore.unregister_external_store"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.external_stores.ExternalStore.unregister_external_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the external store as a backup destination for the cluster.
+Backups remain on the external store,but they can no longer be managed by HPE SimpliVity.
+Args:</p>
+<blockquote>
+<div><p>cluster: Destination OmnistackCluster object/name.
+timeout: Time out for the request in seconds.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
