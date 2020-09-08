@@ -405,6 +405,19 @@ class BackupTest(unittest.TestCase):
         self.assertEqual(partition_data, resource_data)
         mock_get.assert_has_calls([call('/backups/12345/virtual_disk_partition_files?file_path=%2F&partition_number=1&virtual_disk=tinyvm32_ATF_0.vmdk')])
 
+    @mock.patch.object(Connection, "post")
+    @mock.patch.object(Connection, "get")
+    def test_restore_files(self, mock_get, mock_post):
+        mock_post.return_value = None, [{'object_id': '12345'}]
+        resource_data = {'name': 'name1', 'id': '12345', 'state': 'PROTECTED'}
+        mock_get.return_value = {backups.DATA_FIELD: [resource_data]}
+        backup_data = {'name': 'name1', 'id': '12345', 'state': 'PROTECTED'}
+        backup = self.backups.get_by_data(backup_data)
+        paths = ['vmdkName/partition/file1', 'vmdkName/partition/directory/file2']
+        backup.restore_files("12345", paths)
+        data = {"virtual_machine_id": "12345", "paths": ['vmdkName/partition/file1', 'vmdkName/partition/directory/file2']}
+        mock_post.assert_called_once_with('/backups/12345/restore_files', data, custom_headers={'Content-type': 'application/vnd.simplivity.v1.9+json'})
+
 
 if __name__ == '__main__':
     unittest.main()
