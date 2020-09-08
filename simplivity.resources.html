@@ -148,6 +148,19 @@ timeout: Time out for the request in seconds.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="simplivity.resources.backups.Backup.restore_files">
+<code class="sig-name descname">restore_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual_machine_id</span></em>, <em class="sig-param"><span class="n">paths</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/simplivity/resources/backups.html#Backup.restore_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simplivity.resources.backups.Backup.restore_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restores files from specific partition</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>virtual_machine_id: The identification number of the virtual machine where you want to restore the files.
+paths: List of path to the files in this format: virtual_machine_disk_name/partition_number/path_to_file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">

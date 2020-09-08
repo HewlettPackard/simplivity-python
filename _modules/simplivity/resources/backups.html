@@ -354,7 +354,24 @@
                 <span class="s1">&#39;partition_number&#39;</span><span class="p">:</span> <span class="n">partition_number</span><span class="p">,</span>
                 <span class="s1">&#39;file_path&#39;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">}</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_get</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Backup.restore_files"><a class="viewcode-back" href="../../../simplivity.resources.html#simplivity.resources.backups.Backup.restore_files">[docs]</a>    <span class="k">def</span> <span class="nf">restore_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">virtual_machine_id</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Restores files from specific partition</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           virtual_machine_id: The identification number of the virtual machine where you want to restore the files.</span>
+<span class="sd">           paths: List of path to the files in this format: virtual_machine_disk_name/partition_number/path_to_file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">           None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resource_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/restore_files&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.simplivity.v1.9+json&#39;</span><span class="p">}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;virtual_machine_id&quot;</span><span class="p">:</span> <span class="n">virtual_machine_id</span><span class="p">,</span>
+                <span class="s2">&quot;paths&quot;</span><span class="p">:</span> <span class="n">paths</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">do_post</span><span class="p">(</span><span class="n">resource_uri</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">custom_headers</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
