@@ -156,6 +156,9 @@ class Datastore(object):
         resource_uri = "{}/{}".format(URL, self.data["id"])
         self.data = self._client.do_get(resource_uri)['datastore']
 
+    def reload_data(self):
+        self.__refresh()
+
     def delete(self, timeout=-1):
         """Deletes a datastore."""
         resource_uri = "{}/{}".format(URL, self.data["id"])
