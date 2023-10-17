@@ -193,6 +193,9 @@ class VirtualMachine(object):
         resource_uri = "{}/{}".format(URL, self.data["id"])
         self.data = self._client.do_get(resource_uri)['virtual_machine']
 
+    def reload_data(self):
+        self.__refresh()
+
     def clone(self, new_vm_name, app_consistent=False, datastore=None, timeout=-1):
         """Clones a virtual machine.
 

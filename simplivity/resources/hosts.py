@@ -155,6 +155,14 @@ class Host(object):
         self._client = resource_client
         self._hosts = Hosts(self._connection)
 
+    def __refresh(self):
+        """Updates the host data."""
+        resource_uri = "{}/{}".format(URL, self.data["id"])
+        self.data = self._client.do_get(resource_uri)[self.OBJECT_TYPE]
+
+    def reload_data(self):
+        self.__refresh()
+
     def remove(self, force=False, timeout=-1):
         """Removes the specified host from the federation.
 

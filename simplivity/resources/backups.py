@@ -191,6 +191,9 @@ class Backup(object):
         resource_object = self._backups.get_by_id(self.data["id"])
         self.data = resource_object.data
 
+    def reload_data(self):
+        self.__refresh()
+
     def delete(self, timeout=-1):
         """Deletes the specified backup"""
         resource_uri = "{}/{}".format(URL, self.data["id"])

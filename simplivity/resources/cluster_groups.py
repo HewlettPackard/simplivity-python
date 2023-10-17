@@ -91,6 +91,9 @@ class ClusterGroup(object):
         resource_object = self._cluster_groups.get_by_id(self.data["id"])
         self.data = resource_object.data
 
+    def reload_data(self):
+        self.__refresh()
+
     def rename(self, name, timeout=-1):
         """Rename a cluster_group.
 

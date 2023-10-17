@@ -157,6 +157,9 @@ class OmnistackCluster(object):
         resource_uri = "{}/{}".format(URL, self.data["id"])
         self.data = self._client.do_get(resource_uri)[self.OBJECT_TYPE]
 
+    def reload_data(self):
+        self.__refresh()
+
     def set_time_zone(self, time_zone, timeout=-1):
         """ Sets the time zone for a cluster.
 
