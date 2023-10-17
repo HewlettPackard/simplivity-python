@@ -18,10 +18,10 @@ from setuptools import find_packages
 from setuptools import setup
 
 setup(name='simplivity',
-      version='1.1.0',
+      version='1.1.1',
       description='HPE SimpliVity Python Library',
       url='https://github.com/HewlettPackard/simplivity-python',
-      download_url="https://github.com/HewlettPackard/simplivity-python/tarball/v1.1.0",
+      download_url="https://github.com/HewlettPackard/simplivity-python/tarball/v1.1.1",
       author='Hewlett Packard Enterprise Development LP',
       author_email='simplivity-pythonsdk@hpe.com',
       license='Apache',

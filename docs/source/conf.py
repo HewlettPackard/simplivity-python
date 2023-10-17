@@ -24,9 +24,9 @@ copyright = u'2019, Hewlett Packard Enterprise Development LP'
 author = u'Hewlett Packard Enterprise'
 
 # The short X.Y version
-version = u'1.1.0'
+version = u'1.1.1'
 # The full version, including alpha/beta/rc tags
-release = u'v1.1.0'
+release = u'v1.1.1'
 
 
 # -- General configuration ---------------------------------------------------
